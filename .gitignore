@@ -7,3 +7,8 @@ __pycache__/
 soccerdata/
 # hojas de cálculo con líneas de mercado caducas
 *.xlsx
+
+# EXCEPCION: el libro de seguimiento SI se versiona. El historial de git es la
+# prueba de que las predicciones se sellaron antes de conocer el resultado.
+!seguimiento/predicciones.csv
+!seguimiento/resultados.csv
