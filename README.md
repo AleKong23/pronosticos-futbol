@@ -9,6 +9,20 @@ Dos páginas, sin dependencias ni proceso de compilación:
 |---|---|
 | [`index.html`](./index.html) | ¿Le gana este modelo al precio de la casa de apuestas? |
 | [`fichas.html`](./fichas.html) | ¿Qué dice el análisis de cada partido, uno por uno? |
+| [`seguimiento.html`](./seguimiento.html) | ¿Está acertando el modelo? Registro de predicciones selladas |
+| [`Pronosticos_futbol.xlsx`](./Pronosticos_futbol.xlsx) | Todo lo anterior en hoja de cálculo, con diccionario |
+
+Las tres páginas llevan un **diccionario** al final que explica cada término en lenguaje llano.
+Si un número no se entiende, está explicado ahí.
+
+## Para actualizar los resultados después de cada jornada
+
+```
+python seguimiento/actualizar.py
+```
+
+Se ejecuta desde la carpeta del proyecto. Une las predicciones con los resultados y recalcula si
+el modelo está acertando. Nunca borra lo anterior: solo agrega filas.
 
 ## El hallazgo principal, por delante de todo lo demás
 
@@ -18,10 +32,10 @@ no información.** Tres mediciones lo sostienen:
 1. La correlación entre cuánto favorito considera el mercado a una selección y cuánto se lo resta
    el modelo es **-0.54**. Por cada 10 puntos de favoritismo, el modelo le quita 0.91. Un
    desacuerdo tan sistemático es un defecto medible, no una ventaja.
-2. Las 24 apuestas que salen con valor esperado positivo son casi todas empates y no favoritos,
+2. Las 26 apuestas que salen con valor esperado positivo son casi todas empates y no favoritos,
    justo donde ese sesgo infla la probabilidad.
 3. El margen de la casa es del **5.24 %** en el 1X2. La desviación media del modelo contra el
-   mercado es de 3.03 puntos y sin dirección confiable: menor que el margen que habría que
+   mercado es de 2.99 puntos y sin dirección confiable: menor que el margen que habría que
    superar.
 
 Por eso **este repositorio no contiene apuestas recomendadas, ni cálculo de cuota mínima
@@ -34,6 +48,18 @@ configuraciones de encogimiento y ninguna superó a la referencia, lo que descar
 problema de parámetros. El mecanismo probable es que 11 de los 22 equipos analizados estrenan
 entrenador esta temporada — el Real Madrid cambió dos veces en ocho meses — así que cualquier
 rating basado en resultados históricos está midiendo equipos que ya no existen tácticamente.
+
+## Revisión del 09/09/2026
+
+Se corrigió cómo el modelo estima el total de goles. Antes suponía que la línea de la casa estaba
+siempre al 50 %; ahora usa el precio real del over/under, que es bastante más informativo. El
+efecto: la desviación del total contra el mercado bajó de -0.145 a **-0.031 goles**, prácticamente
+cero. El sesgo contra los favoritos, en cambio, sigue igual (-0.53), lo que confirma que ese
+problema no venía de los totales.
+
+**Las predicciones ya selladas en `seguimiento/predicciones.csv` no se reescribieron.** Cambiarlas
+habría destruido la garantía del sellado. Se quedan como se emitieron y la versión corregida aplica
+desde la jornada siguiente.
 
 ## Fuentes de datos
 

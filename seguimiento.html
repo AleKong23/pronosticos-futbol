@@ -128,6 +128,23 @@ footer b{color:var(--ink-2)} footer p+p{margin-top:10px}
   .duelo{grid-template-columns:1fr} .vs-col{display:none} .lado.mod{border-right:none; border-bottom:1px solid var(--rule)}
   .ruta li{grid-template-columns:1fr 70px}
 }
+
+#diccionario{margin-top:40px}
+.dic-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1px;
+          background:var(--rule); border:1px solid var(--rule); border-radius:3px; overflow:hidden}
+.dic-item{background:var(--panel); padding:14px 16px}
+.dic-item dt{font-weight:600; font-size:13.5px; margin:0 0 5px}
+.dic-item dd{margin:0; font-size:12.5px; color:var(--ink-2); line-height:1.5}
+.dic-item dd.uso{margin-top:6px; padding-top:6px; border-top:1px solid var(--rule-2); color:var(--ink-3)}
+.dic-item dd.uso b{color:var(--ink-2); font-weight:600}
+.cmd-box{margin-top:16px; background:var(--panel-2); border:1px solid var(--rule); border-radius:3px;
+         padding:14px 16px}
+.cmd-box .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+              color:var(--ink-3); margin-bottom:8px}
+.cmd-box code{font-family:var(--mono); font-size:13px; font-weight:600; color:var(--ink);
+              background:var(--ground); border:1px solid var(--rule); border-radius:2px;
+              padding:5px 9px; display:inline-block}
+.cmd-box p{font-size:12.5px; color:var(--ink-2); margin-top:9px}
 </style>
 
 <div class="wrap">
@@ -138,6 +155,7 @@ footer b{color:var(--ink-2)} footer p+p{margin-top:10px}
   contra el resultado real. La pregunta no es cuántas acertó, sino <strong>quién predice mejor:
   el modelo o el precio de la casa de apuestas</strong>. Toda métrica se calcula dos veces.</p>
   <div class="meta-line">
+    <span><a href="#diccionario">Diccionario de términos &darr;</a></span>
     <span id="gen"></span>
     <span><a href="./index.html">Modelo vs mercado</a></span>
     <span><a href="./fichas.html">Fichas por partido</a></span>
@@ -202,6 +220,12 @@ footer b{color:var(--ink-2)} footer p+p{margin-top:10px}
   </tr></thead><tbody></tbody></table></div>
 </section>
 
+
+<section id="diccionario">
+  <div class="sec-head"><h2>Diccionario</h2><span class="note">qué significa cada número de esta página</span></div>
+  <dl class="dic-grid"><div class="dic-item"><dt>Probabilidad</dt><dd>De cada 100 veces que se jugara este partido, en cuantas terminaria asi.</dd><dd class="uso">Un 60&nbsp;% no quiere decir que va a pasar: quiere decir que 4 de cada 10 veces <b>no</b> pasa.</dd></div><div class="dic-item"><dt>Cuota</dt><dd>Lo que te paga la casa por cada peso apostado si aciertas. Cuota 2.50 devuelve 2.50 por peso.</dd><dd class="uso">Cuota alta significa que la casa lo considera poco probable.</dd></div><div class="dic-item"><dt>Cuota justa</dt><dd>La cuota que le corresponderia a la probabilidad si la casa no ganara nada. Es 100 entre la probabilidad.</dd><dd class="uso">Si la cuota que te ofrecen es <b>menor</b> que la justa, esa diferencia es la ganancia de la casa.</dd></div><div class="dic-item"><dt>Comisión de la casa</dt><dd>Lo que la casa retiene de todo lo apostado. En estos partidos promedia 5.24&nbsp;%.</dd><dd class="uso">Es el obstáculo real: para ganar a la larga hay que superar esa desventaja inicial de 5&nbsp;%.</dd></div><div class="dic-item"><dt>Mercado sin margen</dt><dd>La probabilidad que la casa realmente cree, después de quitarle su comisión al precio.</dd><dd class="uso">Es la mejor estimación disponible, porque detrás hay dinero real de miles de personas.</dd></div><div class="dic-item"><dt>1 · X · 2</dt><dd>1 es que gana el local, X es empate, 2 es que gana el visitante.</dd><dd class="uso">Es el mercado más simple y el más confiable de este análisis.</dd></div><div class="dic-item"><dt>Más de / Menos de (Over/Under)</dt><dd>Si el partido tendrá más o menos goles que una cifra, contando los dos equipos juntos.</dd><dd class="uso">&laquo;Más de 2.5&raquo; significa 3 goles o más. La media cifra evita que haya empate.</dd></div><div class="dic-item"><dt>Línea</dt><dd>La cifra de goles que la casa pone como referencia.</dd><dd class="uso">Línea 4.5 significa que la casa espera muchos goles; 1.5, un partido cerrado.</dd></div><div class="dic-item"><dt>Ambos anotan</dt><dd>Que los dos equipos marquen al menos un gol cada uno.</dd><dd class="uso">Sube cuando los dos atacan bien, o cuando los dos defienden mal.</dd></div><div class="dic-item"><dt>Hándicap</dt><dd>Se le suman o restan goles a un equipo antes de empezar, para equilibrar el partido.</dd><dd class="uso">&laquo;Local -1.5&raquo; exige que el local gane por 2 goles o más para que cuente.</dd></div><div class="dic-item"><dt>Goles esperados (xG)</dt><dd>Cuántos goles <em>merecía</em> marcar un equipo según la cantidad y calidad de sus remates.</dd><dd class="uso">Mide si un equipo juega bien, más allá de si tuvo suerte de cara al gol.</dd></div><div class="dic-item"><dt>Sin penales (npxG)</dt><dd>Lo mismo, descontando los penales, que son irregulares y distorsionan la medida.</dd><dd class="uso">Es la versión que usa el modelo: quedó mejor calibrada contra los goles reales.</dd></div><div class="dic-item"><dt>Puntos merecidos (xPTS)</dt><dd>Los puntos que un equipo tendría si sus resultados coincidieran con las ocasiones que generó.</dd><dd class="uso">Más puntos reales que merecidos indica suerte, y suele venir seguido de una caída.</dd></div><div class="dic-item"><dt>Presión (PPDA)</dt><dd>Cuántos pases deja dar al rival antes de intentar robarle el balón. Número bajo, presiona mucho.</dd><dd class="uso">Un equipo que presiona fuerte contra otro que saca mal el balón suele generar más ocasiones.</dd></div><div class="dic-item"><dt>Confianza 1 a 10</dt><dd>Qué tan sólido es el análisis de <em>ese</em> partido. No es la probabilidad de acertar.</dd><dd class="uso">Por debajo de 6 conviene fiarse más del precio de la casa que del número del modelo.</dd></div><div class="dic-item"><dt>Puntaje de precisión (log-loss)</dt><dd>Mide si las probabilidades estuvieron bien puestas. Castiga fuerte estar muy seguro y fallar.</dd><dd class="uso">Más bajo es mejor. Un modelo que reparte al azar saca 1.0986.</dd></div><div class="dic-item"><dt>Brier</dt><dd>Otra forma de medir el error de las probabilidades: promedio de las diferencias al cuadrado.</dd><dd class="uso">Igual que el anterior, más bajo es mejor. Se muestran los dos porque miden cosas distintas.</dd></div><div class="dic-item"><dt>Predicción sellada</dt><dd>Predicción registrada con fecha en el historial del proyecto <em>antes</em> de jugarse el partido.</dd><dd class="uso">Es la única que cuenta como prueba: garantiza que nadie la ajustó al conocer el resultado.</dd></div><div class="dic-item"><dt>Rating Elo</dt><dd>Un puntaje de fuerza por equipo que sube al ganar y baja al perder, según contra quién.</dd><dd class="uso">Es la base del pronóstico. Su punto débil: no sabe de lesionados ni de entrenadores nuevos.</dd></div><div class="dic-item"><dt>Poisson y Dixon-Coles</dt><dd>La fórmula que reparte la probabilidad entre todos los marcadores posibles.</dd><dd class="uso">No hace falta entenderla. Lo relevante es que se ajustó con 380 partidos reales.</dd></div></dl>
+<div class="cmd-box"><div class="lbl">Para actualizar los resultados después de cada jornada</div><code>python seguimiento/actualizar.py</code><p>Se ejecuta desde la carpeta del proyecto. Une las predicciones con los resultados y recalcula si el modelo está acertando. Nunca borra lo anterior: solo agrega.</p></div>
+</section>
 <footer>
   <p><b>Qué significa "sellado".</b> <span class="pill si">sí</span> el commit de esta predicción en
   el historial de git es anterior al saque inicial, así que cualquiera puede verificar en GitHub que
@@ -210,6 +234,12 @@ footer b{color:var(--ink-2)} footer p+p{margin-top:10px}
   <span class="pill retro">retro</span> probabilidad tomada de una foto de ClubElo anterior al
   partido, pero anotada de forma retrospectiva. Solo el grupo <span class="pill si">sí</span> es
   evidencia a prueba de dudas; los otros dos se muestran aparte para no inflar el historial.</p>
+  <p><b>Revisión del modelo del 09/09/2026.</b> Después de sellar estas predicciones se
+  corrigió cómo el modelo estima el total de goles: antes suponía que la línea de la casa estaba
+  siempre al 50&nbsp;%, y ahora usa el precio real del over/under, que es bastante más informativo.
+  <b>Las predicciones ya selladas NO se reescribieron.</b> Cambiarlas habría destruido justamente la
+  garantía que da el sellado: cualquiera que revise el historial vería que se tocaron después.
+  Se quedan como se emitieron, y la versión corregida aplica desde la jornada siguiente.</p>
   <p><b>Cómo se actualiza.</b> Los archivos <code>seguimiento/predicciones.csv</code> y
   <code>seguimiento/resultados.csv</code> son el registro; <code>seguimiento/actualizar.py</code>
   los une y recalcula todo. Añadir una jornada es agregar filas, nunca reescribir las anteriores.</p>
