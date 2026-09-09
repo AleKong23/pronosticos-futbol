@@ -1,21 +1,27 @@
 {
- "generado": "09/09/2026 11:11",
+ "generado": "09/09/2026 11:57",
  "total_predicciones": 28,
- "resueltos": 6,
- "pendientes": 22,
+ "resueltos": 8,
+ "pendientes": 20,
  "sellados_git": 20,
  "todos": {
   "modelo": {
-   "n": 6,
-   "brier": 0.4261,
-   "logloss": 0.7623,
-   "acierto": 5,
-   "acierto_pct": 83.3,
+   "n": 8,
+   "brier": 0.3425,
+   "logloss": 0.6389,
+   "acierto": 7,
+   "acierto_pct": 87.5,
    "calibracion": [
     {
+     "rango": "0-10%",
+     "n": 1,
+     "predicho": 4.5,
+     "observado": 0.0
+    },
+    {
      "rango": "10-20%",
-     "n": 2,
-     "predicho": 18.9,
+     "n": 5,
+     "predicho": 15.9,
      "observado": 0.0
     },
     {
@@ -44,23 +50,35 @@
     },
     {
      "rango": "60-70%",
+     "n": 2,
+     "predicho": 65.3,
+     "observado": 100.0
+    },
+    {
+     "rango": "80-90%",
      "n": 1,
-     "predicho": 62.2,
+     "predicho": 85.3,
      "observado": 100.0
     }
    ]
   },
   "mercado": {
-   "n": 6,
-   "brier": 0.4298,
-   "logloss": 0.7695,
-   "acierto": 4,
-   "acierto_pct": 66.7,
+   "n": 8,
+   "brier": 0.3348,
+   "logloss": 0.6252,
+   "acierto": 6,
+   "acierto_pct": 75.0,
    "calibracion": [
     {
+     "rango": "0-10%",
+     "n": 3,
+     "predicho": 7.0,
+     "observado": 0.0
+    },
+    {
      "rango": "10-20%",
-     "n": 2,
-     "predicho": 19.1,
+     "n": 3,
+     "predicho": 17.3,
      "observado": 0.0
     },
     {
@@ -85,6 +103,18 @@
      "rango": "50-60%",
      "n": 4,
      "predicho": 56.3,
+     "observado": 100.0
+    },
+    {
+     "rango": "70-80%",
+     "n": 1,
+     "predicho": 77.3,
+     "observado": 100.0
+    },
+    {
+     "rango": "80-90%",
+     "n": 1,
+     "predicho": 88.1,
      "observado": 100.0
     }
    ]
@@ -113,11 +143,11 @@
    ],
    "conf": 6,
    "sellado": "no",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "5-1",
+   "total_goles": 6,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "STU-VIK",
@@ -137,11 +167,11 @@
    ],
    "conf": 6,
    "sellado": "no",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "3-1",
+   "total_goles": 4,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "LIV-ATM",
