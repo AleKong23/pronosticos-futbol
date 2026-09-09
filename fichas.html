@@ -232,7 +232,7 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fx = (v, d) => (v == null ? '—' : Number(v).toFixed(d == null ? 1 : d));
 
-$('#dashlink').innerHTML = 'Análisis modelo vs mercado: <a href="' + DASH + '">dashboard complementario</a>';
+$('#dashlink').innerHTML = '<a href="' + DASH + '">Modelo vs mercado</a> · <a href="./seguimiento.html">Marcador del modelo</a>';
 
 const ORD = ['09/09/2026','10/09/2026','11/09/2026','12/09/2026','13/09/2026','14/09/2026'];
 F.sort((a,b) => ORD.indexOf(a.fecha) - ORD.indexOf(b.fecha) || a.hora_cest.localeCompare(b.hora_cest));

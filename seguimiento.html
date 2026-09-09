@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{color-scheme:light}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Marcador del Modelo</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --ground:#fafbfc; --panel:#ffffff; --panel-2:#f4f6f8;
+  --ink:#0d1117; --ink-2:#545c68; --ink-3:#8b93a1;
+  --rule:#e4e7ec; --rule-2:#eef1f4;
+  --modelo:#2a78d6; --mercado:#eb6834; --mercado-ink:#c2481d;
+  --riesgo:#e34948; --riesgo-soft:#fdeceb; --ok:#1baf7a;
+  --sans:'IBM Plex Sans',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme: dark;
+    --ground:#131619; --panel:#1a1e23; --panel-2:#20252b;
+    --ink:#f2f4f7; --ink-2:#a4adb9; --ink-3:#737c89;
+    --rule:#262b31; --rule-2:#20242a;
+    --modelo:#3987e5; --mercado:#d95926; --mercado-ink:#e8814f;
+    --riesgo:#e66767; --riesgo-soft:#2e1d1d; --ok:#199e70;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#131619; --panel:#1a1e23; --panel-2:#20252b;
+  --ink:#f2f4f7; --ink-2:#a4adb9; --ink-3:#737c89;
+  --rule:#262b31; --rule-2:#20242a;
+  --modelo:#3987e5; --mercado:#d95926; --mercado-ink:#e8814f;
+  --riesgo:#e66767; --riesgo-soft:#2e1d1d; --ok:#199e70;
+}
+*{box-sizing:border-box}
+body{background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.55;
+     -webkit-font-smoothing:antialiased}
+.wrap{max-width:1020px; margin:0 auto; padding:32px 20px 70px}
+.eyebrow{font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.13em;
+         text-transform:uppercase; color:var(--ink-3)}
+h1{font-size:31px; line-height:1.15; font-weight:600; letter-spacing:-.021em; margin:8px 0 0}
+h2{font-size:18px; font-weight:600; letter-spacing:-.012em; margin:0}
+p{margin:0}
+.sub{color:var(--ink-2); font-size:14.5px; max-width:70ch; margin-top:10px}
+.num{font-family:var(--mono); font-variant-numeric:tabular-nums}
+header{border-bottom:1px solid var(--rule); padding-bottom:20px}
+.meta-line{display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:13px;
+           font-family:var(--mono); font-size:11.5px; color:var(--ink-3)}
+.meta-line a{color:var(--modelo)}
+section{margin-top:34px}
+.sec-head{display:flex; align-items:baseline; gap:13px; flex-wrap:wrap; margin-bottom:14px}
+.sec-head .note{color:var(--ink-3); font-size:13px}
+.card{background:var(--panel); border:1px solid var(--rule); border-radius:3px}
+
+.aviso{border:1px solid var(--rule); border-left:3px solid var(--riesgo); background:var(--panel);
+       border-radius:3px; padding:19px 22px; margin-top:24px}
+.aviso-tag{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11px;
+           font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--riesgo)}
+.aviso h2{margin:10px 0 8px; font-size:19px}
+.aviso p{color:var(--ink-2); font-size:14.5px; max-width:76ch}
+
+.estado{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+        background:var(--rule); border:1px solid var(--rule); border-radius:3px; overflow:hidden}
+.est{background:var(--panel); padding:15px 17px}
+.est .l{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3)}
+.est .v{font-family:var(--mono); font-size:26px; font-weight:600; margin-top:6px; font-variant-numeric:tabular-nums}
+.est .f{font-size:12px; color:var(--ink-2); margin-top:4px; line-height:1.4}
+
+.duelo{display:grid; grid-template-columns:1fr auto 1fr; gap:0; align-items:stretch}
+.lado{padding:18px 20px}
+.lado.mod{border-right:1px solid var(--rule)}
+.lado h3{font-family:var(--mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; margin:0 0 12px}
+.lado.mod h3{color:var(--modelo)} .lado.mkt h3{color:var(--mercado-ink)}
+.metr{display:flex; justify-content:space-between; gap:14px; font-size:13px; padding:5px 0;
+      border-bottom:1px solid var(--rule-2)}
+.metr:last-child{border-bottom:none}
+.metr span{color:var(--ink-2)}
+.metr b{font-family:var(--mono); font-variant-numeric:tabular-nums; font-weight:600}
+.metr b.gana{color:var(--ok)}
+.vs-col{display:flex; align-items:center; padding:0 4px; background:var(--panel-2);
+        border-left:1px solid var(--rule); border-right:1px solid var(--rule)}
+.vs-col span{font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--ink-3);
+             writing-mode:vertical-rl; text-orientation:mixed}
+.veredicto{padding:15px 20px; border-top:1px solid var(--rule); font-size:13.5px; color:var(--ink-2)}
+.veredicto b{color:var(--ink)}
+
+.tbl-holder{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--panel)}
+table{border-collapse:collapse; width:100%; font-size:13.5px}
+th{font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase;
+   color:var(--ink-3); text-align:left; padding:10px 12px; border-bottom:1px solid var(--rule);
+   white-space:nowrap; background:var(--panel-2)}
+td{padding:9px 12px; border-bottom:1px solid var(--rule-2)}
+tr:last-child td{border-bottom:none}
+td.n,th.n{font-family:var(--mono); font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
+th.n{text-align:right}
+.team{font-weight:500}
+.vs{color:var(--ink-3); font-size:12px; margin:0 5px}
+.pill{display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:600; letter-spacing:.05em;
+      text-transform:uppercase; padding:2px 6px; border-radius:2px; border:1px solid var(--rule);
+      color:var(--ink-2); background:var(--panel-2); white-space:nowrap}
+.pill.si{color:var(--ok); border-color:color-mix(in srgb, var(--ok) 36%, var(--rule))}
+.pill.retro{color:var(--ink-3)}
+.pill.no{color:var(--mercado-ink); border-color:color-mix(in srgb, var(--mercado) 34%, var(--rule))}
+.ok{color:var(--ok); font-weight:600} .mal{color:var(--riesgo); font-weight:600}
+.pend{color:var(--ink-3); font-style:italic; font-size:12.5px}
+.ruta{list-style:none; padding:0; margin:0}
+.ruta li{display:grid; grid-template-columns:1fr 90px 110px; gap:10px; font-size:13.5px;
+         padding:8px 0; border-bottom:1px solid var(--rule-2); color:var(--ink-2)}
+.ruta li:last-child{border-bottom:none}
+.ruta li.hd{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase;
+            color:var(--ink-3); border-bottom:1px solid var(--rule)}
+.ruta .n2{font-family:var(--mono); text-align:right; font-variant-numeric:tabular-nums; color:var(--ink)}
+footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--rule);
+       font-size:12.5px; color:var(--ink-3); max-width:82ch}
+footer b{color:var(--ink-2)} footer p+p{margin-top:10px}
+@media (max-width:660px){
+  h1{font-size:25px} .wrap{padding:22px 14px 52px}
+  .duelo{grid-template-columns:1fr} .vs-col{display:none} .lado.mod{border-right:none; border-bottom:1px solid var(--rule)}
+  .ruta li{grid-template-columns:1fr 70px}
+}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Registro fuera de muestra · abierto el 09/09/2026</div>
+  <h1>Marcador del modelo</h1>
+  <p class="sub">Las predicciones quedan selladas antes del saque inicial y se comparan luego
+  contra el resultado real. La pregunta no es cuántas acertó, sino <strong>quién predice mejor:
+  el modelo o el precio de la casa de apuestas</strong>. Toda métrica se calcula dos veces.</p>
+  <div class="meta-line">
+    <span id="gen"></span>
+    <span><a href="./index.html">Modelo vs mercado</a></span>
+    <span><a href="./fichas.html">Fichas por partido</a></span>
+  </div>
+</header>
+
+<div class="aviso">
+  <div class="aviso-tag">
+    <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.6 15 14H1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
+    Lee esto antes de los números
+  </div>
+  <h2 id="aviso-h"></h2>
+  <p id="aviso-p"></p>
+</div>
+
+<section>
+  <div class="sec-head"><h2>Estado del registro</h2></div>
+  <div class="estado" id="estado"></div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Modelo contra mercado</h2>
+    <span class="note">solo sobre los partidos ya resueltos</span></div>
+  <div class="card">
+    <div class="duelo">
+      <div class="lado mod"><h3>Modelo</h3><div id="m-mod"></div></div>
+      <div class="vs-col"><span>CONTRA</span></div>
+      <div class="lado mkt"><h3>Mercado sin margen</h3><div id="m-mkt"></div></div>
+    </div>
+    <div class="veredicto" id="veredicto"></div>
+  </div>
+  <p class="sub" style="font-size:13px">El <strong>log-loss</strong> castiga la confianza
+  equivocada: es la métrica que decide. El <strong>Brier</strong> mide error cuadrático medio.
+  El acierto de signo es la más intuitiva y la menos informativa — premia igual acertar al 51 %
+  que al 95 %.</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Cuándo estos números empezarán a significar algo</h2></div>
+  <div class="card" style="padding:18px 20px">
+    <p class="sub" style="margin:0 0 14px">La diferencia de log-loss por partido entre modelo y
+    mercado tiene una desviación estándar de <b class="num">0.1008</b> en la muestra actual. De ahí
+    sale cuántos partidos hacen falta para distinguir una ventaja real del ruido:</p>
+    <ul class="ruta">
+      <li class="hd"><span>Ventaja a detectar</span><span class="n2">Partidos</span><span class="n2">Jornadas</span></li>
+      <li><span>0.05 de log-loss (ventaja grande)</span><span class="n2">17</span><span class="n2">menos de 1</span></li>
+      <li><span>0.03 (ventaja moderada)</span><span class="n2">46</span><span class="n2">~2</span></li>
+      <li><span>0.02 (ventaja pequeña)</span><span class="n2">102</span><span class="n2">~5</span></li>
+    </ul>
+    <p class="sub" style="font-size:13px">A 22 partidos por ronda, en dos jornadas más esto ya
+    distingue una ventaja moderada. Ese cálculo usa la desviación estimada sobre una muestra muy
+    pequeña, así que él mismo es provisional y se irá afinando.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Registro partido por partido</h2>
+    <span class="note" id="reg-note"></span></div>
+  <div class="tbl-holder"><table id="log"><thead><tr>
+    <th>Partido</th><th>Fecha</th><th class="n">Modelo 1/X/2</th><th class="n">Mercado 1/X/2</th>
+    <th class="n">Conf.</th><th>Sellado</th><th class="n">Resultado</th><th>Modelo</th><th>Mercado</th>
+  </tr></thead><tbody></tbody></table></div>
+</section>
+
+<footer>
+  <p><b>Qué significa "sellado".</b> <span class="pill si">sí</span> el commit de esta predicción en
+  el historial de git es anterior al saque inicial, así que cualquiera puede verificar en GitHub que
+  no se tocó después de conocer el resultado. <span class="pill no">no</span> la probabilidad se
+  registró antes del partido pero el commit cayó después del pitido inicial.
+  <span class="pill retro">retro</span> probabilidad tomada de una foto de ClubElo anterior al
+  partido, pero anotada de forma retrospectiva. Solo el grupo <span class="pill si">sí</span> es
+  evidencia a prueba de dudas; los otros dos se muestran aparte para no inflar el historial.</p>
+  <p><b>Cómo se actualiza.</b> Los archivos <code>seguimiento/predicciones.csv</code> y
+  <code>seguimiento/resultados.csv</code> son el registro; <code>seguimiento/actualizar.py</code>
+  los une y recalcula todo. Añadir una jornada es agregar filas, nunca reescribir las anteriores.</p>
+  <p><b>Advertencia.</b> Análisis estadístico con fines informativos. No es asesoría de apuestas.
+  Un registro favorable en unos pocos partidos no constituye una ventaja demostrada, y el margen
+  de la casa —del 5.24 % en el 1X2 de esta muestra— se cobra pase lo que pase.</p>
+</footer>
+</div>
+
+<script>
+const D = {"generado":"09/09/2026 11:11","total_predicciones":28,"resueltos":6,"pendientes":22,"sellados_git":20,"todos":{"modelo":{"n":6,"brier":0.4261,"logloss":0.7623,"acierto":5,"acierto_pct":83.3,"calibracion":[{"rango":"10-20%","n":2,"predicho":18.9,"observado":0.0},{"rango":"20-30%","n":9,"predicho":24.3,"observado":11.1},{"rango":"30-40%","n":2,"predicho":36.8,"observado":50.0},{"rango":"40-50%","n":1,"predicho":46.0,"observado":0.0},{"rango":"50-60%","n":3,"predicho":54.0,"observado":100.0},{"rango":"60-70%","n":1,"predicho":62.2,"observado":100.0}]},"mercado":{"n":6,"brier":0.4298,"logloss":0.7695,"acierto":4,"acierto_pct":66.7,"calibracion":[{"rango":"10-20%","n":2,"predicho":19.1,"observado":0.0},{"rango":"20-30%","n":9,"predicho":24.4,"observado":11.1},{"rango":"30-40%","n":2,"predicho":36.5,"observado":50.0},{"rango":"40-50%","n":1,"predicho":44.3,"observado":0.0},{"rango":"50-60%","n":4,"predicho":56.3,"observado":100.0}]}},"oro":{"modelo":null,"mercado":null},"partidos":[{"tag":"BAR-FEY","liga":"UCL","fecha":"09/09/2026","local":"Barcelona","visita":"Feyenoord","mod":[85.3,10.2,4.5],"mkt":[88.1,7.3,4.5],"conf":6,"sellado":"no","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"STU-VIK","liga":"UCL","fecha":"09/09/2026","local":"Stuttgart","visita":"Viking FK","mod":[68.5,17.2,14.3],"mkt":[77.3,13.6,9.1],"conf":6,"sellado":"no","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"LIV-ATM","liga":"UCL","fecha":"09/09/2026","local":"Liverpool","visita":"Atlético Madrid","mod":[53.8,24.6,21.6],"mkt":[55.6,23.2,21.2],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"NAP-ARS","liga":"UCL","fecha":"09/09/2026","local":"Napoli","visita":"Arsenal","mod":[22.0,24.7,53.3],"mkt":[18.1,24.7,57.1],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"PSG-SLO","liga":"UCL","fecha":"09/09/2026","local":"Paris Saint-Germain","visita":"Slovan Bratislava","mod":[91.0,6.2,2.8],"mkt":[91.4,5.9,2.6],"conf":4,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"SPO-GAL","liga":"UCL","fecha":"09/09/2026","local":"Sporting CP","visita":"Galatasaray","mod":[57.2,23.8,19.0],"mkt":[53.2,24.0,22.8],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FEN-ROM","liga":"UCL","fecha":"10/09/2026","local":"Fenerbahçe","visita":"Roma","mod":[37.5,26.5,36.1],"mkt":[28.9,26.8,44.3],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"PSV-SHA","liga":"UCL","fecha":"10/09/2026","local":"PSV Eindhoven","visita":"Shakhtar Donetsk","mod":[64.6,18.3,17.0],"mkt":[66.3,19.0,14.6],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"COM-RBL","liga":"UCL","fecha":"10/09/2026","local":"Como","visita":"RB Leipzig","mod":[47.0,21.7,31.4],"mkt":[51.0,24.2,24.8],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"SLA-LEN","liga":"UCL","fecha":"10/09/2026","local":"Slavia Praga","visita":"Lens","mod":[40.3,26.4,33.3],"mkt":[38.2,27.7,34.1],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"BMU-BOD","liga":"UCL","fecha":"10/09/2026","local":"Bayern München","visita":"Bodø/Glimt","mod":[81.2,10.9,7.9],"mkt":[86.1,8.0,6.0],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MNU-SAB","liga":"UCL","fecha":"10/09/2026","local":"Manchester United","visita":"Sabah FK","mod":[85.0,10.4,4.6],"mkt":[85.3,10.0,4.7],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"SEV-VAL","liga":"La Liga","fecha":"11/09/2026","local":"Sevilla","visita":"Valencia","mod":[41.6,27.7,30.7],"mkt":[43.5,29.9,26.6],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"RAC-ALA","liga":"La Liga","fecha":"12/09/2026","local":"Racing Santander","visita":"Alavés","mod":[40.4,27.3,32.3],"mkt":[39.1,26.8,34.1],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"OSA-ESP","liga":"La Liga","fecha":"12/09/2026","local":"Osasuna","visita":"Espanyol","mod":[50.9,25.7,23.4],"mkt":[44.9,29.0,26.2],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ATH-ELC","liga":"La Liga","fecha":"12/09/2026","local":"Athletic Club","visita":"Elche","mod":[57.0,23.3,19.6],"mkt":[67.0,19.4,13.6],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"RMA-RAY","liga":"La Liga","fecha":"12/09/2026","local":"Real Madrid","visita":"Rayo Vallecano","mod":[76.2,14.9,8.9],"mkt":[84.2,10.5,5.3],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"CEL-MAL","liga":"La Liga","fecha":"13/09/2026","local":"Celta Vigo","visita":"Málaga","mod":[56.4,24.8,18.8],"mkt":[55.3,25.3,19.4],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"LEV-BAR","liga":"La Liga","fecha":"13/09/2026","local":"Levante","visita":"Barcelona","mod":[13.2,16.4,70.4],"mkt":[8.5,12.5,78.9],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GET-DEP","liga":"La Liga","fecha":"13/09/2026","local":"Getafe","visita":"Deportivo La Coruña","mod":[44.8,31.0,24.2],"mkt":[39.6,33.3,27.1],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"RSO-ATM","liga":"La Liga","fecha":"13/09/2026","local":"Real Sociedad","visita":"Atlético Madrid","mod":[29.8,25.3,44.9],"mkt":[33.7,26.2,40.1],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"VIL-BET","liga":"La Liga","fecha":"14/09/2026","local":"Villarreal","visita":"Real Betis","mod":[46.0,25.0,29.0],"mkt":[49.7,25.0,25.3],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"AEK-LAS","liga":"UCL","fecha":"08/09/2026","local":"AEK Atenas","visita":"LASK","mod":[56.9,20.2,22.9],"mkt":[54.6,23.8,21.6],"conf":0,"sellado":"retro","res":"1","marcador":"1-0","total_goles":1,"acerto_mod":true,"acerto_mkt":true},{"tag":"BRU-AVL","liga":"UCL","fecha":"08/09/2026","local":"Club Brugge","visita":"Aston Villa","mod":[36.1,26.5,37.5],"mkt":[38.3,26.9,34.8],"conf":0,"sellado":"retro","res":"2","marcador":"2-3","total_goles":5,"acerto_mod":true,"acerto_mkt":false},{"tag":"DOR-VIL","liga":"UCL","fecha":"08/09/2026","local":"Borussia Dortmund","visita":"Villarreal","mod":[62.2,19.0,18.8],"mkt":[53.7,23.7,22.6],"conf":0,"sellado":"retro","res":"1","marcador":"3-2","total_goles":5,"acerto_mod":true,"acerto_mkt":true},{"tag":"POR-MCI","liga":"UCL","fecha":"08/09/2026","local":"FC Porto","visita":"Manchester City","mod":[22.8,24.9,52.4],"mkt":[19.2,23.4,57.5],"conf":0,"sellado":"retro","res":"2","marcador":"0-2","total_goles":2,"acerto_mod":true,"acerto_mkt":true},{"tag":"LIL-BET","liga":"UCL","fecha":"08/09/2026","local":"Lille","visita":"Real Betis","mod":[46.0,25.9,28.1],"mkt":[44.3,27.2,28.4],"conf":0,"sellado":"retro","res":"2","marcador":"2-3","total_goles":5,"acerto_mod":false,"acerto_mkt":false},{"tag":"RMA-INT","liga":"UCL","fecha":"08/09/2026","local":"Real Madrid","visita":"Internazionale","mod":[52.8,20.9,26.3],"mkt":[59.3,21.6,19.0],"conf":0,"sellado":"retro","res":"1","marcador":"2-1","total_goles":3,"acerto_mod":true,"acerto_mkt":true}]};
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fx = (v, d) => (v == null ? '—' : Number(v).toFixed(d == null ? 1 : d));
+
+$('#gen').textContent = 'Actualizado ' + D.generado;
+
+const res = D.resueltos, tot = D.total_predicciones;
+$('#aviso-h').textContent = res < 20
+  ? ('Con ' + res + ' partidos resueltos, aquí todavía no hay conclusión')
+  : 'Muestra en crecimiento: lee las métricas con su intervalo';
+$('#aviso-p').textContent = 'Van ' + res + ' de ' + tot + ' predicciones resueltas. '
+  + 'Cualquier ventaja que aparezca a este tamaño de muestra es indistinguible del azar: '
+  + 'una sola jornada puede decir cualquier cosa. El valor de esta página es acumulativo, y '
+  + 'empieza a rendir a partir de unas 46 predicciones resueltas. Hasta entonces sirve para '
+  + 'verificar que el registro está bien sellado, no para decidir nada.';
+
+$('#estado').innerHTML = [
+  {l:'Predicciones', v:tot, f:'Registradas en el libro, con su probabilidad y su cuota.'},
+  {l:'Resueltas', v:res, f:'Ya tienen resultado y entran en las métricas.'},
+  {l:'Pendientes', v:D.pendientes, f:'Esperando que se juegue el partido.'},
+  {l:'Selladas en git', v:D.sellados_git, f:'Commit anterior al saque inicial: verificable por terceros.'},
+].map(e => `<div class="est"><div class="l">${esc(e.l)}</div><div class="v">${e.v}</div>
+  <div class="f">${esc(e.f)}</div></div>`).join('');
+
+const A = D.todos.modelo, B = D.todos.mercado;
+function panel(m, otro, invertir){
+  if (!m) return '<p class="pend">Sin datos suficientes.</p>';
+  const mejor = (k) => otro ? (k === 'acierto_pct' ? m[k] > otro[k] : m[k] < otro[k]) : false;
+  return `<div class="metr"><span>Partidos</span><b>${m.n}</b></div>
+    <div class="metr"><span>Log-loss</span><b class="${mejor('logloss')?'gana':''}">${fx(m.logloss,4)}</b></div>
+    <div class="metr"><span>Brier</span><b class="${mejor('brier')?'gana':''}">${fx(m.brier,4)}</b></div>
+    <div class="metr"><span>Acierto de signo</span><b class="${mejor('acierto_pct')?'gana':''}">${m.acierto}/${m.n} · ${fx(m.acierto_pct,0)}%</b></div>`;
+}
+$('#m-mod').innerHTML = panel(A, B);
+$('#m-mkt').innerHTML = panel(B, A);
+if (A && B){
+  const d = A.logloss - B.logloss;
+  const quien = d < 0 ? 'El modelo' : 'El mercado';
+  $('#veredicto').innerHTML = `<b>${quien} va por delante por ${fx(Math.abs(d),4)} de log-loss</b>
+    sobre ${A.n} partidos. Con esta muestra el intervalo de confianza cruza el cero con holgura:
+    <b>no concluye nada todavía</b>. Conviene notar que el análisis estructural de este proyecto
+    apunta a lo contrario —que el mercado gana— así que si el modelo se mantiene arriba durante
+    varias jornadas, eso sí sería un hallazgo.`;
+} else {
+  $('#veredicto').textContent = 'Aún no hay partidos resueltos con cuota registrada.';
+}
+
+const ORD = {si:0, no:1, retro:2};
+D.partidos.sort((a,b) => (a.res?0:1) - (b.res?0:1) || a.fecha.localeCompare(b.fecha));
+$('#reg-note').textContent = D.partidos.length + ' predicciones · resueltas primero';
+$('#log tbody').innerHTML = D.partidos.map(p => {
+  const mark = (v) => v == null ? '<span class="pend">—</span>'
+    : (v ? '<span class="ok">acertó</span>' : '<span class="mal">falló</span>');
+  return `<tr>
+    <td class="team">${esc(p.local)}<span class="vs">vs</span>${esc(p.visita)}</td>
+    <td class="n" style="text-align:left">${esc(p.fecha)}</td>
+    <td class="n">${fx(p.mod[0])}/${fx(p.mod[1])}/${fx(p.mod[2])}</td>
+    <td class="n" style="color:var(--mercado-ink)">${p.mkt ? fx(p.mkt[0])+'/'+fx(p.mkt[1])+'/'+fx(p.mkt[2]) : '—'}</td>
+    <td class="n">${p.conf || '—'}</td>
+    <td><span class="pill ${esc(p.sellado)}">${esc(p.sellado)}</span></td>
+    <td class="n">${p.marcador ? esc(p.marcador)+' ('+esc(p.res)+')' : '<span class="pend">por jugar</span>'}</td>
+    <td>${mark(p.acerto_mod)}</td><td>${mark(p.acerto_mkt)}</td></tr>`;
+}).join('');
+</script>
+</body>
+</html>
