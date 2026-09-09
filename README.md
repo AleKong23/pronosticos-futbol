@@ -3,7 +3,7 @@
 Análisis probabilístico de 22 partidos de la UEFA Champions League (jornada 1 de la fase de
 liga) y LaLiga (jornada 5), disputados entre el 8 y el 14 de septiembre de 2026.
 
-Dos páginas, sin dependencias ni proceso de compilación:
+Tres páginas estáticas y una hoja de cálculo, sin dependencias ni proceso de compilación:
 
 | Página | Qué responde |
 |---|---|
@@ -30,7 +30,7 @@ el modelo está acertando. Nunca borra lo anterior: solo agrega filas.
 no información.** Tres mediciones lo sostienen:
 
 1. La correlación entre cuánto favorito considera el mercado a una selección y cuánto se lo resta
-   el modelo es **-0.54**. Por cada 10 puntos de favoritismo, el modelo le quita 0.91. Un
+   el modelo es **-0.53**. Por cada 10 puntos de favoritismo, el modelo le quita 0.88. Un
    desacuerdo tan sistemático es un defecto medible, no una ventaja.
 2. Las 26 apuestas que salen con valor esperado positivo son casi todas empates y no favoritos,
    justo donde ese sesgo infla la probabilidad.
@@ -121,8 +121,10 @@ navegador: no necesita servidor.
 
 ## Mantenimiento
 
-Estas páginas son una **foto fija**. Las cuotas cambian de forma continua y quedaron congeladas
-el 08/09/2026; los ratings son del 06/09 y la información de plantillas del 08/09.
+Estas páginas son una **foto fija**. Las cuotas quedaron congeladas el 09/09/2026, los ratings
+son del 06/09 y la información de plantillas del 08/09.
+
+El comando para recalcular tras cada jornada es `python seguimiento/actualizar.py`.
 
 Refrescar no es automatizable de punta a punta. De las tres fuentes necesarias, solo una responde
 a un script:
