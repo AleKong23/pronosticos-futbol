@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{color-scheme:light}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Modelo contra Mercado</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --ground:#fafbfc; --panel:#ffffff; --panel-2:#f4f6f8;
+  --ink:#0d1117; --ink-2:#545c68; --ink-3:#8b93a1;
+  --rule:#e4e7ec; --rule-2:#eef1f4;
+  --modelo:#2a78d6; --mercado:#eb6834; --riesgo:#e34948; --ok:#1baf7a;
+  --modelo-soft:#e7f0fb; --riesgo-soft:#fdeceb;
+  --mercado-ink:#c2481d;
+  --sans:'IBM Plex Sans',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme: dark;
+    --ground:#131619; --panel:#1a1e23; --panel-2:#20252b;
+    --ink:#f2f4f7; --ink-2:#a4adb9; --ink-3:#737c89;
+    --rule:#262b31; --rule-2:#20242a;
+    --modelo:#3987e5; --mercado:#d95926; --riesgo:#e66767; --ok:#199e70;
+    --modelo-soft:#182636; --riesgo-soft:#2e1d1d;
+    --mercado-ink:#e8814f;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#131619; --panel:#1a1e23; --panel-2:#20252b;
+  --ink:#f2f4f7; --ink-2:#a4adb9; --ink-3:#737c89;
+  --rule:#262b31; --rule-2:#20242a;
+  --modelo:#3987e5; --mercado:#d95926; --riesgo:#e66767; --ok:#199e70;
+  --modelo-soft:#182636; --riesgo-soft:#2e1d1d;
+    --mercado-ink:#e8814f;
+}
+*{box-sizing:border-box}
+body{background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.55;
+     -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding:34px 22px 72px}
+.eyebrow{font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.13em;
+         text-transform:uppercase; color:var(--ink-3)}
+h1{font-size:33px; line-height:1.15; font-weight:600; letter-spacing:-.021em; margin:8px 0 0; text-wrap:balance}
+h2{font-size:19px; font-weight:600; letter-spacing:-.012em; margin:0; text-wrap:balance}
+h3{font-size:14px; font-weight:600; margin:0}
+p{margin:0}
+.sub{color:var(--ink-2); font-size:14.5px; max-width:68ch; margin-top:10px}
+.num{font-family:var(--mono); font-variant-numeric:tabular-nums}
+header{border-bottom:1px solid var(--rule); padding-bottom:22px}
+.meta-line a{color:var(--modelo)}
+.meta-line{display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:14px;
+           font-family:var(--mono); font-size:11.5px; color:var(--ink-3)}
+section{margin-top:40px}
+.sec-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:16px}
+.sec-head .note{color:var(--ink-3); font-size:13px}
+
+/* veredicto */
+.verdict{border:1px solid var(--rule); border-left:3px solid var(--riesgo); background:var(--panel);
+         border-radius:3px; padding:22px 24px; margin-top:26px}
+.verdict-tag{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11px;
+             font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--riesgo)}
+.verdict h2{margin:11px 0 9px; font-size:21px}
+.verdict p{color:var(--ink-2); font-size:14.5px; max-width:76ch}
+.reasons{list-style:none; padding:0; margin:16px 0 0; display:grid; gap:11px}
+.reasons li{display:grid; grid-template-columns:22px 1fr; gap:11px; font-size:14px; color:var(--ink-2)}
+.reasons b{color:var(--ink); font-weight:600}
+.rnum{font-family:var(--mono); font-size:11px; color:var(--ink-3); padding-top:3px}
+
+/* kpi */
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(196px,1fr)); gap:1px;
+      background:var(--rule); border:1px solid var(--rule); border-radius:3px; overflow:hidden}
+.kpi{background:var(--panel); padding:17px 18px}
+.kpi .k-label{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+              color:var(--ink-3)}
+.kpi .k-val{font-family:var(--mono); font-size:27px; font-weight:600; letter-spacing:-.02em;
+            margin-top:7px; font-variant-numeric:tabular-nums}
+.kpi .k-foot{font-size:12px; color:var(--ink-2); margin-top:5px; line-height:1.4}
+
+/* chart */
+.card{background:var(--panel); border:1px solid var(--rule); border-radius:3px}
+.chart-card{padding:20px 22px 14px}
+.chart-top{display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;
+           margin-bottom:6px}
+.legend{display:flex; gap:16px; align-items:center; font-size:12.5px; color:var(--ink-2)}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.swatch{width:9px; height:9px; border-radius:50%; display:inline-block}
+.dash-key{width:16px; height:0; border-top:1px solid var(--ink-3); display:inline-block}
+.reg-key{width:16px; height:0; border-top:2px solid var(--mercado); display:inline-block}
+.svg-holder{overflow-x:auto}
+svg{display:block; max-width:100%; height:auto}
+.axis-line{stroke:var(--rule); stroke-width:1}
+.grid-line{stroke:var(--rule-2); stroke-width:1}
+.tick{font-family:var(--mono); font-size:10px; fill:var(--ink-3)}
+.axis-title{font-family:var(--sans); font-size:11.5px; fill:var(--ink-2); font-weight:500}
+.diag{stroke:var(--ink-3); stroke-width:1; stroke-dasharray:none; opacity:.55}
+.reg{stroke:var(--mercado); stroke-width:2; fill:none}
+.pt{fill:var(--modelo); opacity:.82; stroke:var(--panel); stroke-width:2}
+.pt:hover{opacity:1}
+.pt-lbl{font-family:var(--mono); font-size:9.5px; fill:var(--ink-2)}
+.zone-lbl{font-family:var(--sans); font-size:11px; fill:var(--ink-3); font-style:italic}
+.tt{position:fixed; pointer-events:none; background:var(--panel); border:1px solid var(--rule);
+    border-radius:3px; padding:9px 11px; font-size:12px; box-shadow:0 4px 14px rgba(0,0,0,.13);
+    z-index:50; opacity:0; transition:opacity .1s; max-width:230px}
+.tt.on{opacity:1}
+.tt .tt-h{font-weight:600; margin-bottom:5px}
+.tt .tt-r{display:flex; justify-content:space-between; gap:14px; color:var(--ink-2); font-size:11.5px}
+.tt .tt-r b{font-family:var(--mono); color:var(--ink)}
+
+/* tablas */
+.tbl-holder{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--panel)}
+table{border-collapse:collapse; width:100%; font-size:13.5px}
+th{font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase;
+   color:var(--ink-3); text-align:left; padding:11px 13px; border-bottom:1px solid var(--rule);
+   white-space:nowrap; background:var(--panel-2)}
+td{padding:10px 13px; border-bottom:1px solid var(--rule-2); vertical-align:middle}
+tr:last-child td{border-bottom:none}
+td.n{font-family:var(--mono); font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
+th.n{text-align:right}
+.team{font-weight:500}
+.vs{color:var(--ink-3); font-size:12px; margin:0 5px}
+.pill{display:inline-block; font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:.06em;
+      text-transform:uppercase; padding:2.5px 7px; border-radius:2px; border:1px solid var(--rule);
+      color:var(--ink-2); background:var(--panel-2); white-space:nowrap}
+.pill.alta{color:var(--ok); border-color:color-mix(in srgb, var(--ok) 34%, var(--rule))}
+.pill.baja{color:var(--riesgo); border-color:color-mix(in srgb, var(--riesgo) 34%, var(--rule))}
+.pill.ucl{color:var(--modelo); border-color:color-mix(in srgb, var(--modelo) 32%, var(--rule))}
+.bar-cell{min-width:132px}
+.bar{height:5px; background:var(--rule-2); border-radius:0; position:relative; overflow:hidden}
+.bar i{position:absolute; inset:0 auto 0 0; background:var(--modelo); display:block}
+.bar.mk i{background:var(--mercado)}
+.stack{display:grid; gap:3px}
+.gapv{font-family:var(--mono); font-variant-numeric:tabular-nums; font-weight:500}
+.gap-neg{color:var(--riesgo)}
+.warn-row td{background:var(--riesgo-soft)}
+
+/* filtros */
+.filters{display:flex; gap:9px; flex-wrap:wrap; align-items:center; margin-bottom:14px}
+.fbtn{font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; padding:6px 12px; border-radius:2px;
+      border:1px solid var(--rule); background:var(--panel); color:var(--ink-2); cursor:pointer;
+      transition:border-color .12s, color .12s}
+.fbtn:hover{color:var(--ink); border-color:var(--ink-3)}
+.fbtn[aria-pressed="true"]{background:var(--ink); color:var(--ground); border-color:var(--ink)}
+.fbtn:focus-visible, .rowbtn:focus-visible{outline:2px solid var(--modelo); outline-offset:2px}
+.flabel{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+        color:var(--ink-3); margin-right:2px}
+.rowbtn{background:none; border:none; padding:0; cursor:pointer; color:var(--modelo); font-family:var(--mono);
+        font-size:11px; text-decoration:underline; text-underline-offset:2px}
+.detail td{background:var(--panel-2); padding:0}
+.detail-in{padding:16px 15px; display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:18px}
+.mgroup h4{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+           color:var(--ink-3); margin:0 0 7px; font-weight:600}
+.mrow{display:flex; justify-content:space-between; gap:12px; font-size:12.5px; padding:2.5px 0;
+      border-bottom:1px solid var(--rule-2)}
+.mrow:last-child{border-bottom:none}
+.mrow span{color:var(--ink-2)}
+.mrow b{font-family:var(--mono); font-weight:500; font-variant-numeric:tabular-nums}
+
+/* notas */
+.cols2{display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:20px}
+.note-card{padding:19px 21px}
+.note-card h3{margin-bottom:9px}
+.note-card p, .note-card li{font-size:13.5px; color:var(--ink-2)}
+.note-card ul{margin:0; padding-left:18px; display:grid; gap:7px}
+.usefor{border-left:3px solid var(--modelo)}
+.usenot{border-left:3px solid var(--riesgo)}
+footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--rule);
+        font-size:12.5px; color:var(--ink-3); max-width:80ch}
+footer b{color:var(--ink-2)}
+.hidden{display:none !important}
+@media (prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+@media (max-width:640px){
+  h1{font-size:26px} .wrap{padding:24px 15px 56px} .kpi .k-val{font-size:23px}
+}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Champions League · LaLiga · 8-14 septiembre 2026</div>
+  <h1>Modelo contra mercado</h1>
+  <p class="sub">Qué dice mi modelo estadístico, qué dice el precio real de la casa de apuestas, y
+  qué tan en serio conviene tomar la diferencia entre ambos antes de arriesgar dinero.</p>
+  <div class="meta-line">
+    <span>22 partidos</span><span>1X2 base: ClubElo (Elo al 06/09)</span>
+    <span>Cuotas: DraftKings vía API de ESPN, 08/09/2026</span>
+    <span>xG: Understat, 421 partidos</span>
+    <span><a href="./fichas.html">Ver fichas por partido &rarr;</a></span>
+  </div>
+</header>
+
+<div class="verdict">
+  <div class="verdict-tag">
+    <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.6 15 14H1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
+    Lee esto antes de los números
+  </div>
+  <h2>El modelo no tiene ventaja demostrable sobre el mercado</h2>
+  <p>Construí el modelo, lo calibré contra 380 partidos reales y lo comparé con el precio que realmente
+  ofrece la casa. La conclusión honesta es que sus desacuerdos con el mercado son <b>error propio, no
+  información</b>. Los tres datos que lo prueban:</p>
+  <ul class="reasons">
+    <li><span class="rnum">01</span><span><b>El desacuerdo es predecible por el sesgo del modelo.</b>
+      La correlación entre "qué tan favorito es algo para el mercado" y "cuánto se lo resta mi modelo" es
+      <b class="num">-0.54</b>. Por cada 10 puntos de favoritismo, el modelo le quita
+      <b class="num">0.91</b> puntos. Un desacuerdo así de sistemático no es una ventaja: es un defecto medible.</span></li>
+    <li><span class="rnum">02</span><span><b>Todo el "valor" cae en los mismos lugares.</b> Las
+      <span class="num">24</span> apuestas que salen con valor positivo son casi todas empates y no favoritos,
+      justo donde el sesgo del punto 1 infla la probabilidad. El modelo te empujaría a apostarle a Rayo
+      Vallecano en el Bernabéu a cuota 18.</span></li>
+    <li><span class="rnum">03</span><span><b>La casa cobra más que el error del modelo.</b> Su margen es
+      <b class="num">5.24%</b> en el 1X2. La desviación media del modelo contra el mercado es
+      <b class="num">3.03</b> puntos, y sin dirección confiable. Necesitas ventaja real mayor al margen
+      para no perder por diseño.</span></li>
+  </ul>
+</div>
+
+<section>
+  <div class="sec-head"><h2>Los números que definen el riesgo</h2></div>
+  <div class="kpis" id="kpis"></div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>Dónde exactamente se equivoca el modelo</h2>
+    <span class="note">66 selecciones (1, X y 2 de cada partido)</span>
+  </div>
+  <div class="card chart-card">
+    <div class="chart-top">
+      <p class="sub" style="margin:0; font-size:13.5px">Si el modelo y el mercado coincidieran, cada punto
+      caería sobre la diagonal. Los puntos se hunden por debajo justo a la derecha: mientras más favorito
+      es algo para el mercado, más se lo baja el modelo.</p>
+      <div class="legend">
+        <span><span class="swatch" style="background:var(--modelo)"></span>selección</span>
+        <span><span class="dash-key"></span>acuerdo perfecto</span>
+        <span><span class="reg-key"></span>tendencia real</span>
+      </div>
+    </div>
+    <div class="svg-holder"><svg id="scatter" viewBox="0 0 730 430" role="img"
+      aria-label="Dispersión de probabilidad del modelo contra probabilidad del mercado en 66 selecciones"></svg></div>
+    <div style="display:flex; justify-content:flex-end; padding:2px 0 6px">
+      <button class="fbtn" id="tblToggle" aria-pressed="false">Ver como tabla</button>
+    </div>
+    <div id="scatterTbl" class="tbl-holder hidden" style="margin-bottom:12px"></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>El "valor" que encuentra el modelo, y por qué es una trampa</h2>
+    <span class="note">ordenado por valor esperado aparente</span>
+  </div>
+  <div class="tbl-holder"><table id="picksTbl"><thead><tr>
+    <th>Partido</th><th>Apuesta</th><th class="n">Modelo</th><th class="n">Mercado</th>
+    <th class="n">Cuota</th><th class="n">Valor aparente</th><th>Diagnóstico</th>
+  </tr></thead><tbody></tbody></table></div>
+  <p class="sub" style="font-size:13px; margin-top:11px">Las de arriba son las que más "valor" muestran y
+  las que más peligro tienen: cuota alta significa que el mercado las considera improbables, y es
+  precisamente en esos casos donde el sesgo del modelo es máximo. No las presento como recomendación,
+  y no incluyo ningún cálculo de cuánto apostar.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>Partido por partido</h2>
+    <span class="note">abre cada fila para ver todos los mercados derivados</span>
+  </div>
+  <div class="filters">
+    <span class="flabel">Competencia</span>
+    <button class="fbtn" data-f="liga" data-v="all" aria-pressed="true">Todas</button>
+    <button class="fbtn" data-f="liga" data-v="UCL" aria-pressed="false">Champions</button>
+    <button class="fbtn" data-f="liga" data-v="La Liga" aria-pressed="false">LaLiga</button>
+    <span class="flabel" style="margin-left:12px">Confianza</span>
+    <button class="fbtn" data-f="conf" data-v="all" aria-pressed="true">Toda</button>
+    <button class="fbtn" data-f="conf" data-v="alta" aria-pressed="false">Alta</button>
+    <button class="fbtn" data-f="conf" data-v="media" aria-pressed="false">Media</button>
+    <button class="fbtn" data-f="conf" data-v="baja" aria-pressed="false">Baja</button>
+  </div>
+  <div class="tbl-holder"><table id="matchTbl"><thead><tr>
+    <th>Partido</th><th>Fecha</th><th class="n">Hora CEST</th>
+    <th class="bar-cell">Local / Empate / Visitante</th>
+    <th class="n">Total goles</th><th class="n">Línea</th><th class="n">Ambos anotan</th>
+    <th class="n">Margen casa</th><th>Confianza</th><th></th>
+  </tr></thead><tbody></tbody></table></div>
+  <p class="sub" style="font-size:13px; margin-top:11px">Las barras azules son la probabilidad del modelo;
+  las naranjas, la del mercado sin margen. En "Total goles" el primer número es el del modelo y el segundo
+  el que implica la línea real.</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Qué tan bien calibrado está el modelo</h2>
+    <span class="note">backtest sobre 380 partidos de LaLiga 2025-26</span></div>
+  <div class="cols2">
+    <div class="card note-card">
+      <h3>Frecuencia observada contra predicha</h3>
+      <div class="tbl-holder" style="border:none; margin-top:10px"><table id="calTbl"><thead><tr>
+        <th>Mercado</th><th class="n">Real</th><th class="n">Modelo</th><th class="n">Error</th>
+      </tr></thead><tbody></tbody></table></div>
+      <p style="margin-top:11px; font-size:12.5px">Log-loss <b class="num" id="ll"></b> contra
+      <b class="num">1.0986</b> de un modelo que reparte 33/33/33. Hay señal real, pero es modesta,
+      y el backtest es dentro de muestra: fuera de muestra será peor.</p>
+    </div>
+    <div class="card note-card">
+      <h3>La prueba contra la realidad</h3>
+      <p style="margin-bottom:10px">Los seis partidos de Champions del 8 de septiembre ya se jugaron. El
+      modelo acertó el signo en <b id="hits"></b>, pero seis partidos no son evidencia estadística de nada.</p>
+      <div class="tbl-holder" style="border:none"><table id="playedTbl"><thead><tr>
+        <th>Partido</th><th class="n">Modelo 1/X/2</th><th class="n">Resultado</th><th></th>
+      </tr></thead><tbody></tbody></table></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Para qué sirve y para qué no</h2></div>
+  <div class="cols2">
+    <div class="card note-card usefor">
+      <h3>Sirve para leer la forma del partido</h3>
+      <ul>
+        <li>Distinguir un partido cerrado de una goleada probable: Getafe-Deportivo tiene línea 1.5 y
+          <span class="num">42%</span> de ambos anotan; PSG-Slovan tiene línea 4.5.</li>
+        <li>Ver dónde el mercado y el modelo <em>sí</em> coinciden, que es la mayoría: en 11 de 22 partidos
+          la diferencia máxima es menor a 4 puntos.</li>
+        <li>Entender la estructura de un mercado: cómo se reparten empate, doble oportunidad y hándicap
+          a partir de una misma expectativa de goles.</li>
+        <li>Medir cuánto te cuesta el margen de la casa antes de apostar.</li>
+      </ul>
+    </div>
+    <div class="card note-card usenot">
+      <h3>No sirve para ganarle al precio</h3>
+      <ul>
+        <li>No detecta valor real: sus diferencias con el mercado se explican por su propio sesgo contra
+          los favoritos.</li>
+        <li>No sabe de lesionados, sanciones, alineaciones ni rotación. El precio de la casa sí, y se
+          mueve con dinero real.</li>
+        <li>No incluye córners ni tarjetas: no tengo estadística por equipo de esos eventos, y la fuente
+          que la tenía está caída.</li>
+        <li>No trae cálculo de cuánto apostar, y no lo va a traer. Eso no es algo que yo deba sugerirte.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><b>Origen de los datos.</b> Probabilidad 1X2 del modelo: ratings Elo de ClubElo al 06/09/2026,
+  convertidos a goles esperados y repartidos con Poisson bivariada más corrección Dixon-Coles
+  (rho = -0.020, ajustada por máxima verosimilitud). Total de goles: consenso entre la línea real del
+  mercado y un modelo de npxG propio con datos de Understat. Cuotas: DraftKings vía la API pública de
+  ESPN, capturadas el 08/09/2026; probabilidad de mercado calculada quitando el margen de forma
+  proporcional sobre las tres vías.</p>
+  <p style="margin-top:11px"><b>Advertencia.</b> Esto es análisis estadístico con fines informativos.
+  No es asesoría de apuestas ni una recomendación para arriesgar dinero. Las cuotas cambian de forma
+  continua: cualquier número de mercado en esta página quedó fijo el 08/09/2026 y ya no corresponde al
+  precio vigente.</p>
+</footer>
+</div>
+
+<div class="tt" id="tt" role="status" aria-live="polite"></div>
+
+<script>
+const D = {"meta":{"generado":"08/09/2026","n":22,"margen_1x2":5.24,"margen_ou":5.7,"mad":3.03,"bias":{"h":-0.69,"d":0.45,"a":0.25},"corr":-0.539,"slope":-0.0906,"dif_total_media":-0.145,"n_picks":24,"backtest":{"n":380,"logloss":0.9761,"brier":0.5782,"obs":{"empate":24.5,"over25":50.0,"btts":56.6,"local":48.9,"visita":26.6},"mod":{"empate":25.1,"over25":50.0,"btts":51.7,"local":46.3,"visita":28.6}},"jugados":[{"local":"AEK Athens","visita":"LASK","ph":55,"pdw":26,"pa":19,"res":"1-0","gano":"Local","acerto":true},{"local":"Club Brugge","visita":"Aston Villa","ph":35,"pdw":29,"pa":36,"res":"2-3","gano":"Visitante","acerto":true},{"local":"Borussia Dortmund","visita":"Villarreal","ph":61,"pdw":23,"pa":16,"res":"3-2","gano":"Local","acerto":true},{"local":"FC Porto","visita":"Manchester City","ph":20,"pdw":29,"pa":51,"res":"0-2","gano":"Visitante","acerto":true},{"local":"Lille","visita":"Real Betis","ph":44,"pdw":31,"pa":25,"res":"2-3","gano":"Visitante","acerto":false},{"local":"Real Madrid","visita":"Internazionale","ph":50,"pdw":28,"pa":22,"res":"2-1","gano":"Local","acerto":true}],"acertados":5},"matches":[{"tag":"BAR-FEY","liga":"UCL","fecha":"09/09/2026","hora_local":"09:45","hora_cest":"18:45","local":"Barcelona","visita":"Feyenoord","sels":[{"sel":"1","modelo":85.3,"mercado":88.1,"cuota":1.08,"ev":-0.0758,"gap":-2.8},{"sel":"X","modelo":10.2,"mercado":7.3,"cuota":13.0,"ev":0.33,"gap":2.9},{"sel":"2","modelo":4.5,"mercado":4.5,"cuota":21.0,"ev":-0.0635,"gap":-0.1}],"margen":4.76,"margen_ou":4.71,"ou_line":4.5,"T_modelo":3.67,"T_mercado":4.61,"over_modelo":30.7,"over_mercado":48.9,"dec_over":1.95,"dec_under":1.87,"btts":48.6,"conf":"media","gap_xg":null,"err_fit":null,"top":[{"sc":"3-0","p":12.2},{"sc":"2-0","p":11.9},{"sc":"4-0","p":9.3},{"sc":"1-0","p":7.7},{"sc":"3-1","p":7.4}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":85.3},{"m":"Resultado 1X2","s":"Empate (X)","p":10.2},{"m":"Resultado 1X2","s":"Visitante (2)","p":4.5},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":95.5},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":89.8},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":14.7},{"m":"Empate no apuesta","s":"Local","p":95.0},{"m":"Empate no apuesta","s":"Visitante","p":5.0},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":97.4},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":2.6},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":88.2},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":11.8},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":70.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":29.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":50.0},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":50.0},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":30.7},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":69.3},{"m":"Ambos equipos anotan","s":"Si","p":48.6},{"m":"Ambos equipos anotan","s":"No","p":51.4},{"m":"Total del local","s":"Local mas de 0.5","p":95.3},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":45.7},{"m":"Total del local","s":"Local mas de 1.5","p":81.0},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":12.5},{"m":"Total del local","s":"Local mas de 2.5","p":59.0},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":2.4},{"m":"Paridad de goles","s":"Par","p":50.2},{"m":"Paridad de goles","s":"Impar","p":49.8},{"m":"Handicap asiatico","s":"Local -1.5","p":67.7},{"m":"Handicap asiatico","s":"Visitante +1.5","p":32.3},{"m":"Handicap asiatico","s":"Local -0.5","p":85.3},{"m":"Handicap asiatico","s":"Visitante +0.5","p":14.7},{"m":"Margen de victoria","s":"Local por 1","p":17.6},{"m":"Margen de victoria","s":"Local por 2+","p":67.7},{"m":"Margen de victoria","s":"Empate","p":10.2},{"m":"Margen de victoria","s":"Visitante por 1","p":3.4},{"m":"Margen de victoria","s":"Visitante por 2+","p":1.0}]},{"tag":"STU-VIK","liga":"UCL","fecha":"09/09/2026","hora_local":"09:45","hora_cest":"18:45","local":"Stuttgart","visita":"Viking FK","sels":[{"sel":"1","modelo":68.5,"mercado":77.3,"cuota":1.24,"ev":-0.1534,"gap":-8.7},{"sel":"X","modelo":17.2,"mercado":13.6,"cuota":7.0,"ev":0.2017,"gap":3.5},{"sel":"2","modelo":14.3,"mercado":9.1,"cuota":10.5,"ev":0.5014,"gap":5.2}],"margen":4.76,"margen_ou":5.23,"ou_line":3.5,"T_modelo":3.67,"T_mercado":4.06,"over_modelo":50.0,"over_mercado":57.8,"dec_over":1.65,"dec_under":2.25,"btts":66.6,"conf":"media","gap_xg":null,"err_fit":null,"top":[{"sc":"2-1","p":9.3},{"sc":"2-0","p":8.3},{"sc":"3-1","p":7.9},{"sc":"1-1","p":7.4},{"sc":"3-0","p":7.1}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":68.5},{"m":"Resultado 1X2","s":"Empate (X)","p":17.2},{"m":"Resultado 1X2","s":"Visitante (2)","p":14.3},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":85.7},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":82.8},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":31.5},{"m":"Empate no apuesta","s":"Local","p":82.7},{"m":"Empate no apuesta","s":"Visitante","p":17.3},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":97.3},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":2.7},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":88.2},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":11.8},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":70.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":29.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":50.0},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":50.0},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":30.7},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":69.3},{"m":"Ambos equipos anotan","s":"Si","p":66.6},{"m":"Ambos equipos anotan","s":"No","p":33.4},{"m":"Total del local","s":"Local mas de 0.5","p":92.3},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":67.0},{"m":"Total del local","s":"Local mas de 1.5","p":72.5},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":30.5},{"m":"Total del local","s":"Local mas de 2.5","p":47.1},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":10.2},{"m":"Paridad de goles","s":"Par","p":50.3},{"m":"Paridad de goles","s":"Impar","p":49.7},{"m":"Handicap asiatico","s":"Local -1.5","p":47.3},{"m":"Handicap asiatico","s":"Visitante +1.5","p":52.7},{"m":"Handicap asiatico","s":"Local -0.5","p":68.5},{"m":"Handicap asiatico","s":"Visitante +0.5","p":31.5},{"m":"Margen de victoria","s":"Local por 1","p":21.2},{"m":"Margen de victoria","s":"Local por 2+","p":47.3},{"m":"Margen de victoria","s":"Empate","p":17.2},{"m":"Margen de victoria","s":"Visitante por 1","p":9.1},{"m":"Margen de victoria","s":"Visitante por 2+","p":5.2}]},{"tag":"LIV-ATM","liga":"UCL","fecha":"09/09/2026","hora_local":"12:00","hora_cest":"21:00","local":"Liverpool","visita":"Atlético Madrid","sels":[{"sel":"1","modelo":53.8,"mercado":55.6,"cuota":1.71,"ev":-0.0775,"gap":-1.8},{"sel":"X","modelo":24.6,"mercado":23.2,"cuota":4.1,"ev":0.0075,"gap":1.3},{"sel":"2","modelo":21.6,"mercado":21.2,"cuota":4.5,"ev":-0.0274,"gap":0.4}],"margen":4.95,"margen_ou":5.3,"ou_line":2.5,"T_modelo":2.67,"T_mercado":3.13,"over_modelo":49.9,"over_mercado":60.4,"dec_over":1.57,"dec_under":2.4,"btts":56.1,"conf":"media","gap_xg":null,"err_fit":null,"top":[{"sc":"1-1","p":11.7},{"sc":"1-0","p":11.5},{"sc":"2-0","p":9.9},{"sc":"2-1","p":9.7},{"sc":"0-0","p":7.2}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":53.8},{"m":"Resultado 1X2","s":"Empate (X)","p":24.6},{"m":"Resultado 1X2","s":"Visitante (2)","p":21.6},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":78.4},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":75.4},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":46.2},{"m":"Empate no apuesta","s":"Local","p":71.3},{"m":"Empate no apuesta","s":"Visitante","p":28.7},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":92.8},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":7.2},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":74.8},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":25.2},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":49.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":50.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":27.9},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":72.1},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":13.3},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":86.7},{"m":"Ambos equipos anotan","s":"Si","p":56.1},{"m":"Ambos equipos anotan","s":"No","p":43.9},{"m":"Total del local","s":"Local mas de 0.5","p":81.5},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":62.5},{"m":"Total del local","s":"Local mas de 1.5","p":50.4},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":25.7},{"m":"Total del local","s":"Local mas de 2.5","p":24.0},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":7.7},{"m":"Paridad de goles","s":"Par","p":50.7},{"m":"Paridad de goles","s":"Impar","p":49.3},{"m":"Handicap asiatico","s":"Local -1.5","p":29.6},{"m":"Handicap asiatico","s":"Visitante +1.5","p":70.4},{"m":"Handicap asiatico","s":"Local -0.5","p":53.8},{"m":"Handicap asiatico","s":"Visitante +0.5","p":46.2},{"m":"Margen de victoria","s":"Local por 1","p":24.2},{"m":"Margen de victoria","s":"Local por 2+","p":29.6},{"m":"Margen de victoria","s":"Empate","p":24.6},{"m":"Margen de victoria","s":"Visitante por 1","p":14.0},{"m":"Margen de victoria","s":"Visitante por 2+","p":7.7}]},{"tag":"NAP-ARS","liga":"UCL","fecha":"09/09/2026","hora_local":"12:00","hora_cest":"21:00","local":"Napoli","visita":"Arsenal","sels":[{"sel":"1","modelo":22.0,"mercado":18.1,"cuota":5.25,"ev":0.1549,"gap":3.9},{"sel":"X","modelo":24.7,"mercado":24.7,"cuota":3.85,"ev":-0.0499,"gap":-0.1},{"sel":"2","modelo":53.3,"mercado":57.1,"cuota":1.67,"ev":-0.1112,"gap":-3.8}],"margen":5.02,"margen_ou":4.71,"ou_line":2.5,"T_modelo":2.67,"T_mercado":2.63,"over_modelo":49.9,"over_mercado":48.9,"dec_over":1.95,"dec_under":1.87,"btts":56.3,"conf":"media","gap_xg":null,"err_fit":null,"top":[{"sc":"1-1","p":11.7},{"sc":"0-1","p":11.4},{"sc":"0-2","p":9.8},{"sc":"1-2","p":9.7},{"sc":"0-0","p":7.2}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":22.0},{"m":"Resultado 1X2","s":"Empate (X)","p":24.7},{"m":"Resultado 1X2","s":"Visitante (2)","p":53.3},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":46.7},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":75.3},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":78.0},{"m":"Empate no apuesta","s":"Local","p":29.2},{"m":"Empate no apuesta","s":"Visitante","p":70.8},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":92.8},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":7.2},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":74.8},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":25.2},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":49.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":50.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":27.9},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":72.1},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":13.3},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":86.7},{"m":"Ambos equipos anotan","s":"Si","p":56.3},{"m":"Ambos equipos anotan","s":"No","p":43.7},{"m":"Total del local","s":"Local mas de 0.5","p":62.8},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":81.4},{"m":"Total del local","s":"Local mas de 1.5","p":26.1},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":50.1},{"m":"Total del local","s":"Local mas de 2.5","p":7.8},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":23.8},{"m":"Paridad de goles","s":"Par","p":50.7},{"m":"Paridad de goles","s":"Impar","p":49.3},{"m":"Handicap asiatico","s":"Local -1.5","p":7.9},{"m":"Handicap asiatico","s":"Visitante +1.5","p":92.1},{"m":"Handicap asiatico","s":"Local -0.5","p":22.0},{"m":"Handicap asiatico","s":"Visitante +0.5","p":78.0},{"m":"Margen de victoria","s":"Local por 1","p":14.1},{"m":"Margen de victoria","s":"Local por 2+","p":7.9},{"m":"Margen de victoria","s":"Empate","p":24.7},{"m":"Margen de victoria","s":"Visitante por 1","p":24.2},{"m":"Margen de victoria","s":"Visitante por 2+","p":29.2}]},{"tag":"PSG-SLO","liga":"UCL","fecha":"09/09/2026","hora_local":"12:00","hora_cest":"21:00","local":"Paris Saint-Germain","visita":"Slovan Bratislava","sels":[{"sel":"1","modelo":91.0,"mercado":91.4,"cuota":1.04,"ev":-0.0537,"gap":-0.4},{"sel":"X","modelo":6.2,"mercado":5.9,"cuota":16.0,"ev":-0.0041,"gap":0.3},{"sel":"2","modelo":2.8,"mercado":2.6,"cuota":36.0,"ev":0.0027,"gap":0.1}],"margen":5.18,"margen_ou":5.07,"ou_line":4.5,"T_modelo":4.67,"T_mercado":4.42,"over_modelo":50.0,"over_mercado":45.3,"dec_over":2.1,"dec_under":1.74,"btts":54.9,"conf":"media","gap_xg":null,"err_fit":null,"top":[{"sc":"3-0","p":9.7},{"sc":"4-0","p":9.6},{"sc":"5-0","p":7.6},{"sc":"2-0","p":7.4},{"sc":"3-1","p":6.9}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":91.0},{"m":"Resultado 1X2","s":"Empate (X)","p":6.2},{"m":"Resultado 1X2","s":"Visitante (2)","p":2.8},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":97.2},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":93.8},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":9.0},{"m":"Empate no apuesta","s":"Local","p":97.0},{"m":"Empate no apuesta","s":"Visitante","p":3.0},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":99.0},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":1.0},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":94.7},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":5.3},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":84.5},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":15.5},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":68.5},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":31.5},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":50.0},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":50.0},{"m":"Ambos equipos anotan","s":"Si","p":54.9},{"m":"Ambos equipos anotan","s":"No","p":45.1},{"m":"Total del local","s":"Local mas de 0.5","p":98.1},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":50.8},{"m":"Total del local","s":"Local mas de 1.5","p":90.5},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":15.9},{"m":"Total del local","s":"Local mas de 2.5","p":75.6},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":3.5},{"m":"Paridad de goles","s":"Par","p":50.1},{"m":"Paridad de goles","s":"Impar","p":49.9},{"m":"Handicap asiatico","s":"Local -1.5","p":79.0},{"m":"Handicap asiatico","s":"Visitante +1.5","p":21.0},{"m":"Handicap asiatico","s":"Local -0.5","p":91.0},{"m":"Handicap asiatico","s":"Visitante +0.5","p":9.0},{"m":"Margen de victoria","s":"Local por 1","p":12.0},{"m":"Margen de victoria","s":"Local por 2+","p":79.0},{"m":"Margen de victoria","s":"Empate","p":6.2},{"m":"Margen de victoria","s":"Visitante por 1","p":2.1},{"m":"Margen de victoria","s":"Visitante por 2+","p":0.7}]},{"tag":"SPO-GAL","liga":"UCL","fecha":"09/09/2026","hora_local":"12:00","hora_cest":"21:00","local":"Sporting CP","visita":"Galatasaray","sels":[{"sel":"1","modelo":57.2,"mercado":53.2,"cuota":1.8,"ev":0.0298,"gap":4.0},{"sel":"X","modelo":23.8,"mercado":24.0,"cuota":4.0,"ev":-0.049,"gap":-0.2},{"sel":"2","modelo":19.0,"mercado":22.8,"cuota":4.2,"ev":-0.2015,"gap":-3.8}],"margen":4.37,"margen_ou":4.82,"ou_line":2.5,"T_modelo":2.67,"T_mercado":3.08,"over_modelo":49.9,"over_mercado":59.4,"dec_over":1.61,"dec_under":2.35,"btts":54.7,"conf":"media","gap_xg":null,"err_fit":null,"top":[{"sc":"1-0","p":12.0},{"sc":"1-1","p":11.3},{"sc":"2-0","p":10.7},{"sc":"2-1","p":9.8},{"sc":"0-0","p":7.1}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":57.2},{"m":"Resultado 1X2","s":"Empate (X)","p":23.8},{"m":"Resultado 1X2","s":"Visitante (2)","p":19.0},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":81.0},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":76.2},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":42.8},{"m":"Empate no apuesta","s":"Local","p":75.1},{"m":"Empate no apuesta","s":"Visitante","p":24.9},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":92.9},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":7.1},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":74.8},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":25.2},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":49.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":50.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":27.9},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":72.1},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":13.3},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":86.7},{"m":"Ambos equipos anotan","s":"Si","p":54.7},{"m":"Ambos equipos anotan","s":"No","p":45.3},{"m":"Total del local","s":"Local mas de 0.5","p":82.8},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":59.7},{"m":"Total del local","s":"Local mas de 1.5","p":52.5},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":23.1},{"m":"Total del local","s":"Local mas de 2.5","p":25.9},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":6.5},{"m":"Paridad de goles","s":"Par","p":50.7},{"m":"Paridad de goles","s":"Impar","p":49.3},{"m":"Handicap asiatico","s":"Local -1.5","p":32.5},{"m":"Handicap asiatico","s":"Visitante +1.5","p":67.5},{"m":"Handicap asiatico","s":"Local -0.5","p":57.2},{"m":"Handicap asiatico","s":"Visitante +0.5","p":42.8},{"m":"Margen de victoria","s":"Local por 1","p":24.7},{"m":"Margen de victoria","s":"Local por 2+","p":32.5},{"m":"Margen de victoria","s":"Empate","p":23.8},{"m":"Margen de victoria","s":"Visitante por 1","p":12.7},{"m":"Margen de victoria","s":"Visitante por 2+","p":6.3}]},{"tag":"FEN-ROM","liga":"UCL","fecha":"10/09/2026","hora_local":"09:45","hora_cest":"18:45","local":"Fenerbahçe","visita":"Roma","sels":[{"sel":"1","modelo":37.5,"mercado":28.9,"cuota":3.3,"ev":0.2361,"gap":8.6},{"sel":"X","modelo":26.5,"mercado":26.8,"cuota":3.55,"ev":-0.0601,"gap":-0.4},{"sel":"2","modelo":36.1,"mercado":44.3,"cuota":2.15,"ev":-0.2246,"gap":-8.2}],"margen":4.98,"margen_ou":5.95,"ou_line":2.5,"T_modelo":2.67,"T_mercado":2.89,"over_modelo":49.9,"over_mercado":55.1,"dec_over":1.71,"dec_under":2.1,"btts":59.4,"conf":"media","gap_xg":null,"err_fit":null,"top":[{"sc":"1-1","p":12.6},{"sc":"1-0","p":9.1},{"sc":"0-1","p":8.9},{"sc":"2-1","p":8.3},{"sc":"1-2","p":8.1}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":37.5},{"m":"Resultado 1X2","s":"Empate (X)","p":26.5},{"m":"Resultado 1X2","s":"Visitante (2)","p":36.1},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":63.9},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":73.5},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":62.5},{"m":"Empate no apuesta","s":"Local","p":50.9},{"m":"Empate no apuesta","s":"Visitante","p":49.1},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":92.8},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":7.2},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":74.8},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":25.2},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":49.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":50.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":27.9},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":72.1},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":13.3},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":86.7},{"m":"Ambos equipos anotan","s":"Si","p":59.4},{"m":"Ambos equipos anotan","s":"No","p":40.6},{"m":"Total del local","s":"Local mas de 0.5","p":74.1},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":73.3},{"m":"Total del local","s":"Local mas de 1.5","p":39.1},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":38.0},{"m":"Total del local","s":"Local mas de 2.5","p":15.5},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":14.8},{"m":"Paridad de goles","s":"Par","p":50.7},{"m":"Paridad de goles","s":"Impar","p":49.3},{"m":"Handicap asiatico","s":"Local -1.5","p":17.1},{"m":"Handicap asiatico","s":"Visitante +1.5","p":82.9},{"m":"Handicap asiatico","s":"Local -0.5","p":37.5},{"m":"Handicap asiatico","s":"Visitante +0.5","p":62.5},{"m":"Margen de victoria","s":"Local por 1","p":20.3},{"m":"Margen de victoria","s":"Local por 2+","p":17.1},{"m":"Margen de victoria","s":"Empate","p":26.5},{"m":"Margen de victoria","s":"Visitante por 1","p":19.9},{"m":"Margen de victoria","s":"Visitante por 2+","p":16.2}]},{"tag":"PSV-SHA","liga":"UCL","fecha":"10/09/2026","hora_local":"09:45","hora_cest":"18:45","local":"PSV Eindhoven","visita":"Shakhtar Donetsk","sels":[{"sel":"1","modelo":64.6,"mercado":66.3,"cuota":1.43,"ev":-0.0727,"gap":-1.7},{"sel":"X","modelo":18.3,"mercado":19.0,"cuota":5.0,"ev":-0.0832,"gap":-0.7},{"sel":"2","modelo":17.0,"mercado":14.6,"cuota":6.5,"ev":0.1071,"gap":2.4}],"margen":5.08,"margen_ou":5.07,"ou_line":3.5,"T_modelo":3.67,"T_mercado":3.45,"over_modelo":50.0,"over_mercado":45.3,"dec_over":2.1,"dec_under":1.74,"btts":68.8,"conf":"media","gap_xg":null,"err_fit":null,"top":[{"sc":"2-1","p":9.3},{"sc":"1-1","p":7.7},{"sc":"2-0","p":7.7},{"sc":"3-1","p":7.6},{"sc":"3-0","p":6.3}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":64.6},{"m":"Resultado 1X2","s":"Empate (X)","p":18.3},{"m":"Resultado 1X2","s":"Visitante (2)","p":17.0},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":83.0},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":81.7},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":35.4},{"m":"Empate no apuesta","s":"Local","p":79.1},{"m":"Empate no apuesta","s":"Visitante","p":20.9},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":97.3},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":2.7},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":88.3},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":11.7},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":70.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":29.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":50.0},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":50.0},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":30.7},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":69.3},{"m":"Ambos equipos anotan","s":"Si","p":68.8},{"m":"Ambos equipos anotan","s":"No","p":31.2},{"m":"Total del local","s":"Local mas de 0.5","p":91.5},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":70.2},{"m":"Total del local","s":"Local mas de 1.5","p":70.4},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":34.1},{"m":"Total del local","s":"Local mas de 2.5","p":44.6},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":12.3},{"m":"Paridad de goles","s":"Par","p":50.3},{"m":"Paridad de goles","s":"Impar","p":49.7},{"m":"Handicap asiatico","s":"Local -1.5","p":43.2},{"m":"Handicap asiatico","s":"Visitante +1.5","p":56.8},{"m":"Handicap asiatico","s":"Local -0.5","p":64.6},{"m":"Handicap asiatico","s":"Visitante +0.5","p":35.4},{"m":"Margen de victoria","s":"Local por 1","p":21.4},{"m":"Margen de victoria","s":"Local por 2+","p":43.2},{"m":"Margen de victoria","s":"Empate","p":18.3},{"m":"Margen de victoria","s":"Visitante por 1","p":10.5},{"m":"Margen de victoria","s":"Visitante por 2+","p":6.6}]},{"tag":"COM-RBL","liga":"UCL","fecha":"10/09/2026","hora_local":"12:00","hora_cest":"21:00","local":"Como","visita":"RB Leipzig","sels":[{"sel":"1","modelo":47.0,"mercado":51.0,"cuota":1.87,"ev":-0.1221,"gap":-4.1},{"sel":"X","modelo":21.7,"mercado":24.2,"cuota":3.95,"ev":-0.1444,"gap":-2.5},{"sel":"2","modelo":31.4,"mercado":24.8,"cuota":3.85,"ev":0.2082,"gap":6.6}],"margen":4.78,"margen_ou":5.3,"ou_line":3.5,"T_modelo":3.67,"T_mercado":3.19,"over_modelo":50.0,"over_mercado":39.6,"dec_over":2.4,"dec_under":1.57,"btts":74.2,"conf":"media","gap_xg":null,"err_fit":null,"top":[{"sc":"1-1","p":8.7},{"sc":"2-1","p":8.6},{"sc":"2-2","p":7.1},{"sc":"1-2","p":7.0},{"sc":"3-1","p":5.8}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":47.0},{"m":"Resultado 1X2","s":"Empate (X)","p":21.7},{"m":"Resultado 1X2","s":"Visitante (2)","p":31.4},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":68.6},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":78.3},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":53.0},{"m":"Empate no apuesta","s":"Local","p":59.9},{"m":"Empate no apuesta","s":"Visitante","p":40.1},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":97.3},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":2.7},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":88.3},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":11.7},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":70.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":29.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":50.0},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":50.0},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":30.7},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":69.3},{"m":"Ambos equipos anotan","s":"Si","p":74.2},{"m":"Ambos equipos anotan","s":"No","p":25.8},{"m":"Total del local","s":"Local mas de 0.5","p":86.9},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":80.6},{"m":"Total del local","s":"Local mas de 1.5","p":60.2},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":48.8},{"m":"Total del local","s":"Local mas de 2.5","p":33.1},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":22.7},{"m":"Paridad de goles","s":"Par","p":50.4},{"m":"Paridad de goles","s":"Impar","p":49.6},{"m":"Handicap asiatico","s":"Local -1.5","p":27.0},{"m":"Handicap asiatico","s":"Visitante +1.5","p":73.0},{"m":"Handicap asiatico","s":"Local -0.5","p":47.0},{"m":"Handicap asiatico","s":"Visitante +0.5","p":53.0},{"m":"Margen de victoria","s":"Local por 1","p":20.0},{"m":"Margen de victoria","s":"Local por 2+","p":27.0},{"m":"Margen de victoria","s":"Empate","p":21.7},{"m":"Margen de victoria","s":"Visitante por 1","p":16.1},{"m":"Margen de victoria","s":"Visitante por 2+","p":15.3}]},{"tag":"SLA-LEN","liga":"UCL","fecha":"10/09/2026","hora_local":"12:00","hora_cest":"21:00","local":"Slavia Praga","visita":"Lens","sels":[{"sel":"1","modelo":40.3,"mercado":38.2,"cuota":2.5,"ev":0.0069,"gap":2.1},{"sel":"X","modelo":26.4,"mercado":27.7,"cuota":3.45,"ev":-0.0895,"gap":-1.3},{"sel":"2","modelo":33.3,"mercado":34.1,"cuota":2.8,"ev":-0.0667,"gap":-0.8}],"margen":4.7,"margen_ou":5.3,"ou_line":2.5,"T_modelo":2.67,"T_mercado":2.83,"over_modelo":49.9,"over_mercado":53.7,"dec_over":1.77,"dec_under":2.05,"btts":59.3,"conf":"media","gap_xg":null,"err_fit":null,"top":[{"sc":"1-1","p":12.5},{"sc":"1-0","p":9.5},{"sc":"2-1","p":8.7},{"sc":"0-1","p":8.5},{"sc":"1-2","p":7.8}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":40.3},{"m":"Resultado 1X2","s":"Empate (X)","p":26.4},{"m":"Resultado 1X2","s":"Visitante (2)","p":33.3},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":66.7},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":73.6},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":59.7},{"m":"Empate no apuesta","s":"Local","p":54.7},{"m":"Empate no apuesta","s":"Visitante","p":45.3},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":92.8},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":7.2},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":74.8},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":25.2},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":49.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":50.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":27.9},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":72.1},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":13.3},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":86.7},{"m":"Ambos equipos anotan","s":"Si","p":59.3},{"m":"Ambos equipos anotan","s":"No","p":40.7},{"m":"Total del local","s":"Local mas de 0.5","p":75.6},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":71.6},{"m":"Total del local","s":"Local mas de 1.5","p":41.2},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":35.9},{"m":"Total del local","s":"Local mas de 2.5","p":16.9},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":13.4},{"m":"Paridad de goles","s":"Par","p":50.7},{"m":"Paridad de goles","s":"Impar","p":49.3},{"m":"Handicap asiatico","s":"Local -1.5","p":19.1},{"m":"Handicap asiatico","s":"Visitante +1.5","p":80.9},{"m":"Handicap asiatico","s":"Local -0.5","p":40.3},{"m":"Handicap asiatico","s":"Visitante +0.5","p":59.7},{"m":"Margen de victoria","s":"Local por 1","p":21.2},{"m":"Margen de victoria","s":"Local por 2+","p":19.1},{"m":"Margen de victoria","s":"Empate","p":26.4},{"m":"Margen de victoria","s":"Visitante por 1","p":18.9},{"m":"Margen de victoria","s":"Visitante por 2+","p":14.4}]},{"tag":"BMU-BOD","liga":"UCL","fecha":"10/09/2026","hora_local":"12:00","hora_cest":"21:00","local":"Bayern München","visita":"Bodø/Glimt","sels":[{"sel":"1","modelo":81.2,"mercado":86.1,"cuota":1.11,"ev":-0.0973,"gap":-4.8},{"sel":"X","modelo":10.9,"mercado":8.0,"cuota":12.0,"ev":0.3026,"gap":2.9},{"sel":"2","modelo":7.9,"mercado":6.0,"cuota":16.0,"ev":0.2649,"gap":1.9}],"margen":4.58,"margen_ou":4.71,"ou_line":4.5,"T_modelo":4.67,"T_mercado":4.73,"over_modelo":50.0,"over_mercado":51.1,"dec_over":1.87,"dec_under":1.95,"btts":70.4,"conf":"media","gap_xg":null,"err_fit":null,"top":[{"sc":"3-1","p":7.8},{"sc":"4-1","p":6.9},{"sc":"3-0","p":6.9},{"sc":"2-1","p":6.7},{"sc":"4-0","p":6.1}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":81.2},{"m":"Resultado 1X2","s":"Empate (X)","p":10.9},{"m":"Resultado 1X2","s":"Visitante (2)","p":7.9},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":92.1},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":89.1},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":18.8},{"m":"Empate no apuesta","s":"Local","p":91.1},{"m":"Empate no apuesta","s":"Visitante","p":8.9},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":99.0},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":1.0},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":94.8},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":5.2},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":84.5},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":15.5},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":68.6},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":31.4},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":50.0},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":50.0},{"m":"Ambos equipos anotan","s":"Si","p":70.4},{"m":"Ambos equipos anotan","s":"No","p":29.6},{"m":"Total del local","s":"Local mas de 0.5","p":97.1},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":68.0},{"m":"Total del local","s":"Local mas de 1.5","p":86.7},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":31.6},{"m":"Total del local","s":"Local mas de 2.5","p":68.5},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":10.8},{"m":"Paridad de goles","s":"Par","p":50.2},{"m":"Paridad de goles","s":"Impar","p":49.8},{"m":"Handicap asiatico","s":"Local -1.5","p":65.0},{"m":"Handicap asiatico","s":"Visitante +1.5","p":35.0},{"m":"Handicap asiatico","s":"Local -0.5","p":81.2},{"m":"Handicap asiatico","s":"Visitante +0.5","p":18.8},{"m":"Margen de victoria","s":"Local por 1","p":16.2},{"m":"Margen de victoria","s":"Local por 2+","p":65.0},{"m":"Margen de victoria","s":"Empate","p":10.9},{"m":"Margen de victoria","s":"Visitante por 1","p":5.2},{"m":"Margen de victoria","s":"Visitante por 2+","p":2.7}]},{"tag":"MNU-SAB","liga":"UCL","fecha":"10/09/2026","hora_local":"12:00","hora_cest":"21:00","local":"Manchester United","visita":"Sabah FK","sels":[{"sel":"1","modelo":85.0,"mercado":85.3,"cuota":1.11,"ev":-0.0552,"gap":-0.3},{"sel":"X","modelo":10.4,"mercado":10.0,"cuota":9.5,"ev":-0.0143,"gap":0.4},{"sel":"2","modelo":4.6,"mercado":4.7,"cuota":20.0,"ev":-0.081,"gap":-0.1}],"margen":5.53,"margen_ou":5.45,"ou_line":3.5,"T_modelo":3.67,"T_mercado":4.01,"over_modelo":50.0,"over_mercado":56.9,"dec_over":1.67,"dec_under":2.2,"btts":49.1,"conf":"media","gap_xg":null,"err_fit":null,"top":[{"sc":"3-0","p":12.0},{"sc":"2-0","p":11.8},{"sc":"4-0","p":9.2},{"sc":"1-0","p":7.7},{"sc":"3-1","p":7.5}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":85.0},{"m":"Resultado 1X2","s":"Empate (X)","p":10.4},{"m":"Resultado 1X2","s":"Visitante (2)","p":4.6},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":95.4},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":89.6},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":15.0},{"m":"Empate no apuesta","s":"Local","p":94.9},{"m":"Empate no apuesta","s":"Visitante","p":5.1},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":97.4},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":2.6},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":88.2},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":11.8},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":70.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":29.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":50.0},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":50.0},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":30.7},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":69.3},{"m":"Ambos equipos anotan","s":"Si","p":49.1},{"m":"Ambos equipos anotan","s":"No","p":50.9},{"m":"Total del local","s":"Local mas de 0.5","p":95.3},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":46.2},{"m":"Total del local","s":"Local mas de 1.5","p":80.8},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":12.9},{"m":"Total del local","s":"Local mas de 2.5","p":58.8},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":2.5},{"m":"Paridad de goles","s":"Par","p":50.2},{"m":"Paridad de goles","s":"Impar","p":49.8},{"m":"Handicap asiatico","s":"Local -1.5","p":67.3},{"m":"Handicap asiatico","s":"Visitante +1.5","p":32.7},{"m":"Handicap asiatico","s":"Local -0.5","p":85.0},{"m":"Handicap asiatico","s":"Visitante +0.5","p":15.0},{"m":"Margen de victoria","s":"Local por 1","p":17.7},{"m":"Margen de victoria","s":"Local por 2+","p":67.3},{"m":"Margen de victoria","s":"Empate","p":10.4},{"m":"Margen de victoria","s":"Visitante por 1","p":3.5},{"m":"Margen de victoria","s":"Visitante por 2+","p":1.1}]},{"tag":"SEV-VAL","liga":"La Liga","fecha":"11/09/2026","hora_local":"12:00","hora_cest":"21:00","local":"Sevilla","visita":"Valencia","sels":[{"sel":"1","modelo":41.6,"mercado":43.5,"cuota":2.2,"ev":-0.0854,"gap":-1.9},{"sel":"X","modelo":27.7,"mercado":29.9,"cuota":3.2,"ev":-0.1126,"gap":-2.2},{"sel":"2","modelo":30.7,"mercado":26.6,"cuota":3.6,"ev":0.1051,"gap":4.1}],"margen":4.48,"margen_ou":4.82,"ou_line":2.5,"T_modelo":2.43,"T_mercado":2.31,"over_modelo":43.9,"over_mercado":40.6,"dec_over":2.35,"dec_under":1.61,"btts":54.4,"conf":"alta","gap_xg":4.8,"err_fit":null,"top":[{"sc":"1-1","p":13.1},{"sc":"1-0","p":11.4},{"sc":"0-1","p":9.4},{"sc":"0-0","p":9.0},{"sc":"2-1","p":8.6}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":41.6},{"m":"Resultado 1X2","s":"Empate (X)","p":27.7},{"m":"Resultado 1X2","s":"Visitante (2)","p":30.7},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":69.3},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":72.3},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":58.4},{"m":"Empate no apuesta","s":"Local","p":57.5},{"m":"Empate no apuesta","s":"Visitante","p":42.5},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":91.0},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":9.0},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":70.1},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":29.9},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":43.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":56.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":22.8},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":77.2},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":10.0},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":90.0},{"m":"Ambos equipos anotan","s":"Si","p":54.4},{"m":"Ambos equipos anotan","s":"No","p":45.6},{"m":"Total del local","s":"Local mas de 0.5","p":73.6},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":66.8},{"m":"Total del local","s":"Local mas de 1.5","p":38.4},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":30.2},{"m":"Total del local","s":"Local mas de 2.5","p":15.0},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":10.0},{"m":"Paridad de goles","s":"Par","p":50.9},{"m":"Paridad de goles","s":"Impar","p":49.1},{"m":"Handicap asiatico","s":"Local -1.5","p":19.2},{"m":"Handicap asiatico","s":"Visitante +1.5","p":80.8},{"m":"Handicap asiatico","s":"Local -0.5","p":41.6},{"m":"Handicap asiatico","s":"Visitante +0.5","p":58.4},{"m":"Margen de victoria","s":"Local por 1","p":22.3},{"m":"Margen de victoria","s":"Local por 2+","p":19.2},{"m":"Margen de victoria","s":"Empate","p":27.7},{"m":"Margen de victoria","s":"Visitante por 1","p":18.5},{"m":"Margen de victoria","s":"Visitante por 2+","p":12.2}]},{"tag":"RAC-ALA","liga":"La Liga","fecha":"12/09/2026","hora_local":"05:00","hora_cest":"14:00","local":"Racing Santander","visita":"Alavés","sels":[{"sel":"1","modelo":40.4,"mercado":39.1,"cuota":2.4,"ev":-0.031,"gap":1.3},{"sel":"X","modelo":27.3,"mercado":26.8,"cuota":3.5,"ev":-0.0434,"gap":0.5},{"sel":"2","modelo":32.3,"mercado":34.1,"cuota":2.75,"ev":-0.1119,"gap":-1.8}],"margen":6.6,"margen_ou":6.23,"ou_line":2.5,"T_modelo":2.51,"T_mercado":2.84,"over_modelo":45.9,"over_mercado":54.1,"dec_over":1.74,"dec_under":2.05,"btts":56.1,"conf":"baja","gap_xg":4.3,"err_fit":null,"top":[{"sc":"1-1","p":13.0},{"sc":"1-0","p":10.6},{"sc":"0-1","p":9.3},{"sc":"2-1","p":8.5},{"sc":"0-0","p":8.4}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":40.4},{"m":"Resultado 1X2","s":"Empate (X)","p":27.3},{"m":"Resultado 1X2","s":"Visitante (2)","p":32.3},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":67.7},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":72.7},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":59.6},{"m":"Empate no apuesta","s":"Local","p":55.6},{"m":"Empate no apuesta","s":"Visitante","p":44.4},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":91.6},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":8.4},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":71.7},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":28.3},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":45.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":54.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":24.5},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":75.5},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":11.0},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":89.0},{"m":"Ambos equipos anotan","s":"Si","p":56.1},{"m":"Ambos equipos anotan","s":"No","p":43.9},{"m":"Total del local","s":"Local mas de 0.5","p":73.8},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":69.0},{"m":"Total del local","s":"Local mas de 1.5","p":38.7},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":32.7},{"m":"Total del local","s":"Local mas de 2.5","p":15.2},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":11.4},{"m":"Paridad de goles","s":"Par","p":50.8},{"m":"Paridad de goles","s":"Impar","p":49.2},{"m":"Handicap asiatico","s":"Local -1.5","p":18.7},{"m":"Handicap asiatico","s":"Visitante +1.5","p":81.3},{"m":"Handicap asiatico","s":"Local -0.5","p":40.4},{"m":"Handicap asiatico","s":"Visitante +0.5","p":59.6},{"m":"Margen de victoria","s":"Local por 1","p":21.7},{"m":"Margen de victoria","s":"Local por 2+","p":18.7},{"m":"Margen de victoria","s":"Empate","p":27.3},{"m":"Margen de victoria","s":"Visitante por 1","p":18.9},{"m":"Margen de victoria","s":"Visitante por 2+","p":13.4}]},{"tag":"OSA-ESP","liga":"La Liga","fecha":"12/09/2026","hora_local":"07:15","hora_cest":"16:15","local":"Osasuna","visita":"Espanyol","sels":[{"sel":"1","modelo":50.9,"mercado":44.9,"cuota":2.1,"ev":0.0683,"gap":6.0},{"sel":"X","modelo":25.7,"mercado":29.0,"cuota":3.25,"ev":-0.1652,"gap":-3.3},{"sel":"2","modelo":23.4,"mercado":26.2,"cuota":3.6,"ev":-0.156,"gap":-2.7}],"margen":6.17,"margen_ou":6.51,"ou_line":2.5,"T_modelo":2.57,"T_mercado":2.42,"over_modelo":47.4,"over_mercado":43.7,"dec_over":2.15,"dec_under":1.67,"btts":55.1,"conf":"alta","gap_xg":2.6,"err_fit":null,"top":[{"sc":"1-1","p":12.2},{"sc":"1-0","p":11.9},{"sc":"2-0","p":9.6},{"sc":"2-1","p":9.5},{"sc":"0-0","p":7.9}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":50.9},{"m":"Resultado 1X2","s":"Empate (X)","p":25.7},{"m":"Resultado 1X2","s":"Visitante (2)","p":23.4},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":76.6},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":74.3},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":49.1},{"m":"Empate no apuesta","s":"Local","p":68.5},{"m":"Empate no apuesta","s":"Visitante","p":31.5},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":92.1},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":7.9},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":72.9},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":27.1},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":47.4},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":52.6},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":25.7},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":74.3},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":11.8},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":88.2},{"m":"Ambos equipos anotan","s":"Si","p":55.1},{"m":"Ambos equipos anotan","s":"No","p":44.9},{"m":"Total del local","s":"Local mas de 0.5","p":79.4},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":62.8},{"m":"Total del local","s":"Local mas de 1.5","p":46.9},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":26.0},{"m":"Total del local","s":"Local mas de 2.5","p":21.1},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":7.8},{"m":"Paridad de goles","s":"Par","p":50.8},{"m":"Paridad de goles","s":"Impar","p":49.2},{"m":"Handicap asiatico","s":"Local -1.5","p":26.7},{"m":"Handicap asiatico","s":"Visitante +1.5","p":73.3},{"m":"Handicap asiatico","s":"Local -0.5","p":50.9},{"m":"Handicap asiatico","s":"Visitante +0.5","p":49.1},{"m":"Margen de victoria","s":"Local por 1","p":24.1},{"m":"Margen de victoria","s":"Local por 2+","p":26.7},{"m":"Margen de victoria","s":"Empate","p":25.7},{"m":"Margen de victoria","s":"Visitante por 1","p":15.0},{"m":"Margen de victoria","s":"Visitante por 2+","p":8.4}]},{"tag":"ATH-ELC","liga":"La Liga","fecha":"12/09/2026","hora_local":"09:30","hora_cest":"18:30","local":"Athletic Club","visita":"Elche","sels":[{"sel":"1","modelo":57.0,"mercado":67.0,"cuota":1.42,"ev":-0.192,"gap":-10.0},{"sel":"X","modelo":23.3,"mercado":19.4,"cuota":4.9,"ev":0.1439,"gap":4.0},{"sel":"2","modelo":19.6,"mercado":13.6,"cuota":7.0,"ev":0.3732,"gap":6.0}],"margen":5.28,"margen_ou":6.51,"ou_line":2.5,"T_modelo":2.77,"T_mercado":2.94,"over_modelo":52.4,"over_mercado":56.3,"dec_over":1.67,"dec_under":2.15,"btts":56.9,"conf":"alta","gap_xg":2.2,"err_fit":null,"top":[{"sc":"1-1","p":11.1},{"sc":"1-0","p":11.1},{"sc":"2-0","p":10.2},{"sc":"2-1","p":9.9},{"sc":"0-0","p":6.5}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":57.0},{"m":"Resultado 1X2","s":"Empate (X)","p":23.3},{"m":"Resultado 1X2","s":"Visitante (2)","p":19.6},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":80.4},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":76.7},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":43.0},{"m":"Empate no apuesta","s":"Local","p":74.4},{"m":"Empate no apuesta","s":"Visitante","p":25.6},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":93.5},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":6.5},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":76.7},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":23.3},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":52.4},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":47.6},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":30.2},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":69.8},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":14.8},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":85.2},{"m":"Ambos equipos anotan","s":"Si","p":56.9},{"m":"Ambos equipos anotan","s":"No","p":43.1},{"m":"Total del local","s":"Local mas de 0.5","p":83.6},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":61.9},{"m":"Total del local","s":"Local mas de 1.5","p":54.0},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":25.1},{"m":"Total del local","s":"Local mas de 2.5","p":27.2},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":7.4},{"m":"Paridad de goles","s":"Par","p":50.6},{"m":"Paridad de goles","s":"Impar","p":49.4},{"m":"Handicap asiatico","s":"Local -1.5","p":32.8},{"m":"Handicap asiatico","s":"Visitante +1.5","p":67.2},{"m":"Handicap asiatico","s":"Local -0.5","p":57.0},{"m":"Handicap asiatico","s":"Visitante +0.5","p":43.0},{"m":"Margen de victoria","s":"Local por 1","p":24.3},{"m":"Margen de victoria","s":"Local por 2+","p":32.8},{"m":"Margen de victoria","s":"Empate","p":23.3},{"m":"Margen de victoria","s":"Visitante por 1","p":12.8},{"m":"Margen de victoria","s":"Visitante por 2+","p":6.8}]},{"tag":"RMA-RAY","liga":"La Liga","fecha":"12/09/2026","hora_local":"12:00","hora_cest":"21:00","local":"Real Madrid","visita":"Rayo Vallecano","sels":[{"sel":"1","modelo":76.2,"mercado":84.2,"cuota":1.12,"ev":-0.1431,"gap":-8.0},{"sel":"X","modelo":14.9,"mercado":10.5,"cuota":9.0,"ev":0.3444,"gap":4.4},{"sel":"2","modelo":8.9,"mercado":5.3,"cuota":18.0,"ev":0.601,"gap":3.6}],"margen":5.56,"margen_ou":7.11,"ou_line":3.5,"T_modelo":3.42,"T_mercado":3.89,"over_modelo":44.6,"over_mercado":54.5,"dec_over":1.71,"dec_under":2.05,"btts":56.1,"conf":"media","gap_xg":11.5,"err_fit":null,"top":[{"sc":"2-0","p":11.3},{"sc":"3-0","p":9.8},{"sc":"2-1","p":9.0},{"sc":"1-0","p":8.5},{"sc":"3-1","p":7.8}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":76.2},{"m":"Resultado 1X2","s":"Empate (X)","p":14.9},{"m":"Resultado 1X2","s":"Visitante (2)","p":8.9},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":91.1},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":85.1},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":23.8},{"m":"Empate no apuesta","s":"Local","p":89.5},{"m":"Empate no apuesta","s":"Visitante","p":10.5},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":96.6},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":3.4},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":85.7},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":14.3},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":66.4},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":33.6},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":44.6},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":55.4},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":25.9},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":74.1},{"m":"Ambos equipos anotan","s":"Si","p":56.1},{"m":"Ambos equipos anotan","s":"No","p":43.9},{"m":"Total del local","s":"Local mas de 0.5","p":92.7},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":55.0},{"m":"Total del local","s":"Local mas de 1.5","p":73.6},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":19.0},{"m":"Total del local","s":"Local mas de 2.5","p":48.7},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":4.7},{"m":"Paridad de goles","s":"Par","p":50.3},{"m":"Paridad de goles","s":"Impar","p":49.7},{"m":"Handicap asiatico","s":"Local -1.5","p":55.0},{"m":"Handicap asiatico","s":"Visitante +1.5","p":45.0},{"m":"Handicap asiatico","s":"Local -0.5","p":76.2},{"m":"Handicap asiatico","s":"Visitante +0.5","p":23.8},{"m":"Margen de victoria","s":"Local por 1","p":21.2},{"m":"Margen de victoria","s":"Local por 2+","p":55.0},{"m":"Margen de victoria","s":"Empate","p":14.9},{"m":"Margen de victoria","s":"Visitante por 1","p":6.4},{"m":"Margen de victoria","s":"Visitante por 2+","p":2.5}]},{"tag":"CEL-MAL","liga":"La Liga","fecha":"13/09/2026","hora_local":"05:00","hora_cest":"14:00","local":"Celta Vigo","visita":"Málaga","sels":[{"sel":"1","modelo":56.4,"mercado":55.3,"cuota":1.71,"ev":-0.0334,"gap":1.0},{"sel":"X","modelo":24.8,"mercado":25.3,"cuota":3.75,"ev":-0.0704,"gap":-0.5},{"sel":"2","modelo":18.8,"mercado":19.4,"cuota":4.9,"ev":-0.0776,"gap":-0.5}],"margen":5.41,"margen_ou":6.52,"ou_line":2.5,"T_modelo":2.51,"T_mercado":2.55,"over_modelo":45.8,"over_mercado":46.9,"dec_over":2.0,"dec_under":1.77,"btts":51.5,"conf":"baja","gap_xg":4.5,"err_fit":null,"top":[{"sc":"1-0","p":13.3},{"sc":"1-1","p":11.7},{"sc":"2-0","p":11.2},{"sc":"2-1","p":9.5},{"sc":"0-0","p":8.4}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":56.4},{"m":"Resultado 1X2","s":"Empate (X)","p":24.8},{"m":"Resultado 1X2","s":"Visitante (2)","p":18.8},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":81.2},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":75.2},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":43.6},{"m":"Empate no apuesta","s":"Local","p":75.0},{"m":"Empate no apuesta","s":"Visitante","p":25.0},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":91.6},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":8.4},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":71.7},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":28.3},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":45.8},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":54.2},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":24.4},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":75.6},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":11.0},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":89.0},{"m":"Ambos equipos anotan","s":"Si","p":51.5},{"m":"Ambos equipos anotan","s":"No","p":48.5},{"m":"Total del local","s":"Local mas de 0.5","p":81.0},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":57.2},{"m":"Total del local","s":"Local mas de 1.5","p":49.4},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":20.9},{"m":"Total del local","s":"Local mas de 2.5","p":23.2},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":5.5},{"m":"Paridad de goles","s":"Par","p":50.8},{"m":"Paridad de goles","s":"Impar","p":49.2},{"m":"Handicap asiatico","s":"Local -1.5","p":31.1},{"m":"Handicap asiatico","s":"Visitante +1.5","p":68.9},{"m":"Handicap asiatico","s":"Local -0.5","p":56.4},{"m":"Handicap asiatico","s":"Visitante +0.5","p":43.6},{"m":"Margen de victoria","s":"Local por 1","p":25.3},{"m":"Margen de victoria","s":"Local por 2+","p":31.1},{"m":"Margen de victoria","s":"Empate","p":24.8},{"m":"Margen de victoria","s":"Visitante por 1","p":12.8},{"m":"Margen de victoria","s":"Visitante por 2+","p":6.0}]},{"tag":"LEV-BAR","liga":"La Liga","fecha":"13/09/2026","hora_local":"07:15","hora_cest":"16:15","local":"Levante","visita":"Barcelona","sels":[{"sel":"1","modelo":13.2,"mercado":8.5,"cuota":11.0,"ev":0.4545,"gap":4.7},{"sel":"X","modelo":16.4,"mercado":12.5,"cuota":7.5,"ev":0.2319,"gap":3.9},{"sel":"2","modelo":70.4,"mercado":78.9,"cuota":1.19,"ev":-0.1625,"gap":-8.6}],"margen":6.42,"margen_ou":6.23,"ou_line":3.5,"T_modelo":3.73,"T_mercado":3.87,"over_modelo":51.3,"over_mercado":54.1,"dec_over":1.74,"dec_under":2.05,"btts":66.4,"conf":"media","gap_xg":10.6,"err_fit":null,"top":[{"sc":"1-2","p":9.1},{"sc":"0-2","p":8.4},{"sc":"1-3","p":8.0},{"sc":"0-3","p":7.4},{"sc":"1-1","p":7.0}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":13.2},{"m":"Resultado 1X2","s":"Empate (X)","p":16.4},{"m":"Resultado 1X2","s":"Visitante (2)","p":70.4},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":29.6},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":83.6},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":86.8},{"m":"Empate no apuesta","s":"Local","p":15.8},{"m":"Empate no apuesta","s":"Visitante","p":84.2},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":97.5},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":2.5},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":88.8},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":11.2},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":72.0},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":28.0},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":51.3},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":48.7},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":31.9},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":68.1},{"m":"Ambos equipos anotan","s":"Si","p":66.4},{"m":"Ambos equipos anotan","s":"No","p":33.6},{"m":"Total del local","s":"Local mas de 0.5","p":66.4},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":92.9},{"m":"Total del local","s":"Local mas de 1.5","p":29.7},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":74.1},{"m":"Total del local","s":"Local mas de 2.5","p":9.8},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":49.3},{"m":"Paridad de goles","s":"Par","p":50.3},{"m":"Paridad de goles","s":"Impar","p":49.7},{"m":"Handicap asiatico","s":"Local -1.5","p":4.7},{"m":"Handicap asiatico","s":"Visitante +1.5","p":95.3},{"m":"Handicap asiatico","s":"Local -0.5","p":13.2},{"m":"Handicap asiatico","s":"Visitante +0.5","p":86.8},{"m":"Margen de victoria","s":"Local por 1","p":8.5},{"m":"Margen de victoria","s":"Local por 2+","p":4.7},{"m":"Margen de victoria","s":"Empate","p":16.4},{"m":"Margen de victoria","s":"Visitante por 1","p":20.9},{"m":"Margen de victoria","s":"Visitante por 2+","p":49.5}]},{"tag":"GET-DEP","liga":"La Liga","fecha":"13/09/2026","hora_local":"09:30","hora_cest":"18:30","local":"Getafe","visita":"Deportivo","sels":[{"sel":"1","modelo":44.8,"mercado":39.6,"cuota":2.4,"ev":0.0755,"gap":5.3},{"sel":"X","modelo":31.0,"mercado":33.3,"cuota":2.85,"ev":-0.1158,"gap":-2.3},{"sel":"2","modelo":24.2,"mercado":27.1,"cuota":3.5,"ev":-0.1544,"gap":-3.0}],"margen":5.33,"margen_ou":6.51,"ou_line":1.5,"T_modelo":1.95,"T_mercado":1.89,"over_modelo":58.2,"over_mercado":56.3,"dec_over":1.67,"dec_under":2.15,"btts":42.3,"conf":"baja","gap_xg":8.0,"err_fit":null,"top":[{"sc":"1-0","p":16.4},{"sc":"0-0","p":14.5},{"sc":"1-1","p":13.2},{"sc":"0-1","p":10.8},{"sc":"2-0","p":9.8}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":44.8},{"m":"Resultado 1X2","s":"Empate (X)","p":31.0},{"m":"Resultado 1X2","s":"Visitante (2)","p":24.2},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":75.8},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":69.0},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":55.2},{"m":"Empate no apuesta","s":"Local","p":65.0},{"m":"Empate no apuesta","s":"Visitante","p":35.0},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":85.5},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":14.5},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":58.2},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":41.8},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":30.9},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":69.1},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":13.3},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":86.7},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":4.8},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":95.2},{"m":"Ambos equipos anotan","s":"Si","p":42.3},{"m":"Ambos equipos anotan","s":"No","p":57.7},{"m":"Total del local","s":"Local mas de 0.5","p":69.0},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":54.0},{"m":"Total del local","s":"Local mas de 1.5","p":32.7},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":18.3},{"m":"Total del local","s":"Local mas de 2.5","p":11.4},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":4.4},{"m":"Paridad de goles","s":"Par","p":51.5},{"m":"Paridad de goles","s":"Impar","p":48.5},{"m":"Handicap asiatico","s":"Local -1.5","p":19.5},{"m":"Handicap asiatico","s":"Visitante +1.5","p":80.5},{"m":"Handicap asiatico","s":"Local -0.5","p":44.8},{"m":"Handicap asiatico","s":"Visitante +0.5","p":55.2},{"m":"Margen de victoria","s":"Local por 1","p":25.3},{"m":"Margen de victoria","s":"Local por 2+","p":19.5},{"m":"Margen de victoria","s":"Empate","p":31.0},{"m":"Margen de victoria","s":"Visitante por 1","p":16.7},{"m":"Margen de victoria","s":"Visitante por 2+","p":7.5}]},{"tag":"RSO-ATM","liga":"La Liga","fecha":"13/09/2026","hora_local":"12:00","hora_cest":"21:00","local":"Real Sociedad","visita":"Atlético Madrid","sels":[{"sel":"1","modelo":29.8,"mercado":33.7,"cuota":2.8,"ev":-0.1656,"gap":-3.9},{"sel":"X","modelo":25.3,"mercado":26.2,"cuota":3.6,"ev":-0.0904,"gap":-0.9},{"sel":"2","modelo":44.9,"mercado":40.1,"cuota":2.35,"ev":0.0559,"gap":4.8}],"margen":6.05,"margen_ou":6.51,"ou_line":2.5,"T_modelo":2.82,"T_mercado":2.94,"over_modelo":53.4,"over_mercado":56.3,"dec_over":1.67,"dec_under":2.15,"btts":61.4,"conf":"media","gap_xg":9.9,"err_fit":null,"top":[{"sc":"1-1","p":11.9},{"sc":"1-2","p":9.2},{"sc":"0-1","p":9.2},{"sc":"0-2","p":7.4},{"sc":"2-1","p":7.3}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":29.8},{"m":"Resultado 1X2","s":"Empate (X)","p":25.3},{"m":"Resultado 1X2","s":"Visitante (2)","p":44.9},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":55.1},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":74.7},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":70.2},{"m":"Empate no apuesta","s":"Local","p":39.9},{"m":"Empate no apuesta","s":"Visitante","p":60.1},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":93.8},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":6.2},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":77.4},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":22.6},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":53.4},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":46.6},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":31.2},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":68.8},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":15.5},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":84.5},{"m":"Ambos equipos anotan","s":"Si","p":61.4},{"m":"Ambos equipos anotan","s":"No","p":38.6},{"m":"Total del local","s":"Local mas de 0.5","p":71.1},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":79.3},{"m":"Total del local","s":"Local mas de 1.5","p":35.2},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":46.7},{"m":"Total del local","s":"Local mas de 2.5","p":12.9},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":21.0},{"m":"Paridad de goles","s":"Par","p":50.6},{"m":"Paridad de goles","s":"Impar","p":49.4},{"m":"Handicap asiatico","s":"Local -1.5","p":12.6},{"m":"Handicap asiatico","s":"Visitante +1.5","p":87.4},{"m":"Handicap asiatico","s":"Local -0.5","p":29.8},{"m":"Handicap asiatico","s":"Visitante +0.5","p":70.2},{"m":"Margen de victoria","s":"Local por 1","p":17.2},{"m":"Margen de victoria","s":"Local por 2+","p":12.6},{"m":"Margen de victoria","s":"Empate","p":25.3},{"m":"Margen de victoria","s":"Visitante por 1","p":22.0},{"m":"Margen de victoria","s":"Visitante por 2+","p":23.0}]},{"tag":"VIL-BET","liga":"La Liga","fecha":"14/09/2026","hora_local":"12:00","hora_cest":"21:00","local":"Villarreal","visita":"Real Betis","sels":[{"sel":"1","modelo":46.0,"mercado":49.7,"cuota":1.91,"ev":-0.1223,"gap":-3.7},{"sel":"X","modelo":25.0,"mercado":25.0,"cuota":3.8,"ev":-0.0488,"gap":0.1},{"sel":"2","modelo":29.0,"mercado":25.3,"cuota":3.75,"ev":0.0873,"gap":3.7}],"margen":5.36,"margen_ou":6.84,"ou_line":2.5,"T_modelo":2.84,"T_mercado":3.11,"over_modelo":54.0,"over_mercado":60.2,"dec_over":1.56,"dec_under":2.35,"btts":61.7,"conf":"alta","gap_xg":6.8,"err_fit":null,"top":[{"sc":"1-1","p":11.8},{"sc":"2-1","p":9.3},{"sc":"1-0","p":9.2},{"sc":"2-0","p":7.6},{"sc":"1-2","p":7.1}],"mercados":[{"m":"Resultado 1X2","s":"Local (1)","p":46.0},{"m":"Resultado 1X2","s":"Empate (X)","p":25.0},{"m":"Resultado 1X2","s":"Visitante (2)","p":29.0},{"m":"Doble oportunidad","s":"Local o Empate (1X)","p":71.0},{"m":"Doble oportunidad","s":"Local o Visitante (12)","p":75.0},{"m":"Doble oportunidad","s":"Empate o Visitante (X2)","p":54.0},{"m":"Empate no apuesta","s":"Local","p":61.3},{"m":"Empate no apuesta","s":"Visitante","p":38.7},{"m":"Total de goles","s":"Mas de 0.5 (Over)","p":93.9},{"m":"Total de goles","s":"Menos de 0.5 (Under)","p":6.1},{"m":"Total de goles","s":"Mas de 1.5 (Over)","p":77.8},{"m":"Total de goles","s":"Menos de 1.5 (Under)","p":22.2},{"m":"Total de goles","s":"Mas de 2.5 (Over)","p":54.0},{"m":"Total de goles","s":"Menos de 2.5 (Under)","p":46.0},{"m":"Total de goles","s":"Mas de 3.5 (Over)","p":31.7},{"m":"Total de goles","s":"Menos de 3.5 (Under)","p":68.3},{"m":"Total de goles","s":"Mas de 4.5 (Over)","p":15.9},{"m":"Total de goles","s":"Menos de 4.5 (Under)","p":84.1},{"m":"Ambos equipos anotan","s":"Si","p":61.7},{"m":"Ambos equipos anotan","s":"No","p":38.3},{"m":"Total del local","s":"Local mas de 0.5","p":80.0},{"m":"Total del visitante","s":"Visitante mas de 0.5","p":70.8},{"m":"Total del local","s":"Local mas de 1.5","p":47.8},{"m":"Total del visitante","s":"Visitante mas de 1.5","p":34.9},{"m":"Total del local","s":"Local mas de 2.5","p":21.9},{"m":"Total del visitante","s":"Visitante mas de 2.5","p":12.7},{"m":"Paridad de goles","s":"Par","p":50.6},{"m":"Paridad de goles","s":"Impar","p":49.4},{"m":"Handicap asiatico","s":"Local -1.5","p":23.9},{"m":"Handicap asiatico","s":"Visitante +1.5","p":76.1},{"m":"Handicap asiatico","s":"Local -0.5","p":46.0},{"m":"Handicap asiatico","s":"Visitante +0.5","p":54.0},{"m":"Margen de victoria","s":"Local por 1","p":22.1},{"m":"Margen de victoria","s":"Local por 2+","p":23.9},{"m":"Margen de victoria","s":"Empate","p":25.0},{"m":"Margen de victoria","s":"Visitante por 1","p":16.9},{"m":"Margen de victoria","s":"Visitante por 2+","p":12.1}]}],"picks":[{"p":"Real Madrid vs Rayo Vallecano","liga":"La Liga","sel":"2","modelo":8.9,"mercado":5.3,"cuota":18.0,"ev":60.1,"conf":"media"},{"p":"Stuttgart vs Viking FK","liga":"UCL","sel":"2","modelo":14.3,"mercado":9.1,"cuota":10.5,"ev":50.1,"conf":"media"},{"p":"Levante vs Barcelona","liga":"La Liga","sel":"1","modelo":13.2,"mercado":8.5,"cuota":11.0,"ev":45.4,"conf":"media"},{"p":"Athletic Club vs Elche","liga":"La Liga","sel":"2","modelo":19.6,"mercado":13.6,"cuota":7.0,"ev":37.3,"conf":"alta"},{"p":"Real Madrid vs Rayo Vallecano","liga":"La Liga","sel":"X","modelo":14.9,"mercado":10.5,"cuota":9.0,"ev":34.4,"conf":"media"},{"p":"Barcelona vs Feyenoord","liga":"UCL","sel":"X","modelo":10.2,"mercado":7.3,"cuota":13.0,"ev":33.0,"conf":"media"},{"p":"Bayern München vs Bodø/Glimt","liga":"UCL","sel":"X","modelo":10.9,"mercado":8.0,"cuota":12.0,"ev":30.3,"conf":"media"},{"p":"Bayern München vs Bodø/Glimt","liga":"UCL","sel":"2","modelo":7.9,"mercado":6.0,"cuota":16.0,"ev":26.5,"conf":"media"},{"p":"Fenerbahçe vs Roma","liga":"UCL","sel":"1","modelo":37.5,"mercado":28.9,"cuota":3.3,"ev":23.6,"conf":"media"},{"p":"Levante vs Barcelona","liga":"La Liga","sel":"X","modelo":16.4,"mercado":12.5,"cuota":7.5,"ev":23.2,"conf":"media"},{"p":"Como vs RB Leipzig","liga":"UCL","sel":"2","modelo":31.4,"mercado":24.8,"cuota":3.85,"ev":20.8,"conf":"media"},{"p":"Stuttgart vs Viking FK","liga":"UCL","sel":"X","modelo":17.2,"mercado":13.6,"cuota":7.0,"ev":20.2,"conf":"media"},{"p":"Napoli vs Arsenal","liga":"UCL","sel":"1","modelo":22.0,"mercado":18.1,"cuota":5.25,"ev":15.5,"conf":"media"},{"p":"Athletic Club vs Elche","liga":"La Liga","sel":"X","modelo":23.3,"mercado":19.4,"cuota":4.9,"ev":14.4,"conf":"alta"},{"p":"PSV Eindhoven vs Shakhtar Donetsk","liga":"UCL","sel":"2","modelo":17.0,"mercado":14.6,"cuota":6.5,"ev":10.7,"conf":"media"},{"p":"Sevilla vs Valencia","liga":"La Liga","sel":"2","modelo":30.7,"mercado":26.6,"cuota":3.6,"ev":10.5,"conf":"alta"},{"p":"Villarreal vs Real Betis","liga":"La Liga","sel":"2","modelo":29.0,"mercado":25.3,"cuota":3.75,"ev":8.7,"conf":"alta"},{"p":"Getafe vs Deportivo","liga":"La Liga","sel":"1","modelo":44.8,"mercado":39.6,"cuota":2.4,"ev":7.6,"conf":"baja"},{"p":"Osasuna vs Espanyol","liga":"La Liga","sel":"1","modelo":50.9,"mercado":44.9,"cuota":2.1,"ev":6.8,"conf":"alta"},{"p":"Real Sociedad vs Atlético Madrid","liga":"La Liga","sel":"2","modelo":44.9,"mercado":40.1,"cuota":2.35,"ev":5.6,"conf":"media"},{"p":"Sporting CP vs Galatasaray","liga":"UCL","sel":"1","modelo":57.2,"mercado":53.2,"cuota":1.8,"ev":3.0,"conf":"media"},{"p":"Liverpool vs Atlético Madrid","liga":"UCL","sel":"X","modelo":24.6,"mercado":23.2,"cuota":4.1,"ev":0.8,"conf":"media"},{"p":"Slavia Praga vs Lens","liga":"UCL","sel":"1","modelo":40.3,"mercado":38.2,"cuota":2.5,"ev":0.7,"conf":"media"},{"p":"Paris Saint-Germain vs Slovan Bratislava","liga":"UCL","sel":"2","modelo":2.8,"mercado":2.6,"cuota":36.0,"ev":0.3,"conf":"media"}]};
+const M = D.matches, MT = D.meta;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- KPIs ---------- */
+const kpis = [
+  {l:'Margen de la casa (1X2)', v:MT.margen_1x2.toFixed(2)+'%',
+   f:'Lo que retiene la casa en cada mercado 1X2. Tu ventaja tiene que superarlo solo para empatar.'},
+  {l:'Desviación modelo vs mercado', v:MT.mad.toFixed(2)+' pp',
+   f:'Diferencia media absoluta por selección. Del mismo tamaño que el margen, y sin dirección confiable.'},
+  {l:'Sesgo contra favoritos', v:MT.corr.toFixed(2),
+   f:'Correlación entre favoritismo del mercado y cuánto se lo resta el modelo. Cero sería no tener sesgo.'},
+  {l:'Log-loss del modelo', v:MT.backtest.logloss.toFixed(3),
+   f:'Sobre '+MT.backtest.n+' partidos reales. Un modelo ciego da 1.099, así que hay señal, pero modesta.'}
+];
+$('#kpis').innerHTML = kpis.map(k =>
+  `<div class="kpi"><div class="k-label">${esc(k.l)}</div><div class="k-val">${esc(k.v)}</div>
+   <div class="k-foot">${esc(k.f)}</div></div>`).join('');
+
+/* ---------- scatter ---------- */
+const pts = [];
+M.forEach(m => m.sels.forEach(s => pts.push({
+  x:s.mercado, y:s.modelo, sel:s.sel, m:m, gap:s.gap, cuota:s.cuota
+})));
+(function(){
+  const W=730,H=430, L=52,R=18,T=16,B=48;
+  const pw=W-L-R, ph=H-T-B;
+  const sx=v=>L+(v/100)*pw, sy=v=>T+ph-(v/100)*ph;
+  let g='';
+  for(let v=0; v<=100; v+=20){
+    g+=`<line class="grid-line" x1="${L}" y1="${sy(v)}" x2="${W-R}" y2="${sy(v)}"/>`;
+    g+=`<line class="grid-line" x1="${sx(v)}" y1="${T}" x2="${sx(v)}" y2="${T+ph}"/>`;
+    g+=`<text class="tick" x="${L-9}" y="${sy(v)+3.5}" text-anchor="end">${v}</text>`;
+    g+=`<text class="tick" x="${sx(v)}" y="${T+ph+16}" text-anchor="middle">${v}</text>`;
+  }
+  g+=`<line class="diag" x1="${sx(0)}" y1="${sy(0)}" x2="${sx(100)}" y2="${sy(100)}"/>`;
+  // regresion y = a + b x  sobre los puntos
+  const n=pts.length, mx=pts.reduce((s,p)=>s+p.x,0)/n, my=pts.reduce((s,p)=>s+p.y,0)/n;
+  const b=pts.reduce((s,p)=>s+(p.x-mx)*(p.y-my),0)/pts.reduce((s,p)=>s+(p.x-mx)**2,0);
+  const a=my-b*mx;
+  g+=`<line class="reg" x1="${sx(2)}" y1="${sy(a+b*2)}" x2="${sx(95)}" y2="${sy(a+b*95)}"/>`;
+  g+=`<text class="zone-lbl" x="${sx(62)}" y="${sy(30)}">el modelo da menos que el mercado</text>`;
+  g+=`<text class="zone-lbl" x="${sx(8)}" y="${sy(76)}">el modelo da más</text>`;
+  g+=`<line class="axis-line" x1="${L}" y1="${T+ph}" x2="${W-R}" y2="${T+ph}"/>`;
+  g+=`<line class="axis-line" x1="${L}" y1="${T}" x2="${L}" y2="${T+ph}"/>`;
+  g+=`<text class="axis-title" x="${L+pw/2}" y="${H-8}" text-anchor="middle">Probabilidad del mercado, sin margen (%)</text>`;
+  g+=`<text class="axis-title" transform="rotate(-90 14 ${T+ph/2})" x="14" y="${T+ph/2}" text-anchor="middle">Probabilidad del modelo (%)</text>`;
+  pts.forEach((p,i)=>{ g+=`<circle class="pt" data-i="${i}" cx="${sx(p.x).toFixed(1)}" cy="${sy(p.y).toFixed(1)}" r="5.5"/>`; });
+  // etiquetas de los tres casos extremos
+  const ext=[...pts].sort((u,v)=>u.gap-v.gap).slice(0,3);
+  ext.forEach(p=>{ const lx=sx(p.x), ly=sy(p.y);
+    g+=`<text class="pt-lbl" x="${lx-9}" y="${ly+15}" text-anchor="end">${esc(p.m.tag)} · ${esc(p.sel)} · ${p.gap.toFixed(1)}</text>`; });
+  $('#scatter').innerHTML=g;
+})();
+
+const tt=$('#tt');
+function showTT(html,x,y){ tt.innerHTML=html; tt.classList.add('on');
+  const r=tt.getBoundingClientRect();
+  tt.style.left=Math.min(x+13, innerWidth-r.width-10)+'px';
+  tt.style.top=Math.max(y-r.height-11, 8)+'px'; }
+function hideTT(){ tt.classList.remove('on'); }
+$('#scatter').addEventListener('mousemove', e=>{
+  const c=e.target.closest('.pt'); if(!c){ hideTT(); return; }
+  const p=pts[+c.dataset.i], nom={'1':p.m.local,'X':'Empate','2':p.m.visita}[p.sel];
+  showTT(`<div class="tt-h">${esc(p.m.local)} vs ${esc(p.m.visita)}</div>
+    <div class="tt-r"><span>Apuesta</span><b>${esc(nom)}</b></div>
+    <div class="tt-r"><span>Modelo</span><b>${p.y.toFixed(1)}%</b></div>
+    <div class="tt-r"><span>Mercado</span><b>${p.x.toFixed(1)}%</b></div>
+    <div class="tt-r"><span>Diferencia</span><b>${p.gap>0?'+':''}${p.gap.toFixed(1)} pp</b></div>
+    <div class="tt-r"><span>Cuota real</span><b>${p.cuota.toFixed(2)}</b></div>`, e.clientX, e.clientY);
+});
+$('#scatter').addEventListener('mouseleave', hideTT);
+
+$('#tblToggle').addEventListener('click', e=>{
+  const b=e.currentTarget, on=b.getAttribute('aria-pressed')==='true';
+  b.setAttribute('aria-pressed', String(!on));
+  b.textContent = on ? 'Ver como tabla' : 'Ver como gráfica';
+  $('#scatterTbl').classList.toggle('hidden', on);
+  if(!on && !$('#scatterTbl').dataset.built){
+    const rows=[...pts].sort((u,v)=>u.gap-v.gap).map(p=>{
+      const nom={'1':p.m.local,'X':'Empate','2':p.m.visita}[p.sel];
+      return `<tr><td class="team">${esc(p.m.local)}<span class="vs">vs</span>${esc(p.m.visita)}</td>
+        <td>${esc(nom)}</td><td class="n">${p.y.toFixed(1)}</td><td class="n">${p.x.toFixed(1)}</td>
+        <td class="n gapv ${p.gap<0?'gap-neg':''}">${p.gap>0?'+':''}${p.gap.toFixed(1)}</td>
+        <td class="n">${p.cuota.toFixed(2)}</td></tr>`;}).join('');
+    $('#scatterTbl').innerHTML=`<table><thead><tr><th>Partido</th><th>Apuesta</th>
+      <th class="n">Modelo %</th><th class="n">Mercado %</th><th class="n">Dif. pp</th>
+      <th class="n">Cuota</th></tr></thead><tbody>${rows}</tbody></table>`;
+    $('#scatterTbl').dataset.built='1';
+  }
+});
+
+/* ---------- tabla de valor aparente ---------- */
+const nombreSel=(m,s)=>({'1':m.local,'X':'Empate','2':m.visita}[s]);
+$('#picksTbl tbody').innerHTML = D.picks.map(p=>{
+  let diag, riesgo=false;
+  if(p.cuota>=6){ diag='Cuota alta: el mercado la ve improbable y aquí el sesgo del modelo es máximo'; riesgo=true; }
+  else if(p.sel==='X'){ diag='Empate: el modelo los sobreestima de forma sistemática'; riesgo=true; }
+  else if(p.ev<5){ diag='Diferencia menor al margen de la casa: ruido, no ventaja'; }
+  else{ diag='Diferencia moderada, aun así dentro del error propio del modelo'; }
+  return `<tr class="${riesgo?'warn-row':''}">
+    <td class="team">${esc(p.p)}</td>
+    <td>${esc(nombreSel(M.find(m=>m.local+' vs '+m.visita===p.p)||{local:'',visita:''},p.sel))}</td>
+    <td class="n">${p.modelo.toFixed(1)}%</td><td class="n">${p.mercado.toFixed(1)}%</td>
+    <td class="n">${p.cuota.toFixed(2)}</td>
+    <td class="n gapv">+${p.ev.toFixed(1)}%</td>
+    <td style="font-size:12.5px; color:var(--ink-2)">${esc(diag)}</td></tr>`;
+}).join('');
+
+/* ---------- tabla de partidos ---------- */
+const F={liga:'all', conf:'all'};
+function bar(v,cls){ return `<div class="bar ${cls||''}"><i style="width:${Math.max(v,0.6)}%"></i></div>`; }
+function renderMatches(){
+  const rows=M.filter(m=>(F.liga==='all'||m.liga===F.liga)&&(F.conf==='all'||m.conf===F.conf));
+  $('#matchTbl tbody').innerHTML = rows.map((m,idx)=>{
+    const s=m.sels;
+    const trio=`<div class="stack">
+      <div class="stack" style="gap:1.5px">${bar(s[0].modelo)}${bar(s[0].mercado,'mk')}</div>
+      <div class="stack" style="gap:1.5px">${bar(s[1].modelo)}${bar(s[1].mercado,'mk')}</div>
+      <div class="stack" style="gap:1.5px">${bar(s[2].modelo)}${bar(s[2].mercado,'mk')}</div></div>`;
+    return `<tr>
+      <td class="team">${esc(m.local)}<span class="vs">vs</span>${esc(m.visita)}
+        ${m.liga==='UCL'?'<span class="pill ucl" style="margin-left:7px">UCL</span>':''}</td>
+      <td class="n" style="text-align:left">${esc(m.fecha)}</td>
+      <td class="n">${esc(m.hora_cest)}</td>
+      <td class="bar-cell">${trio}
+        <div style="display:flex; gap:9px; margin-top:5px; font-family:var(--mono); font-size:10.5px; color:var(--ink-3)">
+          <span>${s[0].modelo.toFixed(0)}/${s[1].modelo.toFixed(0)}/${s[2].modelo.toFixed(0)}</span>
+          <span style="color:var(--mercado-ink)">${s[0].mercado.toFixed(0)}/${s[1].mercado.toFixed(0)}/${s[2].mercado.toFixed(0)}</span>
+        </div></td>
+      <td class="n">${m.T_modelo.toFixed(2)} <span style="color:var(--mercado-ink)">${m.T_mercado.toFixed(2)}</span></td>
+      <td class="n">${m.ou_line.toFixed(1)}</td>
+      <td class="n">${m.btts.toFixed(1)}%</td>
+      <td class="n">${m.margen.toFixed(2)}%</td>
+      <td><span class="pill ${m.conf}">${esc(m.conf)}</span></td>
+      <td><button class="rowbtn" data-tag="${esc(m.tag)}">mercados</button></td></tr>
+      <tr class="detail hidden" data-for="${esc(m.tag)}"><td colspan="10"><div class="detail-in">
+        ${groupsHTML(m)}</div></td></tr>`;
+  }).join('');
+}
+function groupsHTML(m){
+  const order=['Resultado 1X2','Doble oportunidad','Total de goles','Ambos equipos anotan',
+               'Handicap asiatico','Margen de victoria','Total del local','Total del visitante',
+               'Empate no apuesta','Paridad de goles'];
+  let h=order.map(g=>{
+    const items=m.mercados.filter(x=>x.m===g);
+    if(!items.length) return '';
+    return `<div class="mgroup"><h4>${esc(g)}</h4>${items.map(i=>
+      `<div class="mrow"><span>${esc(i.s)}</span><b>${i.p.toFixed(1)}%</b></div>`).join('')}</div>`;
+  }).join('');
+  h+=`<div class="mgroup"><h4>Marcadores más probables</h4>${m.top.map(t=>
+    `<div class="mrow"><span>${esc(t.sc)}</span><b>${t.p.toFixed(1)}%</b></div>`).join('')}</div>`;
+  h+=`<div class="mgroup"><h4>Contraste con el mercado</h4>
+    <div class="mrow"><span>Margen casa 1X2</span><b>${m.margen.toFixed(2)}%</b></div>
+    <div class="mrow"><span>Margen casa total</span><b>${m.margen_ou.toFixed(2)}%</b></div>
+    <div class="mrow"><span>Over ${m.ou_line.toFixed(1)} modelo</span><b>${m.over_modelo.toFixed(1)}%</b></div>
+    <div class="mrow"><span>Over ${m.ou_line.toFixed(1)} mercado</span><b>${m.over_mercado.toFixed(1)}%</b></div>
+    <div class="mrow"><span>Error de ajuste 1X2</span><b>${(m.err_fit??0).toFixed(1)} pp</b></div>
+    ${m.gap_xg!==null?`<div class="mrow"><span>Dif. modelo xG vs Elo</span><b>${m.gap_xg.toFixed(1)} pp</b></div>`:''}
+  </div>`;
+  return h;
+}
+renderMatches();
+document.querySelectorAll('.fbtn[data-f]').forEach(b=>b.addEventListener('click', ()=>{
+  const f=b.dataset.f;
+  document.querySelectorAll(`.fbtn[data-f="${f}"]`).forEach(o=>o.setAttribute('aria-pressed','false'));
+  b.setAttribute('aria-pressed','true'); F[f]=b.dataset.v; renderMatches();
+}));
+$('#matchTbl').addEventListener('click', e=>{
+  const b=e.target.closest('.rowbtn'); if(!b) return;
+  const row=document.querySelector(`.detail[data-for="${b.dataset.tag}"]`);
+  const open=!row.classList.contains('hidden');
+  row.classList.toggle('hidden', open);
+  b.textContent = open ? 'mercados' : 'cerrar';
+});
+
+/* ---------- calibracion y jugados ---------- */
+const CAL=[['Gana local','local'],['Empate','empate'],['Gana visitante','visita'],
+           ['Over 2.5 goles','over25'],['Ambos anotan','btts']];
+$('#calTbl tbody').innerHTML = CAL.map(([l,k])=>{
+  const o=MT.backtest.obs[k], p=MT.backtest.mod[k], e=p-o;
+  return `<tr><td>${esc(l)}</td><td class="n">${o.toFixed(1)}%</td><td class="n">${p.toFixed(1)}%</td>
+    <td class="n gapv ${Math.abs(e)>3?'gap-neg':''}">${e>0?'+':''}${e.toFixed(1)}</td></tr>`;
+}).join('');
+$('#ll').textContent = MT.backtest.logloss.toFixed(4);
+$('#hits').textContent = MT.acertados + ' de ' + MT.jugados.length;
+$('#playedTbl tbody').innerHTML = MT.jugados.map(j=>
+  `<tr><td class="team">${esc(j.local)}<span class="vs">vs</span>${esc(j.visita)}</td>
+   <td class="n">${j.ph}/${j.pdw}/${j.pa}</td><td class="n">${esc(j.res)}</td>
+   <td><span class="pill ${j.acerto?'alta':'baja'}">${j.acerto?'acertó':'falló'}</span></td></tr>`).join('');
+</script>
+</body>
+</html>

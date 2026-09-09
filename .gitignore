@@ -1,0 +1,9 @@
+# datos intermedios y cachés locales
+*.csv
+*.pkl
+__pycache__/
+.venv/
+# el caché de soccerdata vive en el perfil del usuario, no aquí
+soccerdata/
+# hojas de cálculo con líneas de mercado caducas
+*.xlsx
