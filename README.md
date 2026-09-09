@@ -1,7 +1,7 @@
 # Pronósticos de fútbol: modelo estadístico contra mercado
 
-Análisis probabilístico de 22 partidos de la UEFA Champions League (jornada 1 de la fase de
-liga) y LaLiga (jornada 5), disputados entre el 8 y el 14 de septiembre de 2026.
+Análisis probabilístico de 31 partidos: UEFA Champions League (jornada 1 de la fase de liga),
+LaLiga (jornada 5) y Liga MX (Apertura 2026), entre el 8 y el 16 de septiembre de 2026.
 
 Tres páginas estáticas y una hoja de cálculo, sin dependencias ni proceso de compilación:
 
@@ -48,6 +48,33 @@ configuraciones de encogimiento y ninguna superó a la referencia, lo que descar
 problema de parámetros. El mecanismo probable es que 11 de los 22 equipos analizados estrenan
 entrenador esta temporada — el Real Madrid cambió dos veces en ocho meses — así que cualquier
 rating basado en resultados históricos está midiendo equipos que ya no existen tácticamente.
+
+## Liga MX: parámetros propios, no heredados
+
+La Liga MX se calibró por separado con **396 partidos reales** (julio 2025 a septiembre 2026,
+API de ESPN). Sus parámetros difieren de los de LaLiga y usarlos prestados habría sido un error:
+
+| Parámetro | Liga MX | LaLiga |
+|---|---|---|
+| Corrección de marcadores bajos | -0.050 | -0.020 |
+| Corrección de ambos anotan | +0.150 | +0.199 |
+| Goles por partido | 2.889 | 2.724 |
+| Gana el local | 46.0 % | 48.9 % |
+
+La calibración resultante queda dentro de 1 punto en casi todos los mercados (visitante 0.0,
+Over 2.5 -0.1, local +0.7, empate -0.8).
+
+**Dos advertencias específicas de Liga MX:**
+
+1. **La comisión de la casa es mucho más alta: 7.25 %** en el 1X2 y 8.50 % en over/under, contra
+   5.24 % y 5.70 % en Europa. Apostar Liga MX cuesta cerca de 40 % más de comisión.
+2. **El sesgo del modelo corre en dirección opuesta al europeo.** En Champions y LaLiga el modelo
+   subestima a los favoritos (correlación -0.53); en Liga MX los **sobrestima** (+0.48), con un
+   sesgo de +4.47 puntos a favor del local. La causa probable: aquí los índices se construyen con
+   goles reales en lugar de xG, y con unos 25 partidos por equipo los goles son ruidosos.
+
+No hay fuente de xG para Liga MX, así que sus índices son de goles: más ruidosos por construcción.
+Tampoco se recopiló contexto de lesionados para esta liga todavía.
 
 ## Revisión del 09/09/2026
 

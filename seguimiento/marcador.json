@@ -1,9 +1,9 @@
 {
- "generado": "09/09/2026 11:57",
- "total_predicciones": 28,
+ "generado": "09/09/2026 15:26",
+ "total_predicciones": 37,
  "resueltos": 8,
- "pendientes": 20,
- "sellados_git": 20,
+ "pendientes": 29,
+ "sellados_git": 29,
  "todos": {
   "modelo": {
    "n": 8,
@@ -796,6 +796,222 @@
    "total_goles": 3,
    "acerto_mod": true,
    "acerto_mkt": true
+  },
+  {
+   "tag": "MX-PUMLEÓ",
+   "liga": "Liga MX",
+   "fecha": "11/09/2026",
+   "local": "Pumas UNAM",
+   "visita": "León",
+   "mod": [
+    59.7,
+    22.7,
+    17.6
+   ],
+   "mkt": [
+    44.5,
+    26.3,
+    29.2
+   ],
+   "conf": 6,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "MX-NECPUE",
+   "liga": "Liga MX",
+   "fecha": "12/09/2026",
+   "local": "Necaxa",
+   "visita": "Puebla",
+   "mod": [
+    52.0,
+    24.2,
+    23.8
+   ],
+   "mkt": [
+    46.8,
+    25.7,
+    27.5
+   ],
+   "conf": 7,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "MX-ATLPAC",
+   "liga": "Liga MX",
+   "fecha": "12/09/2026",
+   "local": "Atlante",
+   "visita": "Pachuca",
+   "mod": [
+    34.8,
+    28.2,
+    37.1
+   ],
+   "mkt": [
+    31.2,
+    27.1,
+    41.6
+   ],
+   "conf": 6,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "MX-TIJQUE",
+   "liga": "Liga MX",
+   "fecha": "12/09/2026",
+   "local": "Tijuana",
+   "visita": "Querétaro",
+   "mod": [
+    54.6,
+    24.9,
+    20.6
+   ],
+   "mkt": [
+    45.6,
+    28.4,
+    26.0
+   ],
+   "conf": 7,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "MX-TOLATL",
+   "liga": "Liga MX",
+   "fecha": "12/09/2026",
+   "local": "Toluca",
+   "visita": "Atlas",
+   "mod": [
+    68.4,
+    19.6,
+    12.0
+   ],
+   "mkt": [
+    62.9,
+    21.6,
+    15.5
+   ],
+   "conf": 6,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "MX-MONTIG",
+   "liga": "Liga MX",
+   "fecha": "13/09/2026",
+   "local": "Monterrey",
+   "visita": "Tigres UANL",
+   "mod": [
+    39.8,
+    25.0,
+    35.2
+   ],
+   "mkt": [
+    41.3,
+    27.7,
+    31.0
+   ],
+   "conf": 8,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "MX-CRUAMÉ",
+   "liga": "Liga MX",
+   "fecha": "13/09/2026",
+   "local": "Cruz Azul",
+   "visita": "América",
+   "mod": [
+    40.2,
+    27.1,
+    32.7
+   ],
+   "mkt": [
+    32.4,
+    27.5,
+    40.1
+   ],
+   "conf": 7,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "MX-SANFC ",
+   "liga": "Liga MX",
+   "fecha": "14/09/2026",
+   "local": "Santos",
+   "visita": "FC Juarez",
+   "mod": [
+    45.6,
+    24.7,
+    29.7
+   ],
+   "mkt": [
+    46.3,
+    25.7,
+    28.0
+   ],
+   "conf": 9,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "MX-PUETOL",
+   "liga": "Liga MX",
+   "fecha": "16/09/2026",
+   "local": "Puebla",
+   "visita": "Toluca",
+   "mod": [
+    17.1,
+    21.8,
+    61.1
+   ],
+   "mkt": [
+    21.0,
+    22.5,
+    56.6
+   ],
+   "conf": 8,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
   }
  ]
 }

@@ -7,4 +7,3 @@ __pycache__/
 soccerdata/
 # hojas de cálculo con líneas de mercado caducas
 *.xlsx
-!Pronosticos_futbol.xlsx
