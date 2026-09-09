@@ -1,7 +1,8 @@
 # Pronósticos de fútbol: modelo estadístico contra mercado
 
-Análisis probabilístico de 31 partidos: UEFA Champions League (jornada 1 de la fase de liga),
-LaLiga (jornada 5) y Liga MX (Apertura 2026), entre el 8 y el 16 de septiembre de 2026.
+Análisis probabilístico de **68 partidos** en siete competencias, entre el 8 y el 16 de
+septiembre de 2026: UEFA Champions League, LaLiga, Premier League, Serie A, Bundesliga,
+Ligue 1 y Liga MX.
 
 Tres páginas estáticas y una hoja de cálculo, sin dependencias ni proceso de compilación:
 
@@ -48,6 +49,30 @@ configuraciones de encogimiento y ninguna superó a la referencia, lo que descar
 problema de parámetros. El mecanismo probable es que 11 de los 22 equipos analizados estrenan
 entrenador esta temporada — el Real Madrid cambió dos veces en ocho meses — así que cualquier
 rating basado en resultados históricos está midiendo equipos que ya no existen tácticamente.
+
+## Cada liga se calibra por separado
+
+Ninguna liga hereda los parámetros de otra. Cada una se ajusta con su propio historial:
+
+| Liga | Corrección de marcadores bajos | Ventaja de local (γ) | Partidos de calibración |
+|---|---|---|---|
+| Premier League | -0.145 | 0.997 | 380 |
+| Serie A | +0.020 | 0.940 | 380 |
+| Bundesliga | -0.018 | 0.946 | 306 |
+| Ligue 1 | +0.013 | 1.009 | 306 |
+| LaLiga | -0.020 | — | 380 |
+| Liga MX | -0.050 | — | 396 |
+
+La tasa de victorias locales queda calibrada exactamente en las cuatro nuevas ligas
+(42.6/42.6, 38.9/38.9, 43.8/43.8, 46.1/46.1). Residuos que quedan y no se ocultan:
+la Premier subestima el Over 2.5 en 2.9 puntos y la Bundesliga subestima los empates en 2.4.
+
+**Aviso importante sobre las 4 ligas nuevas:** su temporada apenas lleva 2 o 3 jornadas, así que
+los índices se apoyan mucho en la temporada anterior y en una muestra mínima de la actual. El
+resultado se nota: su discrepancia media con el mercado es de **8.34 puntos**, contra 2.99 de
+LaLiga, y su correlación de sesgo es **-0.650**, la más fuerte de todo el proyecto. Son, hoy,
+los modelos más débiles del conjunto. Conviene esperar varias jornadas o apoyarse en el precio
+del mercado.
 
 ## Liga MX: parámetros propios, no heredados
 

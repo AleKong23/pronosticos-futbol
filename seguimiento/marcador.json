@@ -1,9 +1,9 @@
 {
- "generado": "09/09/2026 15:26",
- "total_predicciones": 37,
+ "generado": "09/09/2026 16:40",
+ "total_predicciones": 74,
  "resueltos": 8,
- "pendientes": 29,
- "sellados_git": 29,
+ "pendientes": 66,
+ "sellados_git": 66,
  "todos": {
   "modelo": {
    "n": 8,
@@ -1006,6 +1006,894 @@
     56.6
    ],
    "conf": 8,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "EPL-AFCBRE",
+   "liga": "Premier League",
+   "fecha": "12/09/2026",
+   "local": "AFC Bournemouth",
+   "visita": "Brentford",
+   "mod": [
+    42.3,
+    27.4,
+    30.4
+   ],
+   "mkt": [
+    38.2,
+    26.5,
+    35.3
+   ],
+   "conf": 8,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "EPL-ASTNOT",
+   "liga": "Premier League",
+   "fecha": "12/09/2026",
+   "local": "Aston Villa",
+   "visita": "Nottingham Forest",
+   "mod": [
+    44.2,
+    29.3,
+    26.5
+   ],
+   "mkt": [
+    43.2,
+    27.6,
+    29.2
+   ],
+   "conf": 9,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "EPL-CHEHUL",
+   "liga": "Premier League",
+   "fecha": "12/09/2026",
+   "local": "Chelsea",
+   "visita": "Hull City",
+   "mod": [
+    54.6,
+    24.2,
+    21.2
+   ],
+   "mkt": [
+    77.8,
+    14.8,
+    7.4
+   ],
+   "conf": 2,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "EPL-CRYIPS",
+   "liga": "Premier League",
+   "fecha": "12/09/2026",
+   "local": "Crystal Palace",
+   "visita": "Ipswich Town",
+   "mod": [
+    48.2,
+    26.9,
+    24.8
+   ],
+   "mkt": [
+    50.0,
+    25.1,
+    24.8
+   ],
+   "conf": 7,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "EPL-LIVFUL",
+   "liga": "Premier League",
+   "fecha": "12/09/2026",
+   "local": "Liverpool",
+   "visita": "Fulham",
+   "mod": [
+    56.7,
+    24.1,
+    19.2
+   ],
+   "mkt": [
+    65.8,
+    19.5,
+    14.7
+   ],
+   "conf": 6,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "EPL-TOTEVE",
+   "liga": "Premier League",
+   "fecha": "12/09/2026",
+   "local": "Tottenham Hotspur",
+   "visita": "Everton",
+   "mod": [
+    41.7,
+    29.8,
+    28.4
+   ],
+   "mkt": [
+    47.5,
+    26.0,
+    26.4
+   ],
+   "conf": 7,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "EPL-SUNARS",
+   "liga": "Premier League",
+   "fecha": "12/09/2026",
+   "local": "Sunderland",
+   "visita": "Arsenal",
+   "mod": [
+    15.8,
+    27.3,
+    56.8
+   ],
+   "mkt": [
+    13.7,
+    21.8,
+    64.5
+   ],
+   "conf": 6,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "EPL-COVBRI",
+   "liga": "Premier League",
+   "fecha": "13/09/2026",
+   "local": "Coventry City",
+   "visita": "Brighton & Hove Albion",
+   "mod": [
+    35.3,
+    29.0,
+    35.7
+   ],
+   "mkt": [
+    23.9,
+    25.5,
+    50.5
+   ],
+   "conf": 4,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "EPL-MANMAN",
+   "liga": "Premier League",
+   "fecha": "13/09/2026",
+   "local": "Manchester United",
+   "visita": "Manchester City",
+   "mod": [
+    38.3,
+    26.7,
+    35.1
+   ],
+   "mkt": [
+    31.0,
+    24.9,
+    44.0
+   ],
+   "conf": 7,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "EPL-LEENEW",
+   "liga": "Premier League",
+   "fecha": "14/09/2026",
+   "local": "Leeds United",
+   "visita": "Newcastle United",
+   "mod": [
+    42.8,
+    28.9,
+    28.3
+   ],
+   "mkt": [
+    39.2,
+    27.7,
+    33.0
+   ],
+   "conf": 8,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "ITA-VENFIO",
+   "liga": "Serie A",
+   "fecha": "11/09/2026",
+   "local": "Venezia",
+   "visita": "Fiorentina",
+   "mod": [
+    41.9,
+    23.8,
+    34.3
+   ],
+   "mkt": [
+    31.3,
+    28.5,
+    40.2
+   ],
+   "conf": 5,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "ITA-GENFRO",
+   "liga": "Serie A",
+   "fecha": "12/09/2026",
+   "local": "Genoa",
+   "visita": "Frosinone",
+   "mod": [
+    38.7,
+    25.8,
+    35.4
+   ],
+   "mkt": [
+    44.9,
+    28.3,
+    26.7
+   ],
+   "conf": 6,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "ITA-LAZAC ",
+   "liga": "Serie A",
+   "fecha": "12/09/2026",
+   "local": "Lazio",
+   "visita": "AC Milan",
+   "mod": [
+    29.1,
+    27.7,
+    43.2
+   ],
+   "mkt": [
+    29.3,
+    29.7,
+    41.0
+   ],
+   "conf": 10,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "ITA-ATACAG",
+   "liga": "Serie A",
+   "fecha": "12/09/2026",
+   "local": "Atalanta",
+   "visita": "Cagliari",
+   "mod": [
+    50.9,
+    24.0,
+    25.1
+   ],
+   "mkt": [
+    60.3,
+    23.5,
+    16.2
+   ],
+   "conf": 7,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "ITA-LECMON",
+   "liga": "Serie A",
+   "fecha": "13/09/2026",
+   "local": "Lecce",
+   "visita": "Monza",
+   "mod": [
+    20.7,
+    24.6,
+    54.7
+   ],
+   "mkt": [
+    36.6,
+    30.0,
+    33.3
+   ],
+   "conf": 5,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "ITA-NAPBOL",
+   "liga": "Serie A",
+   "fecha": "13/09/2026",
+   "local": "Napoli",
+   "visita": "Bologna",
+   "mod": [
+    44.4,
+    27.0,
+    28.6
+   ],
+   "mkt": [
+    53.5,
+    26.2,
+    20.4
+   ],
+   "conf": 8,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "ITA-SASJUV",
+   "liga": "Serie A",
+   "fecha": "13/09/2026",
+   "local": "Sassuolo",
+   "visita": "Juventus",
+   "mod": [
+    17.3,
+    22.2,
+    60.4
+   ],
+   "mkt": [
+    18.8,
+    23.9,
+    57.3
+   ],
+   "conf": 9,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "ITA-COMPAR",
+   "liga": "Serie A",
+   "fecha": "14/09/2026",
+   "local": "Como",
+   "visita": "Parma",
+   "mod": [
+    64.9,
+    20.8,
+    14.2
+   ],
+   "mkt": [
+    74.7,
+    16.6,
+    8.7
+   ],
+   "conf": 6,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "ITA-TORAS ",
+   "liga": "Serie A",
+   "fecha": "14/09/2026",
+   "local": "Torino",
+   "visita": "AS Roma",
+   "mod": [
+    21.3,
+    23.4,
+    55.3
+   ],
+   "mkt": [
+    16.6,
+    23.5,
+    59.9
+   ],
+   "conf": 9,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "ITA-INTUDI",
+   "liga": "Serie A",
+   "fecha": "14/09/2026",
+   "local": "Internazionale",
+   "visita": "Udinese",
+   "mod": [
+    69.9,
+    17.6,
+    12.5
+   ],
+   "mkt": [
+    72.4,
+    17.4,
+    10.2
+   ],
+   "conf": 8,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "GER-1. SCH",
+   "liga": "Bundesliga",
+   "fecha": "11/09/2026",
+   "local": "1. FC Union Berlin",
+   "visita": "Schalke 04",
+   "mod": [
+    52.4,
+    22.3,
+    25.3
+   ],
+   "mkt": [
+    41.1,
+    26.4,
+    32.5
+   ],
+   "conf": 4,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "GER-BORSC ",
+   "liga": "Bundesliga",
+   "fecha": "12/09/2026",
+   "local": "Borussia Dortmund",
+   "visita": "SC Paderborn 07",
+   "mod": [
+    58.7,
+    20.9,
+    20.4
+   ],
+   "mkt": [
+    74.5,
+    15.3,
+    10.2
+   ],
+   "conf": 2,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "GER-FC BAY",
+   "liga": "Bundesliga",
+   "fecha": "12/09/2026",
+   "local": "FC Augsburg",
+   "visita": "Bayer Leverkusen",
+   "mod": [
+    26.8,
+    21.5,
+    51.7
+   ],
+   "mkt": [
+    24.0,
+    23.1,
+    53.0
+   ],
+   "conf": 9,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "GER-MAIEIN",
+   "liga": "Bundesliga",
+   "fecha": "12/09/2026",
+   "local": "Mainz",
+   "visita": "Eintracht Frankfurt",
+   "mod": [
+    47.8,
+    22.7,
+    29.5
+   ],
+   "mkt": [
+    47.3,
+    24.3,
+    28.4
+   ],
+   "conf": 9,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "GER-SC BOR",
+   "liga": "Bundesliga",
+   "fecha": "12/09/2026",
+   "local": "SC Freiburg",
+   "visita": "Borussia Mönchengladbach",
+   "mod": [
+    48.9,
+    23.6,
+    27.5
+   ],
+   "mkt": [
+    55.4,
+    23.1,
+    21.5
+   ],
+   "conf": 7,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "GER-TSGVFB",
+   "liga": "Bundesliga",
+   "fecha": "12/09/2026",
+   "local": "TSG Hoffenheim",
+   "visita": "VfB Stuttgart",
+   "mod": [
+    42.3,
+    22.3,
+    35.5
+   ],
+   "mkt": [
+    40.4,
+    24.5,
+    35.1
+   ],
+   "conf": 9,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "GER-FC WER",
+   "liga": "Bundesliga",
+   "fecha": "12/09/2026",
+   "local": "FC Cologne",
+   "visita": "Werder Bremen",
+   "mod": [
+    52.6,
+    22.6,
+    24.9
+   ],
+   "mkt": [
+    45.2,
+    25.8,
+    29.0
+   ],
+   "conf": 7,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "GER-SV BAY",
+   "liga": "Bundesliga",
+   "fecha": "13/09/2026",
+   "local": "SV Elversberg",
+   "visita": "Bayern Munich",
+   "mod": [
+    18.0,
+    16.3,
+    65.6
+   ],
+   "mkt": [
+    8.3,
+    12.2,
+    79.4
+   ],
+   "conf": 2,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "FRA-STAMAR",
+   "liga": "Ligue 1",
+   "fecha": "11/09/2026",
+   "local": "Stade Rennais",
+   "visita": "Marseille",
+   "mod": [
+    38.3,
+    22.8,
+    38.9
+   ],
+   "mkt": [
+    44.5,
+    24.6,
+    30.9
+   ],
+   "conf": 8,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "FRA-STRAS ",
+   "liga": "Ligue 1",
+   "fecha": "12/09/2026",
+   "local": "Strasbourg",
+   "visita": "AS Monaco",
+   "mod": [
+    46.5,
+    23.1,
+    30.4
+   ],
+   "mkt": [
+    30.8,
+    25.8,
+    43.4
+   ],
+   "conf": 7,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "FRA-AJ NIC",
+   "liga": "Ligue 1",
+   "fecha": "12/09/2026",
+   "local": "AJ Auxerre",
+   "visita": "Nice",
+   "mod": [
+    42.5,
+    25.6,
+    32.0
+   ],
+   "mkt": [
+    37.4,
+    28.0,
+    34.6
+   ],
+   "conf": 8,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "FRA-LE ANG",
+   "liga": "Ligue 1",
+   "fecha": "12/09/2026",
+   "local": "Le Havre AC",
+   "visita": "Angers",
+   "mod": [
+    45.4,
+    26.4,
+    28.3
+   ],
+   "mkt": [
+    42.5,
+    29.0,
+    28.5
+   ],
+   "conf": 10,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "FRA-LORTOU",
+   "liga": "Ligue 1",
+   "fecha": "12/09/2026",
+   "local": "Lorient",
+   "visita": "Toulouse",
+   "mod": [
+    42.5,
+    26.0,
+    31.5
+   ],
+   "mkt": [
+    36.6,
+    28.8,
+    34.6
+   ],
+   "conf": 8,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "FRA-PARLYO",
+   "liga": "Ligue 1",
+   "fecha": "12/09/2026",
+   "local": "Paris FC",
+   "visita": "Lyon",
+   "mod": [
+    43.8,
+    24.3,
+    31.9
+   ],
+   "mkt": [
+    36.0,
+    25.8,
+    38.2
+   ],
+   "conf": 8,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "FRA-LILTRO",
+   "liga": "Ligue 1",
+   "fecha": "13/09/2026",
+   "local": "Lille",
+   "visita": "Troyes",
+   "mod": [
+    57.0,
+    22.0,
+    21.0
+   ],
+   "mkt": [
+    68.2,
+    19.3,
+    12.6
+   ],
+   "conf": 4,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "FRA-LE LEN",
+   "liga": "Ligue 1",
+   "fecha": "13/09/2026",
+   "local": "Le Mans",
+   "visita": "Lens",
+   "mod": [
+    23.9,
+    21.7,
+    54.4
+   ],
+   "mkt": [
+    20.1,
+    23.1,
+    56.8
+   ],
+   "conf": 7,
+   "sellado": "si",
+   "res": null,
+   "marcador": null,
+   "total_goles": null,
+   "acerto_mod": null,
+   "acerto_mkt": null
+  },
+  {
+   "tag": "FRA-BREPAR",
+   "liga": "Ligue 1",
+   "fecha": "13/09/2026",
+   "local": "Brest",
+   "visita": "Paris Saint-Germain",
+   "mod": [
+    26.4,
+    22.3,
+    51.3
+   ],
+   "mkt": [
+    11.1,
+    15.8,
+    73.1
+   ],
+   "conf": 5,
    "sellado": "si",
    "res": null,
    "marcador": null,
