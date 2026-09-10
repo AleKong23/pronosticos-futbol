@@ -145,9 +145,58 @@ entre Understat y ClubElo.
 6. La probabilidad de mercado se obtiene quitando el margen de forma proporcional sobre las tres
    vías del 1X2.
 
-**Calibración** sobre 380 partidos de LaLiga 2025-26: error de +0.6 puntos en empates, 0.0 en
-Over 2.5, log-loss de 0.976 contra 1.099 de un modelo que reparte 33/33/33. Hay señal real, pero
-modesta, y el backtest es **dentro de muestra**: fuera de muestra será peor.
+## Qué tan bueno es el modelo, medido honestamente
+
+El proyecto citaba antes un log-loss de 0.976. **Ese número era dentro de muestra** — los
+índices se calcularon con los mismos partidos que luego se evaluaban — y sobreestimaba la
+calidad real.
+
+La medición correcta usa una temporada completa que el modelo no vio para construirse
+(2025-26, 1 428 partidos en las 5 grandes ligas):
+
+| Liga | Partidos | log-loss | Acierto | Señal capturada |
+|---|---|---|---|---|
+| Bundesliga | 272 | 0.9645 | 54.0 % | 12.2 % |
+| LaLiga | 272 | 0.9846 | 51.1 % | 10.4 % |
+| Ligue 1 | 272 | 0.9913 | 50.7 % | 9.8 % |
+| Serie A | 306 | 1.0125 | 51.0 % | 7.8 % |
+| Premier League | 306 | 1.0220 | 48.4 % | 7.0 % |
+| **Conjunto** | **1 428** | **0.9961** | — | **9.3 %** |
+
+El log-loss real es **0.9961**, no 0.976. Frente a 1.0986 de un modelo que reparte 33/33/33,
+el modelo captura cerca del **9 % de la señal disponible**. Es poco, y es la cifra honesta.
+
+**La Premier League es la peor**: acierta el signo menos de la mitad de las veces (48.4 %).
+Encaja con que sea la liga donde el modelo más se aleja del precio de mercado: es donde hay
+más dinero y análisis, así que el precio es más difícil de superar.
+
+### Se probó traer más historia, y no funcionó
+
+Se extrajeron **9 temporadas** (14 431 partidos) y se probó un modelo con decaimiento
+exponencial por recencia más un prior empírico de ascendidos, con validación en tres bloques:
+ajuste con 2018-2024, afinado con 2024-25 y prueba final con 2025-26.
+
+| Variante | log-loss fuera de muestra |
+|---|---|
+| Modelo publicado, 2 temporadas | **0.9961** |
+| 9 temporadas más prior de ascendidos | peor en la comparación directa |
+| Solo el prior de ascendidos | 0.9960 (diferencia -0.0001, intervalo 95 % de -0.0011 a +0.0009) |
+
+Ninguna variante mejora de forma significativa: los intervalos de confianza cruzan el cero. El
+afinado además eligió el decaimiento **más agresivo** de los probados, es decir, pidió usar la
+menor cantidad de historia posible. La historia lejana resultó ser ruido, no contexto.
+
+**Se descartó el cambio.** Queda documentado para que no se repita el intento.
+
+### El prior de ascendidos, como contexto explicativo
+
+Aunque no mejora la predicción, sí explica por qué ciertos partidos se alejan tanto del
+mercado. Medido sobre 81 equipos-temporada ascendidos (`seguimiento/prior_ascendidos.csv`):
+un recién ascendido ataca un **21 % peor** y concede un **19 % más** que la media de su liga.
+
+El modelo, con solo 2 o 3 partidos de muestra de esos equipos, los coloca cerca del promedio.
+Por eso Chelsea contra Hull City sale a 23 puntos de distancia del precio de la casa. **En los
+partidos con un recién ascendido, conviene fiarse del mercado y no del modelo.**
 
 ## Lo que no está incluido, y por qué
 

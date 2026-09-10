@@ -1,34 +1,34 @@
 {
- "generado": "09/09/2026 16:40",
+ "generado": "09/09/2026 21:52",
  "total_predicciones": 74,
- "resueltos": 8,
- "pendientes": 66,
+ "resueltos": 12,
+ "pendientes": 62,
  "sellados_git": 66,
  "todos": {
   "modelo": {
-   "n": 8,
-   "brier": 0.3425,
-   "logloss": 0.6389,
-   "acierto": 7,
-   "acierto_pct": 87.5,
+   "n": 12,
+   "brier": 0.3064,
+   "logloss": 0.5844,
+   "acierto": 11,
+   "acierto_pct": 91.7,
    "calibracion": [
     {
      "rango": "0-10%",
-     "n": 1,
+     "n": 3,
      "predicho": 4.5,
      "observado": 0.0
     },
     {
      "rango": "10-20%",
-     "n": 5,
-     "predicho": 15.9,
+     "n": 6,
+     "predicho": 16.4,
      "observado": 0.0
     },
     {
      "rango": "20-30%",
-     "n": 9,
-     "predicho": 24.3,
-     "observado": 11.1
+     "n": 14,
+     "predicho": 23.9,
+     "observado": 7.1
     },
     {
      "rango": "30-40%",
@@ -44,8 +44,8 @@
     },
     {
      "rango": "50-60%",
-     "n": 3,
-     "predicho": 54.0,
+     "n": 6,
+     "predicho": 54.4,
      "observado": 100.0
     },
     {
@@ -59,33 +59,39 @@
      "n": 1,
      "predicho": 85.3,
      "observado": 100.0
+    },
+    {
+     "rango": "90-100%",
+     "n": 1,
+     "predicho": 91.0,
+     "observado": 100.0
     }
    ]
   },
   "mercado": {
-   "n": 8,
-   "brier": 0.3348,
-   "logloss": 0.6252,
-   "acierto": 6,
-   "acierto_pct": 75.0,
+   "n": 12,
+   "brier": 0.2994,
+   "logloss": 0.5725,
+   "acierto": 10,
+   "acierto_pct": 83.3,
    "calibracion": [
     {
      "rango": "0-10%",
-     "n": 3,
-     "predicho": 7.0,
+     "n": 5,
+     "predicho": 5.9,
      "observado": 0.0
     },
     {
      "rango": "10-20%",
-     "n": 3,
-     "predicho": 17.3,
+     "n": 4,
+     "predicho": 17.5,
      "observado": 0.0
     },
     {
      "rango": "20-30%",
-     "n": 9,
-     "predicho": 24.4,
-     "observado": 11.1
+     "n": 14,
+     "predicho": 23.9,
+     "observado": 7.1
     },
     {
      "rango": "30-40%",
@@ -101,8 +107,8 @@
     },
     {
      "rango": "50-60%",
-     "n": 4,
-     "predicho": 56.3,
+     "n": 7,
+     "predicho": 55.9,
      "observado": 100.0
     },
     {
@@ -116,13 +122,95 @@
      "n": 1,
      "predicho": 88.1,
      "observado": 100.0
+    },
+    {
+     "rango": "90-100%",
+     "n": 1,
+     "predicho": 91.4,
+     "observado": 100.0
     }
    ]
   }
  },
  "oro": {
-  "modelo": null,
-  "mercado": null
+  "modelo": {
+   "n": 4,
+   "brier": 0.2342,
+   "logloss": 0.4755,
+   "acierto": 4,
+   "acierto_pct": 100.0,
+   "calibracion": [
+    {
+     "rango": "0-10%",
+     "n": 2,
+     "predicho": 4.5,
+     "observado": 0.0
+    },
+    {
+     "rango": "10-20%",
+     "n": 1,
+     "predicho": 19.0,
+     "observado": 0.0
+    },
+    {
+     "rango": "20-30%",
+     "n": 5,
+     "predicho": 23.3,
+     "observado": 0.0
+    },
+    {
+     "rango": "50-60%",
+     "n": 3,
+     "predicho": 54.8,
+     "observado": 100.0
+    },
+    {
+     "rango": "90-100%",
+     "n": 1,
+     "predicho": 91.0,
+     "observado": 100.0
+    }
+   ]
+  },
+  "mercado": {
+   "n": 4,
+   "brier": 0.2285,
+   "logloss": 0.4671,
+   "acierto": 4,
+   "acierto_pct": 100.0,
+   "calibracion": [
+    {
+     "rango": "0-10%",
+     "n": 2,
+     "predicho": 4.2,
+     "observado": 0.0
+    },
+    {
+     "rango": "10-20%",
+     "n": 1,
+     "predicho": 18.1,
+     "observado": 0.0
+    },
+    {
+     "rango": "20-30%",
+     "n": 5,
+     "predicho": 23.2,
+     "observado": 0.0
+    },
+    {
+     "rango": "50-60%",
+     "n": 3,
+     "predicho": 55.3,
+     "observado": 100.0
+    },
+    {
+     "rango": "90-100%",
+     "n": 1,
+     "predicho": 91.4,
+     "observado": 100.0
+    }
+   ]
+  }
  },
  "partidos": [
   {
@@ -191,11 +279,11 @@
    ],
    "conf": 8,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "2-1",
+   "total_goles": 3,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "NAP-ARS",
@@ -215,11 +303,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "0-1",
+   "total_goles": 1,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "PSG-SLO",
@@ -239,11 +327,11 @@
    ],
    "conf": 4,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "6-1",
+   "total_goles": 7,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "SPO-GAL",
@@ -263,11 +351,11 @@
    ],
    "conf": 8,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "3-1",
+   "total_goles": 4,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "FEN-ROM",
