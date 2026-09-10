@@ -153,10 +153,7 @@ tbody tr:hover td{background:var(--panel-2)}
 td.n,th.n{font-family:var(--mono); font-variant-numeric:tabular-nums; text-align:right;
           white-space:nowrap}
 th.n{text-align:right}
-.col-part{position:sticky; left:0; z-index:1; background:var(--panel); min-width:230px;
-          box-shadow:1px 0 0 var(--rule-2)}
-th.col-part{background:var(--panel-2); z-index:2}
-tbody tr:hover .col-part{background:var(--panel-2)}
+.col-part{min-width:230px}
 .team{font-weight:500}
 a.jump{color:var(--ink); text-decoration:none; display:inline-flex; align-items:baseline; gap:6px;
        font-weight:500}
@@ -240,7 +237,7 @@ a.jump:focus-visible{outline:2px solid var(--modelo); outline-offset:3px; border
 .ficha:target{border-color:var(--modelo);
               box-shadow:0 0 0 3px var(--modelo-soft), var(--sombra-2)}
 .f-head{display:flex; justify-content:space-between; align-items:flex-start; gap:18px;
-        flex-wrap:wrap; padding:17px 20px; background:var(--panel-2);
+        flex-wrap:wrap; padding:1.5rem; background:var(--panel-2);
         border-bottom:1px solid var(--rule)}
 .f-title{font-size:19.5px; font-weight:700; letter-spacing:-.021em; line-height:1.22}
 .f-when{display:flex; gap:9px; flex-wrap:wrap; align-items:center; margin-top:9px;
@@ -250,7 +247,7 @@ a.jump:focus-visible{outline:2px solid var(--modelo); outline-offset:3px; border
 /* zonas A / B / C */
 .zone{border-bottom:1px solid var(--rule)}
 .zone:last-child{border-bottom:none}
-.zhead{display:flex; align-items:center; gap:9px; padding:11px 20px 0}
+.zhead{display:flex; align-items:center; gap:9px; padding:1rem 1.5rem 0}
 .zhead .zk{font-family:var(--mono); font-size:9.5px; font-weight:600; width:17px; height:17px;
            border-radius:5px; display:inline-flex; align-items:center; justify-content:center;
            flex:none; color:var(--panel)}
@@ -261,7 +258,7 @@ a.jump:focus-visible{outline:2px solid var(--modelo); outline-offset:3px; border
            text-transform:uppercase; color:var(--ink-2)}
 .zbody{display:grid; grid-template-columns:1fr; gap:0}
 @media (min-width:900px){ .zone.za .zbody{grid-template-columns:1fr 1fr} }
-.blk{padding:14px 20px 18px; min-width:0}
+.blk{padding:1.5rem; min-width:0}
 @media (min-width:900px){ .zone.za .blk:first-child{border-right:1px solid var(--rule-2)} }
 .blk h4{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase;
         color:var(--ink-3); margin:0 0 12px; font-weight:600}
@@ -349,10 +346,10 @@ a.jump:focus-visible{outline:2px solid var(--modelo); outline-offset:3px; border
 .cmd-box p{font-size:12.5px; color:var(--ink-2); margin-top:11px}
 
 footer{margin-top:54px; padding-top:24px; border-top:1px solid var(--rule);
-       font-size:12.5px; color:var(--ink-3); max-width:84ch; line-height:1.6}
-footer b{color:var(--ink-2)}
-footer p+p{margin-top:12px}
-.totop{position:fixed; right:16px; bottom:16px; z-index:50; width:42px; height:42px;
+       font-size:13px; color:var(--ink-3); max-width:84ch; line-height:1.6}
+footer b{color:var(--ink); font-weight:700}
+footer p+p{margin-top:14px}
+.totop{position:fixed; right:20px; bottom:20px; z-index:50; width:42px; height:42px;
        border-radius:50%; border:1px solid var(--rule); background:var(--panel);
        box-shadow:var(--sombra-2); color:var(--ink-2); cursor:pointer; font-size:16px;
        display:none; align-items:center; justify-content:center; font-family:var(--mono)}
@@ -370,15 +367,40 @@ footer p+p{margin-top:12px}
   .brand{margin-right:6px; gap:0}
   /* la navegacion se desplaza a lo ancho: el degradado del borde lo anuncia */
   .navlinks{mask-image:linear-gradient(to right,#000 calc(100% - 20px),transparent)}
-  .totop{width:37px; height:37px; right:12px; bottom:12px; opacity:.93}
+  .totop{width:38px; height:38px; right:14px; bottom:14px; opacity:.93}
 }
 @media (max-width:680px){
   .wrap{padding:22px 14px 74px}
   .scroll-hint{display:block}
-  .f-head{padding:15px 16px} .blk{padding:13px 16px 16px} .zhead{padding:10px 16px 0}
+  .f-head{padding:1.5rem} .blk{padding:1.5rem} .zhead{padding:1rem 1.5rem 0}
   .probrow{grid-template-columns:minmax(0,1fr) 1fr 44px 44px; gap:7px}
   .difbox{padding:12px 14px}
 }
+
+/* ---- columna fija y acentos de la tabla ---- */
+th.col-part,td.col-part{position:sticky; left:0; z-index:1; min-width:212px;
+                        background:var(--panel); box-shadow:1px 0 0 var(--rule-2)}
+th.col-part{background:var(--panel-2); z-index:2}
+tbody tr:hover td{background:var(--panel-2)}
+tbody tr:hover .col-part{background:var(--panel-2)}
+/* celda con confianza alta: verde claro; celda con la mayor diferencia: ámbar/rojo suave */
+td.cell-ok{background:var(--ok-soft)}
+tbody tr:hover td.cell-ok{background:color-mix(in srgb, var(--ok-soft) 72%, var(--panel-2))}
+td.cell-dif{background:var(--warn-soft)}
+tbody tr:hover td.cell-dif{background:color-mix(in srgb, var(--warn-soft) 72%, var(--panel-2))}
+td.cell-alto{background:var(--riesgo-soft)}
+tbody tr:hover td.cell-alto{background:color-mix(in srgb, var(--riesgo-soft) 72%, var(--panel-2))}
+.warn-row td{background:var(--riesgo-soft)}
+.warn-row:hover td{background:color-mix(in srgb, var(--riesgo-soft) 76%, var(--panel-2))}
+/* insignia de confianza alta */
+.badge-ok{display:inline-flex; align-items:center; gap:4px; font-family:var(--mono); font-size:9.5px;
+          font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ok);
+          background:var(--ok-soft); border:1px solid color-mix(in srgb, var(--ok) 28%, transparent);
+          border-radius:99px; padding:2px 7px; white-space:nowrap}
+
+/* ---- estado vacío elegante ---- */
+.vacio{color:var(--ink-3); font-size:12.5px; font-style:italic; line-height:1.5}
+
 </style>
 
 <header class="topbar">
@@ -389,7 +411,9 @@ footer p+p{margin-top:12px}
       <a class="pri" href="#resumen">&uarr; Resumen</a>
       <a href="#detalle">Fichas</a>
       <a href="#diccionario">Diccionario</a>
-      <a href="./index.html" id="navdash">Modelo vs mercado</a>
+      <span class="sepnav" aria-hidden="true"></span>
+      <a href="./index.html">Modelo vs mercado</a>
+      <a class="aqui" aria-current="page" href="./fichas.html">Fichas por partido</a>
       <a href="./seguimiento.html">Marcador</a>
     </nav>
   </div>
@@ -497,9 +521,7 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;
 const fx = (v, d) => (v == null ? '—' : Number(v).toFixed(d == null ? 1 : d));
 
 $('#dashlink').innerHTML = '<a href="' + DASH + '">Modelo vs mercado</a> · <a href="./seguimiento.html">Marcador del modelo</a>';
-$('#navdash').href = DASH;
 
-/* ===== diccionario: una sola fuente para los tooltips y para la sección de abajo ===== */
 const DIC = [
   ['prob', 'Probabilidad',
    'De cada 100 veces que se jugara este partido, en cuántas terminaría así.',
@@ -571,20 +593,35 @@ const DIC = [
 const DICMAP = {};
 DIC.forEach(d => { DICMAP[d[0]] = {t: d[1], d: d[2], u: d[3]}; });
 
-/* T('clave') pinta el término con su nombre del diccionario; T('clave','texto') usa otro texto */
+/* T('clave') pinta el término con su nombre; T('clave','texto') usa otro texto */
 function T(k, txt) {
   const x = DICMAP[k];
-  if (!x) return esc(txt || k);
-  return '<span class="term" tabindex="0" role="button" aria-label="Definición de ' + esc(x.t) +
-         '" data-k="' + k + '">' + (txt == null ? esc(x.t) : txt) + '</span>';
+  if (!x) return String(txt == null ? k : txt);
+  return '<span class="term" tabindex="0" role="button" aria-label="Definición de ' + x.t +
+         '" data-k="' + k + '">' + (txt == null ? x.t : txt) + '</span>';
 }
 
-$('#dicGrid').innerHTML = DIC.map(d =>
+/* marca términos dentro de texto ya escrito en la página, sin tocar etiquetas */
+function marcar(sel, pares) {
+  document.querySelectorAll(sel).forEach(nodo => {
+    pares.forEach(([k, txt]) => {
+      const h = nodo.innerHTML;
+      const i = h.indexOf(txt);
+      if (i < 0) return;
+      if (h.indexOf('data-k="' + k + '"') >= 0) return;
+      if (/<[^>]*$/.test(h.slice(0, i))) return;
+      nodo.innerHTML = h.slice(0, i) + T(k, txt) + h.slice(i + txt.length);
+    });
+  });
+}
+
+const gridDic = document.getElementById('dicGrid');
+if (gridDic) gridDic.innerHTML = DIC.map(d =>
   '<div class="dic-item"><dt>' + d[1] + '</dt><dd>' + d[2] +
   '</dd><dd class="uso">' + d[3] + '</dd></div>').join('');
 
-/* tooltip flotante */
-const tip = $('#tip');
+/* ---- tooltip flotante: ratón por hover, táctil por toque ---- */
+const tip = document.getElementById('tip');
 let tipActual = null;
 function showTip(el) {
   const x = DICMAP[el.dataset.k];
@@ -605,14 +642,19 @@ function hideTip() {
   tipActual = null; tip.classList.remove('on');
   tip.setAttribute('aria-hidden', 'true'); tip.style.left = '-9999px';
 }
+/* En táctil el puntero no "pasa por encima": si abriéramos aquí, el clic
+   posterior lo cerraría de inmediato. Por eso el hover solo vale para ratón. */
 document.addEventListener('pointerover', e => {
+  if (e.pointerType === 'touch' || e.pointerType === 'pen') return;
   const t = e.target.closest && e.target.closest('.term');
-  if (t) showTip(t); else if (tipActual && !e.target.closest('#tip')) hideTip();
+  if (t) showTip(t);
+  else if (tipActual && !e.target.closest('#tip')) hideTip();
 });
 document.addEventListener('focusin', e => {
   const t = e.target.closest && e.target.closest('.term');
   if (t) showTip(t); else if (tipActual) hideTip();
 });
+/* un toque sobre el término lo abre; un toque en cualquier otro sitio lo cierra */
 document.addEventListener('click', e => {
   const t = e.target.closest && e.target.closest('.term');
   if (t) { e.preventDefault(); (tipActual === t) ? hideTip() : showTip(t); }
@@ -678,10 +720,11 @@ $('#sumTbl tbody').innerHTML = F.map(f => {
     '<td class="n">' + esc(f.hora_cest) + '</td>' +
     '<td class="n">' + fx(f.modelo[0]) + '/' + fx(f.modelo[1]) + '/' + fx(f.modelo[2]) + '</td>' +
     '<td class="n" style="color:var(--mercado-ink)">' + fx(f.mercado[0]) + '/' + fx(f.mercado[1]) + '/' + fx(f.mercado[2]) + '</td>' +
-    '<td class="n"><span class="dif ' + difCls(d.v) + '">' + fx(d.v) + ' pp</span></td>' +
+    '<td class="n ' + (d.v >= 8 ? 'cell-alto' : (d.v >= 4 ? 'cell-dif' : '')) + '">' +
+      '<span class="dif ' + difCls(d.v) + '">' + fx(d.v) + ' pp</span></td>' +
     '<td class="n">' + fx(f.total, 2) + '</td>' +
     '<td class="n">' + fx(f.btts) + '%</td>' +
-    '<td class="n">' + confHTML(f.conf, false) + '</td></tr>';
+    '<td class="n ' + (f.conf >= 8 ? 'cell-ok' : '') + '">' + confHTML(f.conf, false) + '</td></tr>';
 }).join('');
 
 /* ===== bloque A1: 1X2 modelo contra mercado ===== */
@@ -744,7 +787,7 @@ function golesBlock(f){
 /* ===== bloque B: rendimiento subyacente ===== */
 function perfBlock(f){
   const P = (p, nm) => {
-    if (!p) return '<div><h5>' + esc(nm) + '</h5><p class="pend">Sin datos de xG: Understat solo cubre las 5 grandes ligas.</p></div>';
+    if (!p) return '<div><h5>' + esc(nm) + '</h5><p class="vacio">Sin datos de xG: Understat solo cubre las 5 grandes ligas.</p></div>';
     if (f.tipo_perfil === 'goles') return '<div><h5>' + esc(nm) + '</h5>' +
       '<div class="kv"><span>Partidos en el torneo actual</span><b>' + p.n + '</b></div>' +
       (p.n_eff != null ? '<div class="kv"><span>Muestra efectiva ponderada</span><b>' + fx(p.n_eff, 1) + '</b></div>' : '') +
@@ -783,11 +826,13 @@ function perfBlock(f){
 function ctxBlock(f){
   const c = CTX[f.tag];
   const W = /AVISO|NO FIABLE|CAMBIO DE RÉGIMEN|sospechosamente|sin confirmar|confirmación débil|discrepancia|no coinciden|Sin datos|no inscritos|y es falso|inflada|No asumir/i;
-  const L = arr => '<ul class="ctx">' + arr.map(x => '<li class="' + (W.test(x) ? 'warn' : '') + '">' + esc(x) + '</li>').join('') + '</ul>';
+  const L = arr => (!arr || !arr.length)
+    ? '<p class="vacio">Sin reportes relevantes para este equipo.</p>'
+    : '<ul class="ctx">' + arr.map(x => '<li class="' + (W.test(x) ? 'warn' : '') + '">' + esc(x) + '</li>').join('') + '</ul>';
   if (!c) return '<div class="blk"><h4>Contexto de plantilla</h4>' +
-    '<p class="pend">Sin recopilar todavía para esta competencia. No se muestra nada hasta tenerlo ' +
-    'verificado: un hueco es preferible a un dato improvisado. Por ahora solo LaLiga y Champions ' +
-    'tienen esta capa.</p></div>';
+    '<p class="vacio">Sin reportes relevantes: esta competencia todavía no tiene la capa de bajas y ' +
+    'sanciones. No se muestra nada hasta tenerlo verificado, porque un hueco es preferible a un dato ' +
+    'improvisado. Por ahora solo LaLiga y Champions tienen esta capa.</p></div>';
   const nota = f.liga === 'UCL' ? CTX._nota_ucl : (f.liga === 'La Liga' ? CTX._nota_fuente : null);
   return '<div class="blk"><h4>Contexto de plantilla · lo que el modelo no ve</h4>' +
     '<div class="two"><div><h5>' + esc(f.local) + '</h5>' + L(c.h) + '</div>' +
@@ -822,7 +867,7 @@ function confBlock(f){
     '<div><h5>Penalizaciones aplicadas</h5>' +
       (f.penal.length
         ? '<ul class="penal">' + f.penal.map(p => '<li><span>' + esc(p.t) + '</span><span class="p">' + p.v + '</span></li>').join('') + '</ul>'
-        : '<p class="pend">Ninguna: datos completos y fuentes de acuerdo.</p>') +
+        : '<p class="vacio">Sin penalizaciones: datos completos y fuentes de acuerdo.</p>') +
       (f.conf <= 5 ? '<div class="flag"><b>Confianza baja.</b> Trata el número del modelo como ' +
         'orientativo y apóyate en el precio del mercado y en el contexto de plantilla.</div>' : '') +
     '</div></div></div>';
@@ -848,7 +893,8 @@ function render(){
           (f.hora_local ? '<span class="sep">·</span><span>' + esc(f.hora_local) + ' hora local</span>' : '') +
           (f.derbi ? '<span class="pill derbi">' + esc(f.derbi) + '</span>' : '') +
         '</div></div>' +
-        '<span class="conf-pill ' + confCls(f.conf) + '">' + confHTML(f.conf, true) + '</span>' +
+        '<span class="conf-pill ' + confCls(f.conf) + '">' + confHTML(f.conf, true) +
+          (f.conf >= 8 ? '<span class="badge-ok">alta</span>' : '') + '</span>' +
       '</div>' +
       ZONAS.map(z => '<div class="zone ' + z[1] + '">' +
         '<div class="zhead"><span class="zk">' + z[0] + '</span><span class="zt">' + z[2] + '</span></div>' +
@@ -864,10 +910,30 @@ document.querySelectorAll('.fbtn[data-f]').forEach(b => b.addEventListener('clic
   b.setAttribute('aria-pressed','true'); FL[f] = b.dataset.v; render();
 }));
 
-/* volver arriba */
-const tt = $('#totop');
-addEventListener('scroll', () => tt.classList.toggle('on', scrollY > 800), {passive: true});
-tt.addEventListener('click', () => scrollTo({top: 0, behavior: 'smooth'}));
+/* ---- botón flotante: vuelve al Resumen, o arriba si la página no lo tiene ---- */
+/* marca la navegación como desplazable solo cuando de verdad no cabe */
+const navBar = document.querySelector('.navlinks');
+function medirNav(){
+  if (navBar) navBar.classList.toggle('desborda', navBar.scrollWidth > navBar.clientWidth + 2);
+}
+medirNav(); addEventListener('resize', medirNav); setTimeout(medirNav, 400);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(medirNav);
+
+const btnTop = document.getElementById('totop');
+const destinoTop = document.getElementById('resumen') || document.getElementById('arriba');
+if (destinoTop && destinoTop.id === 'resumen') {
+  btnTop.title = 'Volver al Resumen';
+  btnTop.setAttribute('aria-label', 'Volver a la tabla de Resumen');
+}
+addEventListener('scroll', () => btnTop.classList.toggle('on', scrollY > 700), {passive: true});
+btnTop.addEventListener('click', () => {
+  if (destinoTop && destinoTop.id === 'resumen') {
+    const y = destinoTop.getBoundingClientRect().top + scrollY - 70;
+    scrollTo({top: Math.max(y, 0), behavior: 'smooth'});
+  } else {
+    scrollTo({top: 0, behavior: 'smooth'});
+  }
+});
 </script>
 </body>
 </html>

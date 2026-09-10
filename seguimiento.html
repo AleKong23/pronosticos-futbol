@@ -12,153 +12,373 @@ img{max-width:100%}
 <title>Marcador del Modelo</title>
 </head>
 <body>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 :root{
   color-scheme: light;
-  --ground:#fafbfc; --panel:#ffffff; --panel-2:#f4f6f8;
-  --ink:#0d1117; --ink-2:#545c68; --ink-3:#8b93a1;
-  --rule:#e4e7ec; --rule-2:#eef1f4;
-  --modelo:#2a78d6; --mercado:#eb6834; --mercado-ink:#c2481d;
-  --riesgo:#e34948; --riesgo-soft:#fdeceb; --ok:#1baf7a;
-  --sans:'IBM Plex Sans',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --ground:#f5f7f9; --panel:#ffffff; --panel-2:#f1f4f8; --panel-3:#e7ecf2;
+  --ink:#0b1220; --ink-2:#4d5769; --ink-3:#8891a3;
+  --rule:#e1e6ed; --rule-2:#edf0f5;
+  --modelo:#2a78d6; --modelo-soft:#e9f0fb;
+  --mercado:#eb6834; --mercado-ink:#c2481d; --mercado-soft:#fdeee7;
+  --ok:#1baf7a; --ok-soft:#e6f7ef;
+  --warn:#c98a00; --warn-line:#eda100; --warn-soft:#fdf4e1;
+  --riesgo:#e34948; --riesgo-soft:#fdecec;
+  --sombra:0 1px 2px rgba(11,18,32,.045), 0 3px 10px rgba(11,18,32,.045);
+  --sombra-2:0 2px 4px rgba(11,18,32,.05), 0 12px 28px rgba(11,18,32,.085);
+  --r:14px; --r-sm:9px; --r-xs:6px;
+  --sans:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){
   :root:where(:not([data-theme="light"])){
     color-scheme: dark;
-    --ground:#131619; --panel:#1a1e23; --panel-2:#20252b;
-    --ink:#f2f4f7; --ink-2:#a4adb9; --ink-3:#737c89;
-    --rule:#262b31; --rule-2:#20242a;
-    --modelo:#3987e5; --mercado:#d95926; --mercado-ink:#e8814f;
-    --riesgo:#e66767; --riesgo-soft:#2e1d1d; --ok:#199e70;
+    --ground:#0e1218; --panel:#161c24; --panel-2:#1c232d; --panel-3:#242c38;
+    --ink:#eef2f7; --ink-2:#a0abbb; --ink-3:#6d788a;
+    --rule:#252d39; --rule-2:#1e252f;
+    --modelo:#4a95ea; --modelo-soft:#152438;
+    --mercado:#e0703f; --mercado-ink:#ec9269; --mercado-soft:#2b1c14;
+    --ok:#2ec18a; --ok-soft:#0f2620;
+    --warn:#e0a93a; --warn-line:#e0a93a; --warn-soft:#2a2113;
+    --riesgo:#ef6b6a; --riesgo-soft:#2c1818;
+    --sombra:0 1px 2px rgba(0,0,0,.32), 0 3px 10px rgba(0,0,0,.3);
+    --sombra-2:0 2px 4px rgba(0,0,0,.36), 0 12px 28px rgba(0,0,0,.44);
   }
 }
 :root[data-theme="dark"]{
   color-scheme: dark;
-  --ground:#131619; --panel:#1a1e23; --panel-2:#20252b;
-  --ink:#f2f4f7; --ink-2:#a4adb9; --ink-3:#737c89;
-  --rule:#262b31; --rule-2:#20242a;
-  --modelo:#3987e5; --mercado:#d95926; --mercado-ink:#e8814f;
-  --riesgo:#e66767; --riesgo-soft:#2e1d1d; --ok:#199e70;
+  --ground:#0e1218; --panel:#161c24; --panel-2:#1c232d; --panel-3:#242c38;
+  --ink:#eef2f7; --ink-2:#a0abbb; --ink-3:#6d788a;
+  --rule:#252d39; --rule-2:#1e252f;
+  --modelo:#4a95ea; --modelo-soft:#152438;
+  --mercado:#e0703f; --mercado-ink:#ec9269; --mercado-soft:#2b1c14;
+  --ok:#2ec18a; --ok-soft:#0f2620;
+  --warn:#e0a93a; --warn-line:#e0a93a; --warn-soft:#2a2113;
+  --riesgo:#ef6b6a; --riesgo-soft:#2c1818;
+  --sombra:0 1px 2px rgba(0,0,0,.32), 0 3px 10px rgba(0,0,0,.3);
+  --sombra-2:0 2px 4px rgba(0,0,0,.36), 0 12px 28px rgba(0,0,0,.44);
 }
+
 *{box-sizing:border-box}
-body{background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.55;
-     -webkit-font-smoothing:antialiased}
-.wrap{max-width:1020px; margin:0 auto; padding:32px 20px 70px}
-.eyebrow{font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.13em;
-         text-transform:uppercase; color:var(--ink-3)}
-h1{font-size:31px; line-height:1.15; font-weight:600; letter-spacing:-.021em; margin:8px 0 0}
-h2{font-size:18px; font-weight:600; letter-spacing:-.012em; margin:0}
-p{margin:0}
-.sub{color:var(--ink-2); font-size:14.5px; max-width:70ch; margin-top:10px}
+html{scroll-behavior:smooth}
+body{background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:15px;
+     line-height:1.55; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility}
 .num{font-family:var(--mono); font-variant-numeric:tabular-nums}
-header{border-bottom:1px solid var(--rule); padding-bottom:20px}
-.meta-line{display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:13px;
-           font-family:var(--mono); font-size:11.5px; color:var(--ink-3)}
-.meta-line a{color:var(--modelo)}
-section{margin-top:34px}
-.sec-head{display:flex; align-items:baseline; gap:13px; flex-wrap:wrap; margin-bottom:14px}
+a{color:var(--modelo)}
+
+/* barra de navegación fija */
+.topbar{position:sticky; top:0; z-index:60; background:var(--panel);
+        border-bottom:1px solid var(--rule)}
+@supports (backdrop-filter:blur(1px)){
+  .topbar{background:color-mix(in srgb, var(--panel) 86%, transparent);
+          backdrop-filter:blur(14px) saturate(150%)}
+}
+.topbar-in{max-width:1280px; margin:0 auto; padding:9px 20px; display:flex; align-items:center;
+           gap:16px; overflow:hidden}
+.brand{display:flex; align-items:center; gap:10px; margin-right:auto; text-decoration:none;
+       color:var(--ink); min-width:0; flex:0 1 auto; overflow:hidden}
+.brand>span:last-child{min-width:0; overflow:hidden}
+.brand .dot{width:9px; height:9px; border-radius:50%; background:var(--modelo); flex:none;
+            box-shadow:0 0 0 3.5px var(--modelo-soft)}
+.brand .bn{display:block; font-weight:600; font-size:14.5px; letter-spacing:-.012em;
+           white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.brand .bs{display:block; font-family:var(--mono); font-weight:400; font-size:10.5px;
+           color:var(--ink-3); letter-spacing:0; white-space:nowrap}
+/* flex:0 1 auto para que abrace su contenido cuando cabe y encoja cuando no.
+   justify-content debe ser flex-start: con flex-end el desbordamiento se va hacia la
+   izquierda, donde el scroll no llega, y el primer enlace queda inalcanzable. */
+.navlinks{display:flex; gap:3px; align-items:center; overflow-x:auto; scrollbar-width:none;
+          -webkit-overflow-scrolling:touch; flex:0 1 auto; min-width:0; margin-left:auto;
+          justify-content:flex-start}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{flex:none; font-size:12.5px; font-weight:500; color:var(--ink-2);
+            text-decoration:none; padding:6px 11px; border-radius:99px; white-space:nowrap;
+            transition:background .14s, color .14s}
+.navlinks a:hover{background:var(--panel-2); color:var(--ink)}
+.navlinks a.pri{color:var(--modelo); background:var(--modelo-soft)}
+.navlinks a.aqui{color:var(--ink); background:var(--panel-3); cursor:default}
+.navlinks .sepnav{width:1px; height:17px; background:var(--rule); margin:0 5px; flex:none}
+.navlinks a:focus-visible{outline:2px solid var(--modelo); outline-offset:2px}
+/* si los enlaces no caben, el degradado del borde derecho lo anuncia */
+.navlinks.desborda{mask-image:linear-gradient(to right,#000 calc(100% - 22px),transparent)}
+
+.wrap{max-width:1280px; margin:0 auto; padding:30px 20px 84px}
+
+/* tipografía */
+.eyebrow{display:inline-block; font-family:var(--mono); font-size:11px; font-weight:500;
+         letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
+h1{font-size:clamp(28px,4.4vw,42px); line-height:1.08; font-weight:700; letter-spacing:-.03em;
+   margin:12px 0 0; text-wrap:balance}
+h2{font-size:21px; font-weight:600; letter-spacing:-.019em; margin:0; text-wrap:balance}
+h3{font-size:14.5px; font-weight:600; letter-spacing:-.011em; margin:0}
+p{margin:0}
+.sub{color:var(--ink-2); font-size:15.5px; max-width:68ch; margin-top:13px}
+header.hero{padding-bottom:26px; border-bottom:1px solid var(--rule)}
+.meta-line{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px}
+.meta-line>span{font-family:var(--mono); font-size:11.5px; color:var(--ink-2);
+                background:var(--panel); border:1px solid var(--rule); border-radius:var(--r-xs);
+                padding:6px 11px; box-shadow:var(--sombra)}
+.meta-line a{color:var(--modelo); text-decoration:none; font-weight:500}
+.meta-line a:hover{text-decoration:underline}
+section{margin-top:46px; scroll-margin-top:78px}
+.sec-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:16px}
 .sec-head .note{color:var(--ink-3); font-size:13px}
-.card{background:var(--panel); border:1px solid var(--rule); border-radius:3px}
 
-.aviso{border:1px solid var(--rule); border-left:3px solid var(--riesgo); background:var(--panel);
-       border-radius:3px; padding:19px 22px; margin-top:24px}
-.aviso-tag{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11px;
-           font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--riesgo)}
-.aviso h2{margin:10px 0 8px; font-size:19px}
-.aviso p{color:var(--ink-2); font-size:14.5px; max-width:76ch}
+/* tooltips del diccionario */
+.term{border-bottom:1px dotted var(--ink-3); cursor:help; padding-bottom:1px}
+.term::after{content:'i'; display:inline-flex; align-items:center; justify-content:center;
+             width:11px; height:11px; margin-left:3px; border-radius:50%;
+             border:1px solid color-mix(in srgb, var(--modelo) 55%, transparent);
+             color:var(--modelo); font-family:var(--sans); font-size:8px; font-weight:700;
+             font-style:normal; line-height:1; vertical-align:1px; text-transform:none;
+             letter-spacing:0}
+.term:hover,.term:focus-visible{border-bottom-color:var(--modelo); color:var(--ink)}
+.term:focus-visible{outline:2px solid var(--modelo); outline-offset:3px; border-radius:2px}
+#tip{position:fixed; z-index:200; width:min(300px, calc(100vw - 24px)); background:var(--panel);
+     border:1px solid var(--rule); border-radius:var(--r-sm); box-shadow:var(--sombra-2);
+     padding:12px 14px; left:-9999px; top:0; opacity:0; pointer-events:none;
+     transition:opacity .13s ease}
+#tip.on{opacity:1}
+#tip .t-h{font-weight:600; font-size:13px; margin-bottom:6px; letter-spacing:-.008em}
+#tip .t-d{color:var(--ink-2); font-size:12.5px; line-height:1.5}
+#tip .t-u{color:var(--ink-3); font-size:12px; line-height:1.45; margin-top:8px; padding-top:8px;
+          border-top:1px solid var(--rule-2)}
+#tip .t-u b{color:var(--ink-2)}
 
-.estado{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
-        background:var(--rule); border:1px solid var(--rule); border-radius:3px; overflow:hidden}
-.est{background:var(--panel); padding:15px 17px}
-.est .l{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3)}
-.est .v{font-family:var(--mono); font-size:26px; font-weight:600; margin-top:6px; font-variant-numeric:tabular-nums}
-.est .f{font-size:12px; color:var(--ink-2); margin-top:4px; line-height:1.4}
+/* tarjetas */
+.card{background:var(--panel); border:1px solid var(--rule); border-radius:var(--r);
+      box-shadow:var(--sombra)}
 
-.duelo{display:grid; grid-template-columns:1fr auto 1fr; gap:0; align-items:stretch}
-.lado{padding:18px 20px}
+/* tablas */
+.tbl-holder{overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin;
+            border:1px solid var(--rule); border-radius:var(--r); background:var(--panel);
+            box-shadow:var(--sombra)}
+.tbl-holder::-webkit-scrollbar{height:9px}
+.tbl-holder::-webkit-scrollbar-thumb{background:var(--panel-3); border-radius:99px}
+table{border-collapse:separate; border-spacing:0; width:100%; font-size:13.5px}
+th{font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:.07em;
+   text-transform:uppercase; color:var(--ink-3); text-align:left; padding:12px 14px;
+   border-bottom:1px solid var(--rule); white-space:nowrap; background:var(--panel-2)}
+td{padding:10px 14px; border-bottom:1px solid var(--rule-2); vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr{transition:background .12s}
+td.n,th.n{font-family:var(--mono); font-variant-numeric:tabular-nums; text-align:right;
+          white-space:nowrap}
+th.n{text-align:right}
+.team{font-weight:500}
+.vs{color:var(--ink-3); font-size:12px; margin:0 5px; font-weight:400}
+.scroll-hint{display:none; font-family:var(--mono); font-size:11px; color:var(--ink-3);
+             padding:8px 14px; margin-top:-1px; border:1px solid var(--rule); border-top:none;
+             border-radius:0 0 var(--r) var(--r); background:var(--panel-2)}
+
+/* insignias */
+.pill{display:inline-block; font-family:var(--mono); font-size:10px; font-weight:600;
+      letter-spacing:.05em; text-transform:uppercase; padding:3px 8px; border-radius:99px;
+      border:1px solid var(--rule); color:var(--ink-2); background:var(--panel-2);
+      white-space:nowrap}
+.pill.ucl{color:var(--modelo); background:var(--modelo-soft);
+          border-color:color-mix(in srgb, var(--modelo) 30%, transparent)}
+.pill.alta,.pill.si{color:var(--ok); background:var(--ok-soft);
+                    border-color:color-mix(in srgb, var(--ok) 28%, transparent)}
+.pill.media{color:var(--warn); background:var(--warn-soft);
+            border-color:color-mix(in srgb, var(--warn-line) 30%, transparent)}
+.pill.baja{color:var(--riesgo); background:var(--riesgo-soft);
+           border-color:color-mix(in srgb, var(--riesgo) 28%, transparent)}
+.pill.no{color:var(--mercado-ink); background:var(--mercado-soft);
+         border-color:color-mix(in srgb, var(--mercado) 30%, transparent)}
+.pill.retro{color:var(--ink-3)}
+.ok{color:var(--ok); font-weight:600}
+.mal{color:var(--riesgo); font-weight:600}
+.pend{color:var(--ink-3); font-style:italic; font-size:12.5px}
+
+/* barras */
+.bar{height:5px; border-radius:3px; background:var(--rule-2); position:relative; overflow:hidden}
+.bar i{position:absolute; inset:0 auto 0 0; background:var(--modelo); border-radius:3px;
+       display:block}
+.bar.mk i{background:var(--mercado)}
+.stack{display:grid; gap:3px}
+
+
+/* ---- columna fija y acentos de la tabla ---- */
+th.col-part,td.col-part{position:sticky; left:0; z-index:1; min-width:212px;
+                        background:var(--panel); box-shadow:1px 0 0 var(--rule-2)}
+th.col-part{background:var(--panel-2); z-index:2}
+tbody tr:hover td{background:var(--panel-2)}
+tbody tr:hover .col-part{background:var(--panel-2)}
+/* celda con confianza alta: verde claro; celda con la mayor diferencia: ámbar/rojo suave */
+td.cell-ok{background:var(--ok-soft)}
+tbody tr:hover td.cell-ok{background:color-mix(in srgb, var(--ok-soft) 72%, var(--panel-2))}
+td.cell-dif{background:var(--warn-soft)}
+tbody tr:hover td.cell-dif{background:color-mix(in srgb, var(--warn-soft) 72%, var(--panel-2))}
+td.cell-alto{background:var(--riesgo-soft)}
+tbody tr:hover td.cell-alto{background:color-mix(in srgb, var(--riesgo-soft) 72%, var(--panel-2))}
+.warn-row td{background:var(--riesgo-soft)}
+.warn-row:hover td{background:color-mix(in srgb, var(--riesgo-soft) 76%, var(--panel-2))}
+/* insignia de confianza alta */
+.badge-ok{display:inline-flex; align-items:center; gap:4px; font-family:var(--mono); font-size:9.5px;
+          font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ok);
+          background:var(--ok-soft); border:1px solid color-mix(in srgb, var(--ok) 28%, transparent);
+          border-radius:99px; padding:2px 7px; white-space:nowrap}
+
+/* ---- estado vacío elegante ---- */
+.vacio{color:var(--ink-3); font-size:12.5px; font-style:italic; line-height:1.5}
+
+
+/* filtros */
+.filters{display:flex; gap:14px 18px; flex-wrap:wrap; align-items:center; margin-bottom:18px;
+         padding:13px 16px; background:var(--panel); border:1px solid var(--rule);
+         border-radius:var(--r); box-shadow:var(--sombra)}
+.fbtn{font-family:var(--sans); font-size:12.5px; font-weight:500; padding:6px 13px;
+      border-radius:99px; border:1px solid var(--rule); background:var(--panel);
+      color:var(--ink-2); cursor:pointer; transition:all .14s}
+.fbtn:hover{color:var(--ink); border-color:var(--ink-3)}
+.fbtn[aria-pressed="true"]{background:var(--ink); color:var(--ground); border-color:var(--ink)}
+.fbtn:focus-visible,.rowbtn:focus-visible{outline:2px solid var(--modelo); outline-offset:2px}
+.flabel{font-family:var(--mono); font-size:10px; letter-spacing:.09em; text-transform:uppercase;
+        color:var(--ink-3); margin-right:2px}
+
+/* diccionario */
+#diccionario .dic-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+                       gap:14px; margin:0}
+.dic-item{background:var(--panel); border:1px solid var(--rule); border-radius:var(--r);
+          padding:15px 17px; box-shadow:var(--sombra)}
+.dic-item dt{font-weight:600; font-size:14px; margin:0 0 7px; letter-spacing:-.011em}
+.dic-item dd{margin:0; font-size:12.5px; color:var(--ink-2); line-height:1.55}
+.dic-item dd.uso{margin-top:9px; padding-top:9px; border-top:1px solid var(--rule-2);
+                 color:var(--ink-3)}
+.dic-item dd.uso b{color:var(--ink-2); font-weight:600}
+.cmd-box{margin-top:18px; background:var(--panel); border:1px solid var(--rule);
+         border-radius:var(--r); padding:17px 19px; box-shadow:var(--sombra)}
+.cmd-box .lbl{font-family:var(--mono); font-size:10px; letter-spacing:.09em;
+              text-transform:uppercase; color:var(--ink-3); margin-bottom:10px}
+.cmd-box code{font-family:var(--mono); font-size:13.5px; font-weight:600; color:var(--ink);
+              background:var(--panel-3); border:1px solid var(--rule); border-radius:var(--r-xs);
+              padding:8px 13px; display:inline-block}
+.cmd-box p{font-size:12.5px; color:var(--ink-2); margin-top:11px}
+
+footer{margin-top:54px; padding-top:24px; border-top:1px solid var(--rule);
+       font-size:12.5px; color:var(--ink-3); max-width:84ch; line-height:1.6}
+footer b{color:var(--ink); font-weight:700}
+footer p+p{margin-top:12px}
+footer code{font-family:var(--mono); font-size:12px; background:var(--panel-2);
+            border:1px solid var(--rule); border-radius:4px; padding:1px 5px}
+
+.totop{position:fixed; right:20px; bottom:20px; z-index:50; width:42px; height:42px;
+       border-radius:50%; border:1px solid var(--rule); background:var(--panel);
+       box-shadow:var(--sombra-2); color:var(--ink-2); cursor:pointer; font-size:16px;
+       display:none; align-items:center; justify-content:center; font-family:var(--mono)}
+.totop.on{display:flex}
+.totop:hover{color:var(--modelo); border-color:var(--modelo)}
+.totop:focus-visible{outline:2px solid var(--modelo); outline-offset:2px}
+.hidden{display:none !important}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none !important; animation:none !important}
+}
+@media (max-width:1000px){ .brand .bs{display:none} }
+@media (max-width:700px){
+  .brand .bn{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%)}
+  .brand{margin-right:6px; gap:0}
+  .totop{width:38px; height:38px; right:14px; bottom:14px; opacity:.93}
+}
+@media (max-width:680px){
+  .wrap{padding:22px 14px 74px}
+  .scroll-hint{display:block}
+}
+
+/* aviso de lectura */
+.aviso{background:var(--panel); border:1px solid var(--rule); border-left:3px solid var(--riesgo);
+       border-radius:var(--r); box-shadow:var(--sombra); padding:1.5rem; margin-top:26px}
+.aviso-tag{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono);
+           font-size:10.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+           color:var(--riesgo)}
+.aviso h2{margin:12px 0 10px; font-size:21px}
+.aviso p{color:var(--ink-2); font-size:14.5px; max-width:76ch; line-height:1.6}
+
+/* estado del registro */
+.estado{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+@media (min-width:900px){ .estado{grid-template-columns:repeat(4,1fr)} }
+.est{background:var(--panel); border:1px solid var(--rule); border-radius:var(--r);
+     box-shadow:var(--sombra); padding:1.25rem}
+.est .l{font-family:var(--mono); font-size:10px; letter-spacing:.09em; text-transform:uppercase;
+        color:var(--ink-3)}
+.est .v{font-family:var(--mono); font-size:32px; font-weight:700; margin-top:8px; line-height:1;
+        font-variant-numeric:tabular-nums; letter-spacing:-.025em}
+.est .f{font-size:12px; color:var(--ink-2); margin-top:9px; line-height:1.45}
+
+/* duelo modelo contra mercado */
+.duelo{display:grid; grid-template-columns:1fr auto 1fr; align-items:stretch}
+.lado{padding:1.5rem}
 .lado.mod{border-right:1px solid var(--rule)}
-.lado h3{font-family:var(--mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; margin:0 0 12px}
-.lado.mod h3{color:var(--modelo)} .lado.mkt h3{color:var(--mercado-ink)}
-.metr{display:flex; justify-content:space-between; gap:14px; font-size:13px; padding:5px 0;
-      border-bottom:1px solid var(--rule-2)}
+.lado h3{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+         margin:0 0 14px}
+.lado.mod h3{color:var(--modelo)}
+.lado.mkt h3{color:var(--mercado-ink)}
+.metr{display:flex; justify-content:space-between; gap:14px; align-items:baseline; font-size:13px;
+      padding:7px 0; border-bottom:1px solid var(--rule-2)}
 .metr:last-child{border-bottom:none}
 .metr span{color:var(--ink-2)}
 .metr b{font-family:var(--mono); font-variant-numeric:tabular-nums; font-weight:600}
 .metr b.gana{color:var(--ok)}
-.vs-col{display:flex; align-items:center; padding:0 4px; background:var(--panel-2);
+.metr b.gana::after{content:'\2713'; font-family:var(--sans); font-size:10px; margin-left:5px;
+                    vertical-align:1px}
+.vs-col{display:flex; align-items:center; padding:0 6px; background:var(--panel-2);
         border-left:1px solid var(--rule); border-right:1px solid var(--rule)}
-.vs-col span{font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--ink-3);
+.vs-col span{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; color:var(--ink-3);
              writing-mode:vertical-rl; text-orientation:mixed}
-.veredicto{padding:15px 20px; border-top:1px solid var(--rule); font-size:13.5px; color:var(--ink-2)}
-.veredicto b{color:var(--ink)}
+.veredicto{padding:1.25rem 1.5rem; border-top:1px solid var(--rule); font-size:13.5px;
+           color:var(--ink-2); line-height:1.6; background:var(--panel-2)}
+.veredicto b{color:var(--ink); font-weight:600}
 
-.tbl-holder{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--panel)}
-table{border-collapse:collapse; width:100%; font-size:13.5px}
-th{font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase;
-   color:var(--ink-3); text-align:left; padding:10px 12px; border-bottom:1px solid var(--rule);
-   white-space:nowrap; background:var(--panel-2)}
-td{padding:9px 12px; border-bottom:1px solid var(--rule-2)}
-tr:last-child td{border-bottom:none}
-td.n,th.n{font-family:var(--mono); font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
-th.n{text-align:right}
-.team{font-weight:500}
-.vs{color:var(--ink-3); font-size:12px; margin:0 5px}
-.pill{display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:600; letter-spacing:.05em;
-      text-transform:uppercase; padding:2px 6px; border-radius:2px; border:1px solid var(--rule);
-      color:var(--ink-2); background:var(--panel-2); white-space:nowrap}
-.pill.si{color:var(--ok); border-color:color-mix(in srgb, var(--ok) 36%, var(--rule))}
-.pill.retro{color:var(--ink-3)}
-.pill.no{color:var(--mercado-ink); border-color:color-mix(in srgb, var(--mercado) 34%, var(--rule))}
-.ok{color:var(--ok); font-weight:600} .mal{color:var(--riesgo); font-weight:600}
-.pend{color:var(--ink-3); font-style:italic; font-size:12.5px}
+/* ruta de tamaño de muestra */
 .ruta{list-style:none; padding:0; margin:0}
 .ruta li{display:grid; grid-template-columns:1fr 90px 110px; gap:10px; font-size:13.5px;
-         padding:8px 0; border-bottom:1px solid var(--rule-2); color:var(--ink-2)}
+         padding:9px 0; border-bottom:1px solid var(--rule-2); color:var(--ink-2)}
 .ruta li:last-child{border-bottom:none}
-.ruta li.hd{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase;
+.ruta li.hd{font-family:var(--mono); font-size:10px; letter-spacing:.07em; text-transform:uppercase;
             color:var(--ink-3); border-bottom:1px solid var(--rule)}
-.ruta .n2{font-family:var(--mono); text-align:right; font-variant-numeric:tabular-nums; color:var(--ink)}
-footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--rule);
-       font-size:12.5px; color:var(--ink-3); max-width:82ch}
-footer b{color:var(--ink-2)} footer p+p{margin-top:10px}
-@media (max-width:660px){
-  h1{font-size:25px} .wrap{padding:22px 14px 52px}
-  .duelo{grid-template-columns:1fr} .vs-col{display:none} .lado.mod{border-right:none; border-bottom:1px solid var(--rule)}
+.ruta .n2{font-family:var(--mono); text-align:right; font-variant-numeric:tabular-nums;
+          color:var(--ink); font-weight:600}
+@media (max-width:680px){
+  .duelo{grid-template-columns:1fr}
+  .vs-col{display:none}
+  .lado.mod{border-right:none; border-bottom:1px solid var(--rule)}
+  .lado{padding:1.15rem} .aviso{padding:1.15rem} .est{padding:1.1rem}
+  .veredicto{padding:1.15rem}
   .ruta li{grid-template-columns:1fr 70px}
 }
-
-#diccionario{margin-top:40px}
-.dic-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1px;
-          background:var(--rule); border:1px solid var(--rule); border-radius:3px; overflow:hidden}
-.dic-item{background:var(--panel); padding:14px 16px}
-.dic-item dt{font-weight:600; font-size:13.5px; margin:0 0 5px}
-.dic-item dd{margin:0; font-size:12.5px; color:var(--ink-2); line-height:1.5}
-.dic-item dd.uso{margin-top:6px; padding-top:6px; border-top:1px solid var(--rule-2); color:var(--ink-3)}
-.dic-item dd.uso b{color:var(--ink-2); font-weight:600}
-.cmd-box{margin-top:16px; background:var(--panel-2); border:1px solid var(--rule); border-radius:3px;
-         padding:14px 16px}
-.cmd-box .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
-              color:var(--ink-3); margin-bottom:8px}
-.cmd-box code{font-family:var(--mono); font-size:13px; font-weight:600; color:var(--ink);
-              background:var(--ground); border:1px solid var(--rule); border-radius:2px;
-              padding:5px 9px; display:inline-block}
-.cmd-box p{font-size:12.5px; color:var(--ink-2); margin-top:9px}
 </style>
 
-<div class="wrap">
-<header>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#arriba"><span class="dot"></span>
+      <span><span class="bn">Marcador del modelo</span><span class="bs" id="brandsub"></span></span></a>
+    <nav class="navlinks" aria-label="Navegación de la página">
+      <a class="pri" href="#resumen">&uarr; Resumen</a>
+      <a href="#duelo">El duelo</a>
+      <a href="#muestra">Tamaño de muestra</a>
+      <a href="#registro">Registro</a>
+      <a href="#diccionario">Diccionario</a>
+      <span class="sepnav" aria-hidden="true"></span>
+      <a href="./index.html">Modelo vs mercado</a>
+      <a href="./fichas.html">Fichas por partido</a>
+      <a class="aqui" aria-current="page" href="./seguimiento.html">Marcador</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap" id="arriba">
+<header class="hero">
   <div class="eyebrow">Registro fuera de muestra · abierto el 09/09/2026</div>
   <h1>Marcador del modelo</h1>
   <p class="sub">Las predicciones quedan selladas antes del saque inicial y se comparan luego
   contra el resultado real. La pregunta no es cuántas acertó, sino <strong>quién predice mejor:
   el modelo o el precio de la casa de apuestas</strong>. Toda métrica se calcula dos veces.</p>
   <div class="meta-line">
-    <span><a href="#diccionario">Diccionario de términos &darr;</a></span>
     <span id="gen"></span>
     <span><a href="./index.html">Modelo vs mercado</a></span>
     <span><a href="./fichas.html">Fichas por partido</a></span>
+    <span><a href="#diccionario">Diccionario de términos &darr;</a></span>
   </div>
 </header>
 
@@ -171,12 +391,12 @@ footer b{color:var(--ink-2)} footer p+p{margin-top:10px}
   <p id="aviso-p"></p>
 </div>
 
-<section>
+<section id="resumen">
   <div class="sec-head"><h2>Estado del registro</h2></div>
   <div class="estado" id="estado"></div>
 </section>
 
-<section>
+<section id="duelo">
   <div class="sec-head"><h2>Modelo contra mercado</h2>
     <span class="note">solo sobre los partidos ya resueltos</span></div>
   <div class="card">
@@ -198,7 +418,7 @@ footer b{color:var(--ink-2)} footer p+p{margin-top:10px}
   que al 95 %.</p>
 </section>
 
-<section>
+<section id="muestra">
   <div class="sec-head"><h2>Cuándo estos números empezarán a significar algo</h2></div>
   <div class="card" style="padding:18px 20px">
     <p class="sub" style="margin:0 0 14px">La diferencia de log-loss por partido entre modelo y
@@ -216,7 +436,7 @@ footer b{color:var(--ink-2)} footer p+p{margin-top:10px}
   </div>
 </section>
 
-<section>
+<section id="registro">
   <div class="sec-head"><h2>Registro partido por partido</h2>
     <span class="note" id="reg-note"></span></div>
   <div class="tbl-holder"><table id="log"><thead><tr>
@@ -227,10 +447,18 @@ footer b{color:var(--ink-2)} footer p+p{margin-top:10px}
 
 
 <section id="diccionario">
-  <div class="sec-head"><h2>Diccionario</h2><span class="note">qué significa cada número de esta página</span></div>
-  <dl class="dic-grid"><div class="dic-item"><dt>Probabilidad</dt><dd>De cada 100 veces que se jugara este partido, en cuantas terminaria asi.</dd><dd class="uso">Un 60&nbsp;% no quiere decir que va a pasar: quiere decir que 4 de cada 10 veces <b>no</b> pasa.</dd></div><div class="dic-item"><dt>Cuota</dt><dd>Lo que te paga la casa por cada peso apostado si aciertas. Cuota 2.50 devuelve 2.50 por peso.</dd><dd class="uso">Cuota alta significa que la casa lo considera poco probable.</dd></div><div class="dic-item"><dt>Cuota justa</dt><dd>La cuota que le corresponderia a la probabilidad si la casa no ganara nada. Es 100 entre la probabilidad.</dd><dd class="uso">Si la cuota que te ofrecen es <b>menor</b> que la justa, esa diferencia es la ganancia de la casa.</dd></div><div class="dic-item"><dt>Comisión de la casa</dt><dd>Lo que la casa retiene de todo lo apostado. En estos partidos promedia 5.24&nbsp;%.</dd><dd class="uso">Es el obstáculo real: para ganar a la larga hay que superar esa desventaja inicial de 5&nbsp;%.</dd></div><div class="dic-item"><dt>Mercado sin margen</dt><dd>La probabilidad que la casa realmente cree, después de quitarle su comisión al precio.</dd><dd class="uso">Es la mejor estimación disponible, porque detrás hay dinero real de miles de personas.</dd></div><div class="dic-item"><dt>1 · X · 2</dt><dd>1 es que gana el local, X es empate, 2 es que gana el visitante.</dd><dd class="uso">Es el mercado más simple y el más confiable de este análisis.</dd></div><div class="dic-item"><dt>Más de / Menos de (Over/Under)</dt><dd>Si el partido tendrá más o menos goles que una cifra, contando los dos equipos juntos.</dd><dd class="uso">&laquo;Más de 2.5&raquo; significa 3 goles o más. La media cifra evita que haya empate.</dd></div><div class="dic-item"><dt>Línea</dt><dd>La cifra de goles que la casa pone como referencia.</dd><dd class="uso">Línea 4.5 significa que la casa espera muchos goles; 1.5, un partido cerrado.</dd></div><div class="dic-item"><dt>Ambos anotan</dt><dd>Que los dos equipos marquen al menos un gol cada uno.</dd><dd class="uso">Sube cuando los dos atacan bien, o cuando los dos defienden mal.</dd></div><div class="dic-item"><dt>Hándicap</dt><dd>Se le suman o restan goles a un equipo antes de empezar, para equilibrar el partido.</dd><dd class="uso">&laquo;Local -1.5&raquo; exige que el local gane por 2 goles o más para que cuente.</dd></div><div class="dic-item"><dt>Goles esperados (xG)</dt><dd>Cuántos goles <em>merecía</em> marcar un equipo según la cantidad y calidad de sus remates.</dd><dd class="uso">Mide si un equipo juega bien, más allá de si tuvo suerte de cara al gol.</dd></div><div class="dic-item"><dt>Sin penales (npxG)</dt><dd>Lo mismo, descontando los penales, que son irregulares y distorsionan la medida.</dd><dd class="uso">Es la versión que usa el modelo: quedó mejor calibrada contra los goles reales.</dd></div><div class="dic-item"><dt>Puntos merecidos (xPTS)</dt><dd>Los puntos que un equipo tendría si sus resultados coincidieran con las ocasiones que generó.</dd><dd class="uso">Más puntos reales que merecidos indica suerte, y suele venir seguido de una caída.</dd></div><div class="dic-item"><dt>Presión (PPDA)</dt><dd>Cuántos pases deja dar al rival antes de intentar robarle el balón. Número bajo, presiona mucho.</dd><dd class="uso">Un equipo que presiona fuerte contra otro que saca mal el balón suele generar más ocasiones.</dd></div><div class="dic-item"><dt>Confianza 1 a 10</dt><dd>Qué tan sólido es el análisis de <em>ese</em> partido. No es la probabilidad de acertar.</dd><dd class="uso">Por debajo de 6 conviene fiarse más del precio de la casa que del número del modelo.</dd></div><div class="dic-item"><dt>Puntaje de precisión (log-loss)</dt><dd>Mide si las probabilidades estuvieron bien puestas. Castiga fuerte estar muy seguro y fallar.</dd><dd class="uso">Más bajo es mejor. Un modelo que reparte al azar saca 1.0986; este modelo saca <b>0.9961</b> fuera de muestra, o sea que captura cerca del 9&nbsp;% de la señal.</dd></div><div class="dic-item"><dt>Brier</dt><dd>Otra forma de medir el error de las probabilidades: promedio de las diferencias al cuadrado.</dd><dd class="uso">Igual que el anterior, más bajo es mejor. Se muestran los dos porque miden cosas distintas.</dd></div><div class="dic-item"><dt>Predicción sellada</dt><dd>Predicción registrada con fecha en el historial del proyecto <em>antes</em> de jugarse el partido.</dd><dd class="uso">Es la única que cuenta como prueba: garantiza que nadie la ajustó al conocer el resultado.</dd></div><div class="dic-item"><dt>Rating Elo</dt><dd>Un puntaje de fuerza por equipo que sube al ganar y baja al perder, según contra quién.</dd><dd class="uso">Es la base del pronóstico. Su punto débil: no sabe de lesionados ni de entrenadores nuevos.</dd></div><div class="dic-item"><dt>Poisson y Dixon-Coles</dt><dd>La fórmula que reparte la probabilidad entre todos los marcadores posibles.</dd><dd class="uso">No hace falta entenderla. Lo relevante es que se ajustó con 380 partidos reales.</dd></div></dl>
-<div class="cmd-box"><div class="lbl">Para actualizar los resultados después de cada jornada</div><code>python seguimiento/actualizar.py</code><p>Se ejecuta desde la carpeta del proyecto. Une las predicciones con los resultados y recalcula si el modelo está acertando. Nunca borra lo anterior: solo agrega.</p></div>
+  <div class="sec-head"><h2>Diccionario</h2>
+    <span class="note">qué significa cada número de esta página · también aparece al
+    pasar el ratón o tocar los términos subrayados</span></div>
+  <dl class="dic-grid" id="dicGrid"></dl>
+  <div class="cmd-box">
+    <div class="lbl">Para actualizar los resultados después de cada jornada</div>
+    <code>python seguimiento/actualizar.py</code>
+    <p>Se ejecuta desde la carpeta del proyecto. Une las predicciones con los resultados y
+    recalcula si el modelo está acertando. Nunca borra lo anterior: solo agrega.</p>
+  </div>
 </section>
+
 <footer>
   <p><b>Qué significa "sellado".</b> <span class="pill si">sí</span> el commit de esta predicción en
   el historial de git es anterior al saque inicial, así que cualquiera puede verificar en GitHub que
@@ -254,8 +482,11 @@ footer b{color:var(--ink-2)} footer p+p{margin-top:10px}
 </footer>
 </div>
 
+<div id="tip" role="tooltip" aria-hidden="true"></div>
+<button class="totop" id="totop" aria-label="Volver arriba">&uarr;</button>
+
 <script>
-const D = {"generado":"09/09/2026 21:52","total_predicciones":74,"resueltos":12,"pendientes":62,"sellados_git":66,"todos":{"modelo":{"n":12,"brier":0.3064,"logloss":0.5844,"acierto":11,"acierto_pct":91.7,"calibracion":[{"rango":"0-10%","n":3,"predicho":4.5,"observado":0.0},{"rango":"10-20%","n":6,"predicho":16.4,"observado":0.0},{"rango":"20-30%","n":14,"predicho":23.9,"observado":7.1},{"rango":"30-40%","n":2,"predicho":36.8,"observado":50.0},{"rango":"40-50%","n":1,"predicho":46.0,"observado":0.0},{"rango":"50-60%","n":6,"predicho":54.4,"observado":100.0},{"rango":"60-70%","n":2,"predicho":65.3,"observado":100.0},{"rango":"80-90%","n":1,"predicho":85.3,"observado":100.0},{"rango":"90-100%","n":1,"predicho":91.0,"observado":100.0}]},"mercado":{"n":12,"brier":0.2994,"logloss":0.5725,"acierto":10,"acierto_pct":83.3,"calibracion":[{"rango":"0-10%","n":5,"predicho":5.9,"observado":0.0},{"rango":"10-20%","n":4,"predicho":17.5,"observado":0.0},{"rango":"20-30%","n":14,"predicho":23.9,"observado":7.1},{"rango":"30-40%","n":2,"predicho":36.5,"observado":50.0},{"rango":"40-50%","n":1,"predicho":44.3,"observado":0.0},{"rango":"50-60%","n":7,"predicho":55.9,"observado":100.0},{"rango":"70-80%","n":1,"predicho":77.3,"observado":100.0},{"rango":"80-90%","n":1,"predicho":88.1,"observado":100.0},{"rango":"90-100%","n":1,"predicho":91.4,"observado":100.0}]}},"oro":{"modelo":{"n":4,"brier":0.2342,"logloss":0.4755,"acierto":4,"acierto_pct":100.0,"calibracion":[{"rango":"0-10%","n":2,"predicho":4.5,"observado":0.0},{"rango":"10-20%","n":1,"predicho":19.0,"observado":0.0},{"rango":"20-30%","n":5,"predicho":23.3,"observado":0.0},{"rango":"50-60%","n":3,"predicho":54.8,"observado":100.0},{"rango":"90-100%","n":1,"predicho":91.0,"observado":100.0}]},"mercado":{"n":4,"brier":0.2285,"logloss":0.4671,"acierto":4,"acierto_pct":100.0,"calibracion":[{"rango":"0-10%","n":2,"predicho":4.2,"observado":0.0},{"rango":"10-20%","n":1,"predicho":18.1,"observado":0.0},{"rango":"20-30%","n":5,"predicho":23.2,"observado":0.0},{"rango":"50-60%","n":3,"predicho":55.3,"observado":100.0},{"rango":"90-100%","n":1,"predicho":91.4,"observado":100.0}]}},"partidos":[{"tag":"BAR-FEY","liga":"UCL","fecha":"09/09/2026","local":"Barcelona","visita":"Feyenoord","mod":[85.3,10.2,4.5],"mkt":[88.1,7.3,4.5],"conf":6,"sellado":"no","res":"1","marcador":"5-1","total_goles":6,"acerto_mod":true,"acerto_mkt":true},{"tag":"STU-VIK","liga":"UCL","fecha":"09/09/2026","local":"Stuttgart","visita":"Viking FK","mod":[68.5,17.2,14.3],"mkt":[77.3,13.6,9.1],"conf":6,"sellado":"no","res":"1","marcador":"3-1","total_goles":4,"acerto_mod":true,"acerto_mkt":true},{"tag":"LIV-ATM","liga":"UCL","fecha":"09/09/2026","local":"Liverpool","visita":"Atlético Madrid","mod":[53.8,24.6,21.6],"mkt":[55.6,23.2,21.2],"conf":8,"sellado":"si","res":"1","marcador":"2-1","total_goles":3,"acerto_mod":true,"acerto_mkt":true},{"tag":"NAP-ARS","liga":"UCL","fecha":"09/09/2026","local":"Napoli","visita":"Arsenal","mod":[22.0,24.7,53.3],"mkt":[18.1,24.7,57.1],"conf":7,"sellado":"si","res":"2","marcador":"0-1","total_goles":1,"acerto_mod":true,"acerto_mkt":true},{"tag":"PSG-SLO","liga":"UCL","fecha":"09/09/2026","local":"Paris Saint-Germain","visita":"Slovan Bratislava","mod":[91.0,6.2,2.8],"mkt":[91.4,5.9,2.6],"conf":4,"sellado":"si","res":"1","marcador":"6-1","total_goles":7,"acerto_mod":true,"acerto_mkt":true},{"tag":"SPO-GAL","liga":"UCL","fecha":"09/09/2026","local":"Sporting CP","visita":"Galatasaray","mod":[57.2,23.8,19.0],"mkt":[53.2,24.0,22.8],"conf":8,"sellado":"si","res":"1","marcador":"3-1","total_goles":4,"acerto_mod":true,"acerto_mkt":true},{"tag":"FEN-ROM","liga":"UCL","fecha":"10/09/2026","local":"Fenerbahçe","visita":"Roma","mod":[37.5,26.5,36.1],"mkt":[28.9,26.8,44.3],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"PSV-SHA","liga":"UCL","fecha":"10/09/2026","local":"PSV Eindhoven","visita":"Shakhtar Donetsk","mod":[64.6,18.3,17.0],"mkt":[66.3,19.0,14.6],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"COM-RBL","liga":"UCL","fecha":"10/09/2026","local":"Como","visita":"RB Leipzig","mod":[47.0,21.7,31.4],"mkt":[51.0,24.2,24.8],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"SLA-LEN","liga":"UCL","fecha":"10/09/2026","local":"Slavia Praga","visita":"Lens","mod":[40.3,26.4,33.3],"mkt":[38.2,27.7,34.1],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"BMU-BOD","liga":"UCL","fecha":"10/09/2026","local":"Bayern München","visita":"Bodø/Glimt","mod":[81.2,10.9,7.9],"mkt":[86.1,8.0,6.0],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MNU-SAB","liga":"UCL","fecha":"10/09/2026","local":"Manchester United","visita":"Sabah FK","mod":[85.0,10.4,4.6],"mkt":[85.3,10.0,4.7],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"SEV-VAL","liga":"La Liga","fecha":"11/09/2026","local":"Sevilla","visita":"Valencia","mod":[41.6,27.7,30.7],"mkt":[43.5,29.9,26.6],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"RAC-ALA","liga":"La Liga","fecha":"12/09/2026","local":"Racing Santander","visita":"Alavés","mod":[40.4,27.3,32.3],"mkt":[39.1,26.8,34.1],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"OSA-ESP","liga":"La Liga","fecha":"12/09/2026","local":"Osasuna","visita":"Espanyol","mod":[50.9,25.7,23.4],"mkt":[44.9,29.0,26.2],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ATH-ELC","liga":"La Liga","fecha":"12/09/2026","local":"Athletic Club","visita":"Elche","mod":[57.0,23.3,19.6],"mkt":[67.0,19.4,13.6],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"RMA-RAY","liga":"La Liga","fecha":"12/09/2026","local":"Real Madrid","visita":"Rayo Vallecano","mod":[76.2,14.9,8.9],"mkt":[84.2,10.5,5.3],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"CEL-MAL","liga":"La Liga","fecha":"13/09/2026","local":"Celta Vigo","visita":"Málaga","mod":[56.4,24.8,18.8],"mkt":[55.3,25.3,19.4],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"LEV-BAR","liga":"La Liga","fecha":"13/09/2026","local":"Levante","visita":"Barcelona","mod":[13.2,16.4,70.4],"mkt":[8.5,12.5,78.9],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GET-DEP","liga":"La Liga","fecha":"13/09/2026","local":"Getafe","visita":"Deportivo La Coruña","mod":[44.8,31.0,24.2],"mkt":[39.6,33.3,27.1],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"RSO-ATM","liga":"La Liga","fecha":"13/09/2026","local":"Real Sociedad","visita":"Atlético Madrid","mod":[29.8,25.3,44.9],"mkt":[33.7,26.2,40.1],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"VIL-BET","liga":"La Liga","fecha":"14/09/2026","local":"Villarreal","visita":"Real Betis","mod":[46.0,25.0,29.0],"mkt":[49.7,25.0,25.3],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"AEK-LAS","liga":"UCL","fecha":"08/09/2026","local":"AEK Atenas","visita":"LASK","mod":[56.9,20.2,22.9],"mkt":[54.6,23.8,21.6],"conf":0,"sellado":"retro","res":"1","marcador":"1-0","total_goles":1,"acerto_mod":true,"acerto_mkt":true},{"tag":"BRU-AVL","liga":"UCL","fecha":"08/09/2026","local":"Club Brugge","visita":"Aston Villa","mod":[36.1,26.5,37.5],"mkt":[38.3,26.9,34.8],"conf":0,"sellado":"retro","res":"2","marcador":"2-3","total_goles":5,"acerto_mod":true,"acerto_mkt":false},{"tag":"DOR-VIL","liga":"UCL","fecha":"08/09/2026","local":"Borussia Dortmund","visita":"Villarreal","mod":[62.2,19.0,18.8],"mkt":[53.7,23.7,22.6],"conf":0,"sellado":"retro","res":"1","marcador":"3-2","total_goles":5,"acerto_mod":true,"acerto_mkt":true},{"tag":"POR-MCI","liga":"UCL","fecha":"08/09/2026","local":"FC Porto","visita":"Manchester City","mod":[22.8,24.9,52.4],"mkt":[19.2,23.4,57.5],"conf":0,"sellado":"retro","res":"2","marcador":"0-2","total_goles":2,"acerto_mod":true,"acerto_mkt":true},{"tag":"LIL-BET","liga":"UCL","fecha":"08/09/2026","local":"Lille","visita":"Real Betis","mod":[46.0,25.9,28.1],"mkt":[44.3,27.2,28.4],"conf":0,"sellado":"retro","res":"2","marcador":"2-3","total_goles":5,"acerto_mod":false,"acerto_mkt":false},{"tag":"RMA-INT","liga":"UCL","fecha":"08/09/2026","local":"Real Madrid","visita":"Internazionale","mod":[52.8,20.9,26.3],"mkt":[59.3,21.6,19.0],"conf":0,"sellado":"retro","res":"1","marcador":"2-1","total_goles":3,"acerto_mod":true,"acerto_mkt":true},{"tag":"MX-PUMLEÓ","liga":"Liga MX","fecha":"11/09/2026","local":"Pumas UNAM","visita":"León","mod":[59.7,22.7,17.6],"mkt":[44.5,26.3,29.2],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-NECPUE","liga":"Liga MX","fecha":"12/09/2026","local":"Necaxa","visita":"Puebla","mod":[52.0,24.2,23.8],"mkt":[46.8,25.7,27.5],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-ATLPAC","liga":"Liga MX","fecha":"12/09/2026","local":"Atlante","visita":"Pachuca","mod":[34.8,28.2,37.1],"mkt":[31.2,27.1,41.6],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-TIJQUE","liga":"Liga MX","fecha":"12/09/2026","local":"Tijuana","visita":"Querétaro","mod":[54.6,24.9,20.6],"mkt":[45.6,28.4,26.0],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-TOLATL","liga":"Liga MX","fecha":"12/09/2026","local":"Toluca","visita":"Atlas","mod":[68.4,19.6,12.0],"mkt":[62.9,21.6,15.5],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-MONTIG","liga":"Liga MX","fecha":"13/09/2026","local":"Monterrey","visita":"Tigres UANL","mod":[39.8,25.0,35.2],"mkt":[41.3,27.7,31.0],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-CRUAMÉ","liga":"Liga MX","fecha":"13/09/2026","local":"Cruz Azul","visita":"América","mod":[40.2,27.1,32.7],"mkt":[32.4,27.5,40.1],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-SANFC ","liga":"Liga MX","fecha":"14/09/2026","local":"Santos","visita":"FC Juarez","mod":[45.6,24.7,29.7],"mkt":[46.3,25.7,28.0],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-PUETOL","liga":"Liga MX","fecha":"16/09/2026","local":"Puebla","visita":"Toluca","mod":[17.1,21.8,61.1],"mkt":[21.0,22.5,56.6],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-AFCBRE","liga":"Premier League","fecha":"12/09/2026","local":"AFC Bournemouth","visita":"Brentford","mod":[42.3,27.4,30.4],"mkt":[38.2,26.5,35.3],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-ASTNOT","liga":"Premier League","fecha":"12/09/2026","local":"Aston Villa","visita":"Nottingham Forest","mod":[44.2,29.3,26.5],"mkt":[43.2,27.6,29.2],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-CHEHUL","liga":"Premier League","fecha":"12/09/2026","local":"Chelsea","visita":"Hull City","mod":[54.6,24.2,21.2],"mkt":[77.8,14.8,7.4],"conf":2,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-CRYIPS","liga":"Premier League","fecha":"12/09/2026","local":"Crystal Palace","visita":"Ipswich Town","mod":[48.2,26.9,24.8],"mkt":[50.0,25.1,24.8],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-LIVFUL","liga":"Premier League","fecha":"12/09/2026","local":"Liverpool","visita":"Fulham","mod":[56.7,24.1,19.2],"mkt":[65.8,19.5,14.7],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-TOTEVE","liga":"Premier League","fecha":"12/09/2026","local":"Tottenham Hotspur","visita":"Everton","mod":[41.7,29.8,28.4],"mkt":[47.5,26.0,26.4],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-SUNARS","liga":"Premier League","fecha":"12/09/2026","local":"Sunderland","visita":"Arsenal","mod":[15.8,27.3,56.8],"mkt":[13.7,21.8,64.5],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-COVBRI","liga":"Premier League","fecha":"13/09/2026","local":"Coventry City","visita":"Brighton & Hove Albion","mod":[35.3,29.0,35.7],"mkt":[23.9,25.5,50.5],"conf":4,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-MANMAN","liga":"Premier League","fecha":"13/09/2026","local":"Manchester United","visita":"Manchester City","mod":[38.3,26.7,35.1],"mkt":[31.0,24.9,44.0],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-LEENEW","liga":"Premier League","fecha":"14/09/2026","local":"Leeds United","visita":"Newcastle United","mod":[42.8,28.9,28.3],"mkt":[39.2,27.7,33.0],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-VENFIO","liga":"Serie A","fecha":"11/09/2026","local":"Venezia","visita":"Fiorentina","mod":[41.9,23.8,34.3],"mkt":[31.3,28.5,40.2],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-GENFRO","liga":"Serie A","fecha":"12/09/2026","local":"Genoa","visita":"Frosinone","mod":[38.7,25.8,35.4],"mkt":[44.9,28.3,26.7],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-LAZAC ","liga":"Serie A","fecha":"12/09/2026","local":"Lazio","visita":"AC Milan","mod":[29.1,27.7,43.2],"mkt":[29.3,29.7,41.0],"conf":10,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-ATACAG","liga":"Serie A","fecha":"12/09/2026","local":"Atalanta","visita":"Cagliari","mod":[50.9,24.0,25.1],"mkt":[60.3,23.5,16.2],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-LECMON","liga":"Serie A","fecha":"13/09/2026","local":"Lecce","visita":"Monza","mod":[20.7,24.6,54.7],"mkt":[36.6,30.0,33.3],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-NAPBOL","liga":"Serie A","fecha":"13/09/2026","local":"Napoli","visita":"Bologna","mod":[44.4,27.0,28.6],"mkt":[53.5,26.2,20.4],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-SASJUV","liga":"Serie A","fecha":"13/09/2026","local":"Sassuolo","visita":"Juventus","mod":[17.3,22.2,60.4],"mkt":[18.8,23.9,57.3],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-COMPAR","liga":"Serie A","fecha":"14/09/2026","local":"Como","visita":"Parma","mod":[64.9,20.8,14.2],"mkt":[74.7,16.6,8.7],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-TORAS ","liga":"Serie A","fecha":"14/09/2026","local":"Torino","visita":"AS Roma","mod":[21.3,23.4,55.3],"mkt":[16.6,23.5,59.9],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-INTUDI","liga":"Serie A","fecha":"14/09/2026","local":"Internazionale","visita":"Udinese","mod":[69.9,17.6,12.5],"mkt":[72.4,17.4,10.2],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-1. SCH","liga":"Bundesliga","fecha":"11/09/2026","local":"1. FC Union Berlin","visita":"Schalke 04","mod":[52.4,22.3,25.3],"mkt":[41.1,26.4,32.5],"conf":4,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-BORSC ","liga":"Bundesliga","fecha":"12/09/2026","local":"Borussia Dortmund","visita":"SC Paderborn 07","mod":[58.7,20.9,20.4],"mkt":[74.5,15.3,10.2],"conf":2,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-FC BAY","liga":"Bundesliga","fecha":"12/09/2026","local":"FC Augsburg","visita":"Bayer Leverkusen","mod":[26.8,21.5,51.7],"mkt":[24.0,23.1,53.0],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-MAIEIN","liga":"Bundesliga","fecha":"12/09/2026","local":"Mainz","visita":"Eintracht Frankfurt","mod":[47.8,22.7,29.5],"mkt":[47.3,24.3,28.4],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-SC BOR","liga":"Bundesliga","fecha":"12/09/2026","local":"SC Freiburg","visita":"Borussia Mönchengladbach","mod":[48.9,23.6,27.5],"mkt":[55.4,23.1,21.5],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-TSGVFB","liga":"Bundesliga","fecha":"12/09/2026","local":"TSG Hoffenheim","visita":"VfB Stuttgart","mod":[42.3,22.3,35.5],"mkt":[40.4,24.5,35.1],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-FC WER","liga":"Bundesliga","fecha":"12/09/2026","local":"FC Cologne","visita":"Werder Bremen","mod":[52.6,22.6,24.9],"mkt":[45.2,25.8,29.0],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-SV BAY","liga":"Bundesliga","fecha":"13/09/2026","local":"SV Elversberg","visita":"Bayern Munich","mod":[18.0,16.3,65.6],"mkt":[8.3,12.2,79.4],"conf":2,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-STAMAR","liga":"Ligue 1","fecha":"11/09/2026","local":"Stade Rennais","visita":"Marseille","mod":[38.3,22.8,38.9],"mkt":[44.5,24.6,30.9],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-STRAS ","liga":"Ligue 1","fecha":"12/09/2026","local":"Strasbourg","visita":"AS Monaco","mod":[46.5,23.1,30.4],"mkt":[30.8,25.8,43.4],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-AJ NIC","liga":"Ligue 1","fecha":"12/09/2026","local":"AJ Auxerre","visita":"Nice","mod":[42.5,25.6,32.0],"mkt":[37.4,28.0,34.6],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-LE ANG","liga":"Ligue 1","fecha":"12/09/2026","local":"Le Havre AC","visita":"Angers","mod":[45.4,26.4,28.3],"mkt":[42.5,29.0,28.5],"conf":10,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-LORTOU","liga":"Ligue 1","fecha":"12/09/2026","local":"Lorient","visita":"Toulouse","mod":[42.5,26.0,31.5],"mkt":[36.6,28.8,34.6],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-PARLYO","liga":"Ligue 1","fecha":"12/09/2026","local":"Paris FC","visita":"Lyon","mod":[43.8,24.3,31.9],"mkt":[36.0,25.8,38.2],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-LILTRO","liga":"Ligue 1","fecha":"13/09/2026","local":"Lille","visita":"Troyes","mod":[57.0,22.0,21.0],"mkt":[68.2,19.3,12.6],"conf":4,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-LE LEN","liga":"Ligue 1","fecha":"13/09/2026","local":"Le Mans","visita":"Lens","mod":[23.9,21.7,54.4],"mkt":[20.1,23.1,56.8],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-BREPAR","liga":"Ligue 1","fecha":"13/09/2026","local":"Brest","visita":"Paris Saint-Germain","mod":[26.4,22.3,51.3],"mkt":[11.1,15.8,73.1],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null}]};
+const D = {"generado":"10/09/2026 15:35","total_predicciones":74,"resueltos":18,"pendientes":56,"sellados_git":66,"todos":{"modelo":{"n":18,"brier":0.3774,"logloss":0.6814,"acierto":14,"acierto_pct":77.8,"calibracion":[{"rango":"0-10%","n":5,"predicho":5.2,"observado":0.0},{"rango":"10-20%","n":10,"predicho":15.5,"observado":10.0},{"rango":"20-30%","n":17,"predicho":24.1,"observado":11.8},{"rango":"30-40%","n":6,"predicho":35.3,"observado":33.3},{"rango":"40-50%","n":3,"predicho":44.4,"observado":33.3},{"rango":"50-60%","n":6,"predicho":54.4,"observado":100.0},{"rango":"60-70%","n":3,"predicho":65.1,"observado":66.7},{"rango":"80-90%","n":3,"predicho":83.8,"observado":100.0},{"rango":"90-100%","n":1,"predicho":91.0,"observado":100.0}]},"mercado":{"n":18,"brier":0.367,"logloss":0.6614,"acierto":13,"acierto_pct":72.2,"calibracion":[{"rango":"0-10%","n":8,"predicho":6.0,"observado":0.0},{"rango":"10-20%","n":7,"predicho":16.2,"observado":14.3},{"rango":"20-30%","n":19,"predicho":24.6,"observado":10.5},{"rango":"30-40%","n":4,"predicho":36.4,"observado":50.0},{"rango":"40-50%","n":2,"predicho":44.3,"observado":0.0},{"rango":"50-60%","n":8,"predicho":55.3,"observado":100.0},{"rango":"60-70%","n":1,"predicho":66.3,"observado":0.0},{"rango":"70-80%","n":1,"predicho":77.3,"observado":100.0},{"rango":"80-90%","n":3,"predicho":86.5,"observado":100.0},{"rango":"90-100%","n":1,"predicho":91.4,"observado":100.0}]}},"oro":{"modelo":{"n":10,"brier":0.4054,"logloss":0.7154,"acierto":7,"acierto_pct":70.0,"calibracion":[{"rango":"0-10%","n":4,"predicho":5.4,"observado":0.0},{"rango":"10-20%","n":5,"predicho":15.1,"observado":20.0},{"rango":"20-30%","n":8,"predicho":23.9,"observado":12.5},{"rango":"30-40%","n":4,"predicho":34.6,"observado":25.0},{"rango":"40-50%","n":2,"predicho":43.6,"observado":50.0},{"rango":"50-60%","n":3,"predicho":54.8,"observado":100.0},{"rango":"60-70%","n":1,"predicho":64.6,"observado":0.0},{"rango":"80-90%","n":2,"predicho":83.1,"observado":100.0},{"rango":"90-100%","n":1,"predicho":91.0,"observado":100.0}]},"mercado":{"n":10,"brier":0.3927,"logloss":0.6904,"acierto":7,"acierto_pct":70.0,"calibracion":[{"rango":"0-10%","n":5,"predicho":5.4,"observado":0.0},{"rango":"10-20%","n":4,"predicho":15.4,"observado":25.0},{"rango":"20-30%","n":10,"predicho":24.8,"observado":10.0},{"rango":"30-40%","n":2,"predicho":36.2,"observado":50.0},{"rango":"40-50%","n":1,"predicho":44.3,"observado":0.0},{"rango":"50-60%","n":4,"predicho":54.2,"observado":100.0},{"rango":"60-70%","n":1,"predicho":66.3,"observado":0.0},{"rango":"80-90%","n":2,"predicho":85.7,"observado":100.0},{"rango":"90-100%","n":1,"predicho":91.4,"observado":100.0}]}},"partidos":[{"tag":"BAR-FEY","liga":"UCL","fecha":"09/09/2026","local":"Barcelona","visita":"Feyenoord","mod":[85.3,10.2,4.5],"mkt":[88.1,7.3,4.5],"conf":6,"sellado":"no","res":"1","marcador":"5-1","total_goles":6,"acerto_mod":true,"acerto_mkt":true},{"tag":"STU-VIK","liga":"UCL","fecha":"09/09/2026","local":"Stuttgart","visita":"Viking FK","mod":[68.5,17.2,14.3],"mkt":[77.3,13.6,9.1],"conf":6,"sellado":"no","res":"1","marcador":"3-1","total_goles":4,"acerto_mod":true,"acerto_mkt":true},{"tag":"LIV-ATM","liga":"UCL","fecha":"09/09/2026","local":"Liverpool","visita":"Atlético Madrid","mod":[53.8,24.6,21.6],"mkt":[55.6,23.2,21.2],"conf":8,"sellado":"si","res":"1","marcador":"2-1","total_goles":3,"acerto_mod":true,"acerto_mkt":true},{"tag":"NAP-ARS","liga":"UCL","fecha":"09/09/2026","local":"Napoli","visita":"Arsenal","mod":[22.0,24.7,53.3],"mkt":[18.1,24.7,57.1],"conf":7,"sellado":"si","res":"2","marcador":"0-1","total_goles":1,"acerto_mod":true,"acerto_mkt":true},{"tag":"PSG-SLO","liga":"UCL","fecha":"09/09/2026","local":"Paris Saint-Germain","visita":"Slovan Bratislava","mod":[91.0,6.2,2.8],"mkt":[91.4,5.9,2.6],"conf":4,"sellado":"si","res":"1","marcador":"6-1","total_goles":7,"acerto_mod":true,"acerto_mkt":true},{"tag":"SPO-GAL","liga":"UCL","fecha":"09/09/2026","local":"Sporting CP","visita":"Galatasaray","mod":[57.2,23.8,19.0],"mkt":[53.2,24.0,22.8],"conf":8,"sellado":"si","res":"1","marcador":"3-1","total_goles":4,"acerto_mod":true,"acerto_mkt":true},{"tag":"FEN-ROM","liga":"UCL","fecha":"10/09/2026","local":"Fenerbahçe","visita":"Roma","mod":[37.5,26.5,36.1],"mkt":[28.9,26.8,44.3],"conf":7,"sellado":"si","res":"X","marcador":"1-1","total_goles":2,"acerto_mod":false,"acerto_mkt":false},{"tag":"PSV-SHA","liga":"UCL","fecha":"10/09/2026","local":"PSV Eindhoven","visita":"Shakhtar Donetsk","mod":[64.6,18.3,17.0],"mkt":[66.3,19.0,14.6],"conf":6,"sellado":"si","res":"X","marcador":"1-1","total_goles":2,"acerto_mod":false,"acerto_mkt":false},{"tag":"COM-RBL","liga":"UCL","fecha":"10/09/2026","local":"Como","visita":"RB Leipzig","mod":[47.0,21.7,31.4],"mkt":[51.0,24.2,24.8],"conf":6,"sellado":"si","res":"1","marcador":"4-1","total_goles":5,"acerto_mod":true,"acerto_mkt":true},{"tag":"SLA-LEN","liga":"UCL","fecha":"10/09/2026","local":"Slavia Praga","visita":"Lens","mod":[40.3,26.4,33.3],"mkt":[38.2,27.7,34.1],"conf":6,"sellado":"si","res":"2","marcador":"2-3","total_goles":5,"acerto_mod":false,"acerto_mkt":false},{"tag":"BMU-BOD","liga":"UCL","fecha":"10/09/2026","local":"Bayern München","visita":"Bodø/Glimt","mod":[81.2,10.9,7.9],"mkt":[86.1,8.0,6.0],"conf":6,"sellado":"si","res":"1","marcador":"5-0","total_goles":5,"acerto_mod":true,"acerto_mkt":true},{"tag":"MNU-SAB","liga":"UCL","fecha":"10/09/2026","local":"Manchester United","visita":"Sabah FK","mod":[85.0,10.4,4.6],"mkt":[85.3,10.0,4.7],"conf":6,"sellado":"si","res":"1","marcador":"4-0","total_goles":4,"acerto_mod":true,"acerto_mkt":true},{"tag":"SEV-VAL","liga":"La Liga","fecha":"11/09/2026","local":"Sevilla","visita":"Valencia","mod":[41.6,27.7,30.7],"mkt":[43.5,29.9,26.6],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"RAC-ALA","liga":"La Liga","fecha":"12/09/2026","local":"Racing Santander","visita":"Alavés","mod":[40.4,27.3,32.3],"mkt":[39.1,26.8,34.1],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"OSA-ESP","liga":"La Liga","fecha":"12/09/2026","local":"Osasuna","visita":"Espanyol","mod":[50.9,25.7,23.4],"mkt":[44.9,29.0,26.2],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ATH-ELC","liga":"La Liga","fecha":"12/09/2026","local":"Athletic Club","visita":"Elche","mod":[57.0,23.3,19.6],"mkt":[67.0,19.4,13.6],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"RMA-RAY","liga":"La Liga","fecha":"12/09/2026","local":"Real Madrid","visita":"Rayo Vallecano","mod":[76.2,14.9,8.9],"mkt":[84.2,10.5,5.3],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"CEL-MAL","liga":"La Liga","fecha":"13/09/2026","local":"Celta Vigo","visita":"Málaga","mod":[56.4,24.8,18.8],"mkt":[55.3,25.3,19.4],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"LEV-BAR","liga":"La Liga","fecha":"13/09/2026","local":"Levante","visita":"Barcelona","mod":[13.2,16.4,70.4],"mkt":[8.5,12.5,78.9],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GET-DEP","liga":"La Liga","fecha":"13/09/2026","local":"Getafe","visita":"Deportivo La Coruña","mod":[44.8,31.0,24.2],"mkt":[39.6,33.3,27.1],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"RSO-ATM","liga":"La Liga","fecha":"13/09/2026","local":"Real Sociedad","visita":"Atlético Madrid","mod":[29.8,25.3,44.9],"mkt":[33.7,26.2,40.1],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"VIL-BET","liga":"La Liga","fecha":"14/09/2026","local":"Villarreal","visita":"Real Betis","mod":[46.0,25.0,29.0],"mkt":[49.7,25.0,25.3],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"AEK-LAS","liga":"UCL","fecha":"08/09/2026","local":"AEK Atenas","visita":"LASK","mod":[56.9,20.2,22.9],"mkt":[54.6,23.8,21.6],"conf":0,"sellado":"retro","res":"1","marcador":"1-0","total_goles":1,"acerto_mod":true,"acerto_mkt":true},{"tag":"BRU-AVL","liga":"UCL","fecha":"08/09/2026","local":"Club Brugge","visita":"Aston Villa","mod":[36.1,26.5,37.5],"mkt":[38.3,26.9,34.8],"conf":0,"sellado":"retro","res":"2","marcador":"2-3","total_goles":5,"acerto_mod":true,"acerto_mkt":false},{"tag":"DOR-VIL","liga":"UCL","fecha":"08/09/2026","local":"Borussia Dortmund","visita":"Villarreal","mod":[62.2,19.0,18.8],"mkt":[53.7,23.7,22.6],"conf":0,"sellado":"retro","res":"1","marcador":"3-2","total_goles":5,"acerto_mod":true,"acerto_mkt":true},{"tag":"POR-MCI","liga":"UCL","fecha":"08/09/2026","local":"FC Porto","visita":"Manchester City","mod":[22.8,24.9,52.4],"mkt":[19.2,23.4,57.5],"conf":0,"sellado":"retro","res":"2","marcador":"0-2","total_goles":2,"acerto_mod":true,"acerto_mkt":true},{"tag":"LIL-BET","liga":"UCL","fecha":"08/09/2026","local":"Lille","visita":"Real Betis","mod":[46.0,25.9,28.1],"mkt":[44.3,27.2,28.4],"conf":0,"sellado":"retro","res":"2","marcador":"2-3","total_goles":5,"acerto_mod":false,"acerto_mkt":false},{"tag":"RMA-INT","liga":"UCL","fecha":"08/09/2026","local":"Real Madrid","visita":"Internazionale","mod":[52.8,20.9,26.3],"mkt":[59.3,21.6,19.0],"conf":0,"sellado":"retro","res":"1","marcador":"2-1","total_goles":3,"acerto_mod":true,"acerto_mkt":true},{"tag":"MX-PUMLEÓ","liga":"Liga MX","fecha":"11/09/2026","local":"Pumas UNAM","visita":"León","mod":[59.7,22.7,17.6],"mkt":[44.5,26.3,29.2],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-NECPUE","liga":"Liga MX","fecha":"12/09/2026","local":"Necaxa","visita":"Puebla","mod":[52.0,24.2,23.8],"mkt":[46.8,25.7,27.5],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-ATLPAC","liga":"Liga MX","fecha":"12/09/2026","local":"Atlante","visita":"Pachuca","mod":[34.8,28.2,37.1],"mkt":[31.2,27.1,41.6],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-TIJQUE","liga":"Liga MX","fecha":"12/09/2026","local":"Tijuana","visita":"Querétaro","mod":[54.6,24.9,20.6],"mkt":[45.6,28.4,26.0],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-TOLATL","liga":"Liga MX","fecha":"12/09/2026","local":"Toluca","visita":"Atlas","mod":[68.4,19.6,12.0],"mkt":[62.9,21.6,15.5],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-MONTIG","liga":"Liga MX","fecha":"13/09/2026","local":"Monterrey","visita":"Tigres UANL","mod":[39.8,25.0,35.2],"mkt":[41.3,27.7,31.0],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-CRUAMÉ","liga":"Liga MX","fecha":"13/09/2026","local":"Cruz Azul","visita":"América","mod":[40.2,27.1,32.7],"mkt":[32.4,27.5,40.1],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-SANFC ","liga":"Liga MX","fecha":"14/09/2026","local":"Santos","visita":"FC Juarez","mod":[45.6,24.7,29.7],"mkt":[46.3,25.7,28.0],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"MX-PUETOL","liga":"Liga MX","fecha":"16/09/2026","local":"Puebla","visita":"Toluca","mod":[17.1,21.8,61.1],"mkt":[21.0,22.5,56.6],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-AFCBRE","liga":"Premier League","fecha":"12/09/2026","local":"AFC Bournemouth","visita":"Brentford","mod":[42.3,27.4,30.4],"mkt":[38.2,26.5,35.3],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-ASTNOT","liga":"Premier League","fecha":"12/09/2026","local":"Aston Villa","visita":"Nottingham Forest","mod":[44.2,29.3,26.5],"mkt":[43.2,27.6,29.2],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-CHEHUL","liga":"Premier League","fecha":"12/09/2026","local":"Chelsea","visita":"Hull City","mod":[54.6,24.2,21.2],"mkt":[77.8,14.8,7.4],"conf":2,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-CRYIPS","liga":"Premier League","fecha":"12/09/2026","local":"Crystal Palace","visita":"Ipswich Town","mod":[48.2,26.9,24.8],"mkt":[50.0,25.1,24.8],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-LIVFUL","liga":"Premier League","fecha":"12/09/2026","local":"Liverpool","visita":"Fulham","mod":[56.7,24.1,19.2],"mkt":[65.8,19.5,14.7],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-TOTEVE","liga":"Premier League","fecha":"12/09/2026","local":"Tottenham Hotspur","visita":"Everton","mod":[41.7,29.8,28.4],"mkt":[47.5,26.0,26.4],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-SUNARS","liga":"Premier League","fecha":"12/09/2026","local":"Sunderland","visita":"Arsenal","mod":[15.8,27.3,56.8],"mkt":[13.7,21.8,64.5],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-COVBRI","liga":"Premier League","fecha":"13/09/2026","local":"Coventry City","visita":"Brighton & Hove Albion","mod":[35.3,29.0,35.7],"mkt":[23.9,25.5,50.5],"conf":4,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-MANMAN","liga":"Premier League","fecha":"13/09/2026","local":"Manchester United","visita":"Manchester City","mod":[38.3,26.7,35.1],"mkt":[31.0,24.9,44.0],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"EPL-LEENEW","liga":"Premier League","fecha":"14/09/2026","local":"Leeds United","visita":"Newcastle United","mod":[42.8,28.9,28.3],"mkt":[39.2,27.7,33.0],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-VENFIO","liga":"Serie A","fecha":"11/09/2026","local":"Venezia","visita":"Fiorentina","mod":[41.9,23.8,34.3],"mkt":[31.3,28.5,40.2],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-GENFRO","liga":"Serie A","fecha":"12/09/2026","local":"Genoa","visita":"Frosinone","mod":[38.7,25.8,35.4],"mkt":[44.9,28.3,26.7],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-LAZAC ","liga":"Serie A","fecha":"12/09/2026","local":"Lazio","visita":"AC Milan","mod":[29.1,27.7,43.2],"mkt":[29.3,29.7,41.0],"conf":10,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-ATACAG","liga":"Serie A","fecha":"12/09/2026","local":"Atalanta","visita":"Cagliari","mod":[50.9,24.0,25.1],"mkt":[60.3,23.5,16.2],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-LECMON","liga":"Serie A","fecha":"13/09/2026","local":"Lecce","visita":"Monza","mod":[20.7,24.6,54.7],"mkt":[36.6,30.0,33.3],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-NAPBOL","liga":"Serie A","fecha":"13/09/2026","local":"Napoli","visita":"Bologna","mod":[44.4,27.0,28.6],"mkt":[53.5,26.2,20.4],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-SASJUV","liga":"Serie A","fecha":"13/09/2026","local":"Sassuolo","visita":"Juventus","mod":[17.3,22.2,60.4],"mkt":[18.8,23.9,57.3],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-COMPAR","liga":"Serie A","fecha":"14/09/2026","local":"Como","visita":"Parma","mod":[64.9,20.8,14.2],"mkt":[74.7,16.6,8.7],"conf":6,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-TORAS ","liga":"Serie A","fecha":"14/09/2026","local":"Torino","visita":"AS Roma","mod":[21.3,23.4,55.3],"mkt":[16.6,23.5,59.9],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"ITA-INTUDI","liga":"Serie A","fecha":"14/09/2026","local":"Internazionale","visita":"Udinese","mod":[69.9,17.6,12.5],"mkt":[72.4,17.4,10.2],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-1. SCH","liga":"Bundesliga","fecha":"11/09/2026","local":"1. FC Union Berlin","visita":"Schalke 04","mod":[52.4,22.3,25.3],"mkt":[41.1,26.4,32.5],"conf":4,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-BORSC ","liga":"Bundesliga","fecha":"12/09/2026","local":"Borussia Dortmund","visita":"SC Paderborn 07","mod":[58.7,20.9,20.4],"mkt":[74.5,15.3,10.2],"conf":2,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-FC BAY","liga":"Bundesliga","fecha":"12/09/2026","local":"FC Augsburg","visita":"Bayer Leverkusen","mod":[26.8,21.5,51.7],"mkt":[24.0,23.1,53.0],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-MAIEIN","liga":"Bundesliga","fecha":"12/09/2026","local":"Mainz","visita":"Eintracht Frankfurt","mod":[47.8,22.7,29.5],"mkt":[47.3,24.3,28.4],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-SC BOR","liga":"Bundesliga","fecha":"12/09/2026","local":"SC Freiburg","visita":"Borussia Mönchengladbach","mod":[48.9,23.6,27.5],"mkt":[55.4,23.1,21.5],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-TSGVFB","liga":"Bundesliga","fecha":"12/09/2026","local":"TSG Hoffenheim","visita":"VfB Stuttgart","mod":[42.3,22.3,35.5],"mkt":[40.4,24.5,35.1],"conf":9,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-FC WER","liga":"Bundesliga","fecha":"12/09/2026","local":"FC Cologne","visita":"Werder Bremen","mod":[52.6,22.6,24.9],"mkt":[45.2,25.8,29.0],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"GER-SV BAY","liga":"Bundesliga","fecha":"13/09/2026","local":"SV Elversberg","visita":"Bayern Munich","mod":[18.0,16.3,65.6],"mkt":[8.3,12.2,79.4],"conf":2,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-STAMAR","liga":"Ligue 1","fecha":"11/09/2026","local":"Stade Rennais","visita":"Marseille","mod":[38.3,22.8,38.9],"mkt":[44.5,24.6,30.9],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-STRAS ","liga":"Ligue 1","fecha":"12/09/2026","local":"Strasbourg","visita":"AS Monaco","mod":[46.5,23.1,30.4],"mkt":[30.8,25.8,43.4],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-AJ NIC","liga":"Ligue 1","fecha":"12/09/2026","local":"AJ Auxerre","visita":"Nice","mod":[42.5,25.6,32.0],"mkt":[37.4,28.0,34.6],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-LE ANG","liga":"Ligue 1","fecha":"12/09/2026","local":"Le Havre AC","visita":"Angers","mod":[45.4,26.4,28.3],"mkt":[42.5,29.0,28.5],"conf":10,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-LORTOU","liga":"Ligue 1","fecha":"12/09/2026","local":"Lorient","visita":"Toulouse","mod":[42.5,26.0,31.5],"mkt":[36.6,28.8,34.6],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-PARLYO","liga":"Ligue 1","fecha":"12/09/2026","local":"Paris FC","visita":"Lyon","mod":[43.8,24.3,31.9],"mkt":[36.0,25.8,38.2],"conf":8,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-LILTRO","liga":"Ligue 1","fecha":"13/09/2026","local":"Lille","visita":"Troyes","mod":[57.0,22.0,21.0],"mkt":[68.2,19.3,12.6],"conf":4,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-LE LEN","liga":"Ligue 1","fecha":"13/09/2026","local":"Le Mans","visita":"Lens","mod":[23.9,21.7,54.4],"mkt":[20.1,23.1,56.8],"conf":7,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null},{"tag":"FRA-BREPAR","liga":"Ligue 1","fecha":"13/09/2026","local":"Brest","visita":"Paris Saint-Germain","mod":[26.4,22.3,51.3],"mkt":[11.1,15.8,73.1],"conf":5,"sellado":"si","res":null,"marcador":null,"total_goles":null,"acerto_mod":null,"acerto_mkt":null}]};
 const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fx = (v, d) => (v == null ? '—' : Number(v).toFixed(d == null ? 1 : d));
@@ -319,6 +550,198 @@ $('#log tbody').innerHTML = D.partidos.map(p => {
     <td class="n">${p.marcador ? esc(p.marcador)+' ('+esc(p.res)+')' : '<span class="pend">por jugar</span>'}</td>
     <td>${mark(p.acerto_mod)}</td><td>${mark(p.acerto_mkt)}</td></tr>`;
 }).join('');
+
+const DIC = [
+  ['prob', 'Probabilidad',
+   'De cada 100 veces que se jugara este partido, en cuántas terminaría así.',
+   'Un 60&nbsp;% no quiere decir que va a pasar: quiere decir que 4 de cada 10 veces <b>no</b> pasa.'],
+  ['cuota', 'Cuota',
+   'Lo que te paga la casa por cada peso apostado si aciertas. Cuota 2.50 devuelve 2.50 por peso.',
+   'Cuota alta significa que la casa lo considera poco probable.'],
+  ['cuotajusta', 'Cuota justa',
+   'La cuota que le correspondería a la probabilidad si la casa no ganara nada. Es 100 entre la probabilidad.',
+   'Si la cuota que te ofrecen es <b>menor</b> que la justa, esa diferencia es la ganancia de la casa.'],
+  ['margen', 'Comisión de la casa',
+   'Lo que la casa retiene de todo lo apostado. En estos partidos promedia 5.24&nbsp;%.',
+   'Es el obstáculo real: para ganar a la larga hay que superar esa desventaja inicial de 5&nbsp;%.'],
+  ['sinmargen', 'Mercado sin margen',
+   'La probabilidad que la casa realmente cree, después de quitarle su comisión al precio.',
+   'Es la mejor estimación disponible, porque detrás hay dinero real de miles de personas.'],
+  ['unoxdos', '1 · X · 2',
+   '1 es que gana el local, X es empate, 2 es que gana el visitante.',
+   'Es el mercado más simple y el más confiable de este análisis.'],
+  ['overunder', 'Más de / Menos de (Over/Under)',
+   'Si el partido tendrá más o menos goles que una cifra, contando los dos equipos juntos.',
+   '&laquo;Más de 2.5&raquo; significa 3 goles o más. La media cifra evita que haya empate.'],
+  ['linea', 'Línea',
+   'La cifra de goles que la casa pone como referencia.',
+   'Línea 4.5 significa que la casa espera muchos goles; 1.5, un partido cerrado.'],
+  ['btts', 'Ambos anotan',
+   'Que los dos equipos marquen al menos un gol cada uno.',
+   'Sube cuando los dos atacan bien, o cuando los dos defienden mal.'],
+  ['handicap', 'Hándicap',
+   'Se le suman o restan goles a un equipo antes de empezar, para equilibrar el partido.',
+   '&laquo;Local -1.5&raquo; exige que el local gane por 2 goles o más para que cuente.'],
+  ['xg', 'Goles esperados (xG)',
+   'Cuántos goles <em>merecía</em> marcar un equipo según la cantidad y calidad de sus remates.',
+   'Mide si un equipo juega bien, más allá de si tuvo suerte de cara al gol.'],
+  ['npxg', 'Sin penales (npxG)',
+   'Lo mismo, descontando los penales, que son irregulares y distorsionan la medida.',
+   'Es la versión que usa el modelo: quedó mejor calibrada contra los goles reales.'],
+  ['xpts', 'Puntos merecidos (xPTS)',
+   'Los puntos que un equipo tendría si sus resultados coincidieran con las ocasiones que generó.',
+   'Más puntos reales que merecidos indica suerte, y suele venir seguido de una caída.'],
+  ['ppda', 'Presión (PPDA)',
+   'Cuántos pases deja dar al rival antes de intentar robarle el balón. Número bajo, presiona mucho.',
+   'Un equipo que presiona fuerte contra otro que saca mal el balón suele generar más ocasiones.'],
+  ['deep', 'Deep completions',
+   'Pases completados cerca del área rival, por partido.',
+   'Mide cuánto llega un equipo a zona peligrosa, aunque no acabe rematando.'],
+  ['dif', 'Diferencia máxima (Dif. máx)',
+   'El mayor desacuerdo entre el modelo y el mercado en un mismo partido, en puntos porcentuales.',
+   'Es el dato más informativo de la ficha. Por encima de 6 puntos, en este proyecto el equivocado ha resultado ser el modelo, no la casa.'],
+  ['conf', 'Confianza 1 a 10',
+   'Qué tan sólido es el análisis de <em>ese</em> partido. No es la probabilidad de acertar.',
+   'Por debajo de 6 conviene fiarse más del precio de la casa que del número del modelo.'],
+  ['logloss', 'Puntaje de precisión (log-loss)',
+   'Mide si las probabilidades estuvieron bien puestas. Castiga fuerte estar muy seguro y fallar.',
+   'Más bajo es mejor. Este modelo saca <b>0.9961</b> fuera de muestra contra 1.0986 de uno ciego: captura cerca del 9&nbsp;% de la señal.'],
+  ['brier', 'Brier',
+   'Otra forma de medir el error de las probabilidades: promedio de las diferencias al cuadrado.',
+   'Igual que el anterior, más bajo es mejor. Se muestran los dos porque miden cosas distintas.'],
+  ['sellada', 'Predicción sellada',
+   'Predicción registrada con fecha en el historial del proyecto <em>antes</em> de jugarse el partido.',
+   'Es la única que cuenta como prueba: garantiza que nadie la ajustó al conocer el resultado.'],
+  ['elo', 'Rating Elo',
+   'Un puntaje de fuerza por equipo que sube al ganar y baja al perder, según contra quién.',
+   'Es la base del pronóstico. Su punto débil: no sabe de lesionados ni de entrenadores nuevos.'],
+  ['poisson', 'Poisson y Dixon-Coles',
+   'La fórmula que reparte la probabilidad entre todos los marcadores posibles.',
+   'No hace falta entenderla. Lo relevante es que se ajustó con partidos reales de cada liga.'],
+];
+const DICMAP = {};
+DIC.forEach(d => { DICMAP[d[0]] = {t: d[1], d: d[2], u: d[3]}; });
+
+/* T('clave') pinta el término con su nombre; T('clave','texto') usa otro texto */
+function T(k, txt) {
+  const x = DICMAP[k];
+  if (!x) return String(txt == null ? k : txt);
+  return '<span class="term" tabindex="0" role="button" aria-label="Definición de ' + x.t +
+         '" data-k="' + k + '">' + (txt == null ? x.t : txt) + '</span>';
+}
+
+/* marca términos dentro de texto ya escrito en la página, sin tocar etiquetas */
+function marcar(sel, pares) {
+  document.querySelectorAll(sel).forEach(nodo => {
+    pares.forEach(([k, txt]) => {
+      const h = nodo.innerHTML;
+      const i = h.indexOf(txt);
+      if (i < 0) return;
+      if (h.indexOf('data-k="' + k + '"') >= 0) return;
+      if (/<[^>]*$/.test(h.slice(0, i))) return;
+      nodo.innerHTML = h.slice(0, i) + T(k, txt) + h.slice(i + txt.length);
+    });
+  });
+}
+
+const gridDic = document.getElementById('dicGrid');
+if (gridDic) gridDic.innerHTML = DIC.map(d =>
+  '<div class="dic-item"><dt>' + d[1] + '</dt><dd>' + d[2] +
+  '</dd><dd class="uso">' + d[3] + '</dd></div>').join('');
+
+/* ---- tooltip flotante: ratón por hover, táctil por toque ---- */
+const tip = document.getElementById('tip');
+let tipActual = null;
+function showTip(el) {
+  const x = DICMAP[el.dataset.k];
+  if (!x) return;
+  tipActual = el;
+  tip.innerHTML = '<div class="t-h">' + x.t + '</div><div class="t-d">' + x.d +
+                  '</div><div class="t-u">' + x.u + '</div>';
+  tip.style.left = '0px'; tip.style.top = '0px';
+  tip.classList.add('on'); tip.setAttribute('aria-hidden', 'false');
+  const r = el.getBoundingClientRect(), t = tip.getBoundingClientRect();
+  let left = r.left + r.width / 2 - t.width / 2;
+  left = Math.max(10, Math.min(left, innerWidth - t.width - 10));
+  let top = r.top - t.height - 10;
+  if (top < 8) top = Math.min(r.bottom + 10, innerHeight - t.height - 8);
+  tip.style.left = left + 'px'; tip.style.top = top + 'px';
+}
+function hideTip() {
+  tipActual = null; tip.classList.remove('on');
+  tip.setAttribute('aria-hidden', 'true'); tip.style.left = '-9999px';
+}
+/* En táctil el puntero no "pasa por encima": si abriéramos aquí, el clic
+   posterior lo cerraría de inmediato. Por eso el hover solo vale para ratón. */
+document.addEventListener('pointerover', e => {
+  if (e.pointerType === 'touch' || e.pointerType === 'pen') return;
+  const t = e.target.closest && e.target.closest('.term');
+  if (t) showTip(t);
+  else if (tipActual && !e.target.closest('#tip')) hideTip();
+});
+document.addEventListener('focusin', e => {
+  const t = e.target.closest && e.target.closest('.term');
+  if (t) showTip(t); else if (tipActual) hideTip();
+});
+/* un toque sobre el término lo abre; un toque en cualquier otro sitio lo cierra */
+document.addEventListener('click', e => {
+  const t = e.target.closest && e.target.closest('.term');
+  if (t) { e.preventDefault(); (tipActual === t) ? hideTip() : showTip(t); }
+  else if (tipActual) hideTip();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') hideTip(); });
+addEventListener('scroll', () => { if (tipActual) hideTip(); }, {passive: true});
+addEventListener('resize', hideTip);
+
+/* ---- botón flotante: vuelve al Resumen, o arriba si la página no lo tiene ---- */
+/* marca la navegación como desplazable solo cuando de verdad no cabe */
+const navBar = document.querySelector('.navlinks');
+function medirNav(){
+  if (navBar) navBar.classList.toggle('desborda', navBar.scrollWidth > navBar.clientWidth + 2);
+}
+medirNav(); addEventListener('resize', medirNav); setTimeout(medirNav, 400);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(medirNav);
+
+const btnTop = document.getElementById('totop');
+const destinoTop = document.getElementById('resumen') || document.getElementById('arriba');
+if (destinoTop && destinoTop.id === 'resumen') {
+  btnTop.title = 'Volver al Resumen';
+  btnTop.setAttribute('aria-label', 'Volver a la tabla de Resumen');
+}
+addEventListener('scroll', () => btnTop.classList.toggle('on', scrollY > 700), {passive: true});
+btnTop.addEventListener('click', () => {
+  if (destinoTop && destinoTop.id === 'resumen') {
+    const y = destinoTop.getBoundingClientRect().top + scrollY - 70;
+    scrollTo({top: Math.max(y, 0), behavior: 'smooth'});
+  } else {
+    scrollTo({top: 0, behavior: 'smooth'});
+  }
+});
+
+document.getElementById('brandsub').textContent =
+  D.resueltos + ' resueltas de ' + D.total_predicciones;
+marcar('#duelo .sub', [['logloss','log-loss'],['brier','Brier']]);
+marcar('.est .l', [['sellada','Selladas en git']]);
+marcar('#muestra .sub', [['logloss','log-loss']]);
+marcar('footer p', [['sellada','"sellado"'],['margen','margen de la casa'],['elo','ClubElo']]);
+document.querySelectorAll('#log thead th').forEach(th => {
+  const m = {'Conf.':'conf','Sellado':'sellada','Mercado 1/X/2':'sinmargen',
+             'Modelo 1/X/2':'unoxdos'}[th.textContent.trim()];
+  if (m) th.innerHTML = T(m, th.textContent.trim());
+});
+document.querySelectorAll('.lado.mkt h3').forEach(h => { h.innerHTML = T('sinmargen', h.textContent.trim()); });
+document.querySelectorAll('.metr span').forEach(s => {
+  const m = {'Log-loss':'logloss','Brier':'brier'}[s.textContent.trim()];
+  if (m) s.innerHTML = T(m, s.textContent.trim());
+});
+/* acentos en el registro: verde para confianza alta, resaltado del resultado */
+document.querySelectorAll('#log tbody tr').forEach(tr => {
+  const c = tr.children;
+  if (c.length < 9) return;
+  c[0].classList.add('col-part', 'team');
+  const conf = parseInt(c[4].textContent, 10);
+  if (conf >= 8) c[4].classList.add('cell-ok');
+});
 </script>
 </body>
 </html>
