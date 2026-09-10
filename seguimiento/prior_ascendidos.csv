@@ -1,0 +1,7 @@
+liga,indice_ataque,indice_defensa,equipos_temporada_analizados
+Premier League,0.756,1.269,18
+La Liga,0.809,1.153,18
+Ligue 1,0.779,1.108,14
+Bundesliga,0.765,1.16,13
+Serie A,0.797,1.24,18
+PROMEDIO,0.789,1.186,81

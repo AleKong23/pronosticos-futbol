@@ -7,3 +7,5 @@ __pycache__/
 soccerdata/
 # hojas de cálculo con líneas de mercado caducas
 *.xlsx
+!seguimiento/validacion_fuera_muestra.csv
+!seguimiento/prior_ascendidos.csv

@@ -1,0 +1,7 @@
+liga,partidos,log_loss,acierto_pct,senal_capturada_pct,referencia_ciega
+Bundesliga,272,0.9645,54.0,12.2,1.0986
+La Liga,272,0.9846,51.1,10.4,1.0986
+Ligue 1,272,0.9913,50.7,9.8,1.0986
+Serie A,306,1.0125,51.0,7.8,1.0986
+Premier League,306,1.022,48.4,7.0,1.0986
+TODAS,1428,0.9961,,9.3,1.0986
