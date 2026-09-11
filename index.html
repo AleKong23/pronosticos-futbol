@@ -3,459 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-:root{color-scheme:light}
-body{margin:0}
-img{max-width:100%}
-[hidden]{display:none!important}
-</style>
 <title>Modelo contra Mercado</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="./estilo.css">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<style>
-:root{
-  color-scheme: light;
-  --ground:#f5f7f9; --panel:#ffffff; --panel-2:#f1f4f8; --panel-3:#e7ecf2;
-  --ink:#0b1220; --ink-2:#4d5769; --ink-3:#8891a3;
-  --rule:#e1e6ed; --rule-2:#edf0f5;
-  --modelo:#2a78d6; --modelo-soft:#e9f0fb;
-  --mercado:#eb6834; --mercado-ink:#c2481d; --mercado-soft:#fdeee7;
-  --ok:#1baf7a; --ok-soft:#e6f7ef;
-  --warn:#c98a00; --warn-line:#eda100; --warn-soft:#fdf4e1;
-  --riesgo:#e34948; --riesgo-soft:#fdecec;
-  --sombra:0 1px 2px rgba(11,18,32,.045), 0 3px 10px rgba(11,18,32,.045);
-  --sombra-2:0 2px 4px rgba(11,18,32,.05), 0 12px 28px rgba(11,18,32,.085);
-  --r:14px; --r-sm:9px; --r-xs:6px;
-  --sans:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Consolas,monospace;
-}
-@media (prefers-color-scheme: dark){
-  :root:where(:not([data-theme="light"])){
-    color-scheme: dark;
-    --ground:#0e1218; --panel:#161c24; --panel-2:#1c232d; --panel-3:#242c38;
-    --ink:#eef2f7; --ink-2:#a0abbb; --ink-3:#6d788a;
-    --rule:#252d39; --rule-2:#1e252f;
-    --modelo:#4a95ea; --modelo-soft:#152438;
-    --mercado:#e0703f; --mercado-ink:#ec9269; --mercado-soft:#2b1c14;
-    --ok:#2ec18a; --ok-soft:#0f2620;
-    --warn:#e0a93a; --warn-line:#e0a93a; --warn-soft:#2a2113;
-    --riesgo:#ef6b6a; --riesgo-soft:#2c1818;
-    --sombra:0 1px 2px rgba(0,0,0,.32), 0 3px 10px rgba(0,0,0,.3);
-    --sombra-2:0 2px 4px rgba(0,0,0,.36), 0 12px 28px rgba(0,0,0,.44);
-  }
-}
-:root[data-theme="dark"]{
-  color-scheme: dark;
-  --ground:#0e1218; --panel:#161c24; --panel-2:#1c232d; --panel-3:#242c38;
-  --ink:#eef2f7; --ink-2:#a0abbb; --ink-3:#6d788a;
-  --rule:#252d39; --rule-2:#1e252f;
-  --modelo:#4a95ea; --modelo-soft:#152438;
-  --mercado:#e0703f; --mercado-ink:#ec9269; --mercado-soft:#2b1c14;
-  --ok:#2ec18a; --ok-soft:#0f2620;
-  --warn:#e0a93a; --warn-line:#e0a93a; --warn-soft:#2a2113;
-  --riesgo:#ef6b6a; --riesgo-soft:#2c1818;
-  --sombra:0 1px 2px rgba(0,0,0,.32), 0 3px 10px rgba(0,0,0,.3);
-  --sombra-2:0 2px 4px rgba(0,0,0,.36), 0 12px 28px rgba(0,0,0,.44);
-}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:15px;
-     line-height:1.55; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility}
-.num{font-family:var(--mono); font-variant-numeric:tabular-nums}
-a{color:var(--modelo)}
-
-/* barra de navegación fija */
-.topbar{position:sticky; top:0; z-index:60; background:var(--panel);
-        border-bottom:1px solid var(--rule)}
-/* al bajar, la barra se encoge para devolver alto util en movil */
-.topbar-in{transition:padding .18s ease}
-.topbar.compacta .topbar-in{padding-top:3px; padding-bottom:3px}
-.topbar.compacta .brand .bs{display:none}
-.topbar.compacta .navlinks a{padding-top:4px; padding-bottom:4px}
-.topbar.compacta .brand .dot{box-shadow:none}
-@supports (backdrop-filter:blur(1px)){
-  .topbar{background:color-mix(in srgb, var(--panel) 86%, transparent);
-          backdrop-filter:blur(14px) saturate(150%)}
-}
-.topbar-in{max-width:1280px; margin:0 auto; padding:9px 20px; display:flex; align-items:center;
-           gap:16px; overflow:hidden}
-.brand{display:flex; align-items:center; gap:10px; margin-right:auto; text-decoration:none;
-       color:var(--ink); min-width:0; flex:0 1 auto; overflow:hidden}
-.brand>span:last-child{min-width:0; overflow:hidden}
-.brand .dot{width:9px; height:9px; border-radius:50%; background:var(--modelo); flex:none;
-            box-shadow:0 0 0 3.5px var(--modelo-soft)}
-.brand .bn{display:block; font-weight:600; font-size:14.5px; letter-spacing:-.012em;
-           white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.brand .bs{display:block; font-family:var(--mono); font-weight:400; font-size:10.5px;
-           color:var(--ink-3); letter-spacing:0; white-space:nowrap}
-/* flex:0 1 auto para que abrace su contenido cuando cabe y encoja cuando no.
-   justify-content debe ser flex-start: con flex-end el desbordamiento se va hacia la
-   izquierda, donde el scroll no llega, y el primer enlace queda inalcanzable. */
-.navlinks{display:flex; gap:3px; align-items:center; overflow-x:auto; scrollbar-width:none;
-          -webkit-overflow-scrolling:touch; flex:0 1 auto; min-width:0; margin-left:auto;
-          justify-content:flex-start}
-.navlinks::-webkit-scrollbar{display:none}
-.navlinks a{flex:none; font-size:12.5px; font-weight:500; color:var(--ink-2);
-            text-decoration:none; padding:6px 11px; border-radius:99px; white-space:nowrap;
-            transition:background .14s, color .14s}
-.navlinks a:hover{background:var(--panel-2); color:var(--ink)}
-.navlinks a.pri{color:var(--modelo); background:var(--modelo-soft)}
-/* seccion visible: la marca el IntersectionObserver */
-.navlinks a.activo{color:var(--ink); font-weight:700; text-decoration:underline;
-                   text-decoration-thickness:2px; text-underline-offset:4px;
-                   text-decoration-color:var(--modelo)}
-.navlinks a.pri.activo{background:var(--modelo-soft); color:var(--modelo)}
-.navlinks a.aqui{color:var(--ink); background:var(--panel-3); cursor:default}
-.navlinks .sepnav{width:1px; height:17px; background:var(--rule); margin:0 5px; flex:none}
-.navlinks a:focus-visible{outline:2px solid var(--modelo); outline-offset:2px}
-/* si los enlaces no caben, el degradado del borde derecho lo anuncia */
-.navlinks.desborda{mask-image:linear-gradient(to right,#000 calc(100% - 22px),transparent)}
-
-.wrap{max-width:1280px; margin:0 auto; padding:30px 20px 84px}
-
-/* tipografía */
-.eyebrow{display:inline-block; font-family:var(--mono); font-size:11px; font-weight:500;
-         letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
-h1{font-size:clamp(28px,4.4vw,42px); line-height:1.08; font-weight:700; letter-spacing:-.03em;
-   margin:12px 0 0; text-wrap:balance}
-h2{font-size:21px; font-weight:600; letter-spacing:-.019em; margin:0; text-wrap:balance}
-h3{font-size:14.5px; font-weight:600; letter-spacing:-.011em; margin:0}
-p{margin:0}
-.sub{color:var(--ink-2); font-size:15.5px; max-width:68ch; margin-top:13px}
-header.hero{padding-bottom:26px; border-bottom:1px solid var(--rule)}
-.meta-line{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px}
-.meta-line>span{font-family:var(--mono); font-size:11.5px; color:var(--ink-2);
-                background:var(--panel); border:1px solid var(--rule); border-radius:var(--r-xs);
-                padding:6px 11px; box-shadow:var(--sombra)}
-.meta-line a{color:var(--modelo); text-decoration:none; font-weight:500}
-.meta-line a:hover{text-decoration:underline}
-section{margin-top:46px; scroll-margin-top:78px}
-.sec-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:16px}
-.sec-head .note{color:var(--ink-3); font-size:13px}
-
-/* tooltips del diccionario */
-.term{border-bottom:1px dotted var(--ink-3); cursor:help; padding-bottom:1px}
-.term::after{content:'i'; display:inline-flex; align-items:center; justify-content:center;
-             width:11px; height:11px; margin-left:3px; border-radius:50%;
-             border:1px solid color-mix(in srgb, var(--modelo) 55%, transparent);
-             color:var(--modelo); font-family:var(--sans); font-size:8px; font-weight:700;
-             font-style:normal; line-height:1; vertical-align:1px; text-transform:none;
-             letter-spacing:0}
-.term:hover,.term:focus-visible{border-bottom-color:var(--modelo); color:var(--ink)}
-.term:focus-visible{outline:2px solid var(--modelo); outline-offset:3px; border-radius:2px}
-#tip{position:fixed; z-index:200; width:min(300px, calc(100vw - 24px)); background:var(--panel);
-     border:1px solid var(--rule); border-radius:var(--r-sm); box-shadow:var(--sombra-2);
-     padding:12px 14px; left:-9999px; top:0; opacity:0; pointer-events:none;
-     transition:opacity .13s ease}
-#tip.on{opacity:1}
-#tip .t-h{font-weight:600; font-size:13px; margin-bottom:6px; letter-spacing:-.008em}
-#tip .t-d{color:var(--ink-2); font-size:12.5px; line-height:1.5}
-#tip .t-u{color:var(--ink-3); font-size:12px; line-height:1.45; margin-top:8px; padding-top:8px;
-          border-top:1px solid var(--rule-2)}
-#tip .t-u b{color:var(--ink-2)}
-
-/* tarjetas */
-.card{background:var(--panel); border:1px solid var(--rule); border-radius:var(--r);
-      box-shadow:var(--sombra)}
-
-/* tablas */
-.tbl-holder{overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin;
-            border:1px solid var(--rule); border-radius:var(--r); background:var(--panel);
-            box-shadow:var(--sombra)}
-.tbl-holder::-webkit-scrollbar{height:9px}
-.tbl-holder::-webkit-scrollbar-thumb{background:var(--panel-3); border-radius:99px}
-table{border-collapse:separate; border-spacing:0; width:100%; font-size:13.5px}
-th{font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:.07em;
-   text-transform:uppercase; color:var(--ink-3); text-align:left; padding:12px 14px;
-   border-bottom:1px solid var(--rule); white-space:nowrap; background:var(--panel-2)}
-td{padding:10px 14px; border-bottom:1px solid var(--rule-2); vertical-align:middle}
-tbody tr:last-child td{border-bottom:none}
-tbody tr{transition:background .12s}
-td.n,th.n{font-family:var(--mono); font-variant-numeric:tabular-nums; text-align:right;
-          white-space:nowrap}
-th.n{text-align:right}
-/* cabeceras ordenables: el indicador vive en el ::after */
-th.ord{cursor:pointer; user-select:none}
-th.ord:hover{color:var(--ink); background:var(--panel-3)}
-th.ord:focus-visible{outline:2px solid var(--modelo); outline-offset:-2px}
-th.ord::after{content:'95'; margin-left:5px; opacity:.4; font-size:10px;
-              display:inline-block; vertical-align:1px}
-th.ord[data-dir="asc"], th.ord[data-dir="desc"]{color:var(--ink)}
-th.ord[data-dir="asc"]::after{content:'B2'; opacity:1; color:var(--modelo)}
-th.ord[data-dir="desc"]::after{content:'BC'; opacity:1; color:var(--modelo)}
-.team{font-weight:500}
-.vs{color:var(--ink-3); font-size:12px; margin:0 5px; font-weight:400}
-.scroll-hint{display:none; font-family:var(--mono); font-size:11px; color:var(--ink-3);
-             padding:8px 14px; margin-top:-1px; border:1px solid var(--rule); border-top:none;
-             border-radius:0 0 var(--r) var(--r); background:var(--panel-2)}
-
-/* insignias */
-.pill{display:inline-block; font-family:var(--mono); font-size:10px; font-weight:600;
-      letter-spacing:.05em; text-transform:uppercase; padding:3px 8px; border-radius:99px;
-      border:1px solid var(--rule); color:var(--ink-2); background:var(--panel-2);
-      white-space:nowrap}
-.pill.ucl{color:var(--modelo); background:var(--modelo-soft);
-          border-color:color-mix(in srgb, var(--modelo) 30%, transparent)}
-.pill.alta,.pill.si{color:var(--ok); background:var(--ok-soft);
-                    border-color:color-mix(in srgb, var(--ok) 28%, transparent)}
-.pill.media{color:var(--warn); background:var(--warn-soft);
-            border-color:color-mix(in srgb, var(--warn-line) 30%, transparent)}
-.pill.baja{color:var(--riesgo); background:var(--riesgo-soft);
-           border-color:color-mix(in srgb, var(--riesgo) 28%, transparent)}
-.pill.no{color:var(--mercado-ink); background:var(--mercado-soft);
-         border-color:color-mix(in srgb, var(--mercado) 30%, transparent)}
-.pill.retro{color:var(--ink-3)}
-.ok{color:var(--ok); font-weight:600}
-.mal{color:var(--riesgo); font-weight:600}
-.pend{color:var(--ink-3); font-style:italic; font-size:12.5px}
-
-/* barra apilada 1X2: los tres segmentos suman 100 % */
-.pila-wrap{display:grid; gap:9px; margin-bottom:13px}
-.pila-fila{display:grid; grid-template-columns:56px 1fr; gap:10px; align-items:center}
-.pila-fila .serie{font-family:var(--mono); font-size:10px; letter-spacing:.06em;
-                  text-transform:uppercase; text-align:right; color:var(--ink-3)}
-.pila-fila.mod .serie{color:var(--modelo)}
-.pila-fila.mkt .serie{color:var(--mercado-ink)}
-.pila{display:flex; height:22px; border-radius:var(--r-xs); overflow:hidden;
-      background:var(--rule-2); box-shadow:inset 0 0 0 1px var(--rule)}
-.pila i{display:block; min-width:0; height:100%}
-.pila i+i{box-shadow:inset 2px 0 0 var(--panel)}
-.pila.mod i:nth-child(1){background:var(--modelo)}
-.pila.mod i:nth-child(2){background:color-mix(in srgb, var(--modelo) 52%, var(--panel-3))}
-.pila.mod i:nth-child(3){background:color-mix(in srgb, var(--modelo) 22%, var(--panel-3))}
-.pila.mkt i:nth-child(1){background:var(--mercado)}
-.pila.mkt i:nth-child(2){background:color-mix(in srgb, var(--mercado) 52%, var(--panel-3))}
-.pila.mkt i:nth-child(3){background:color-mix(in srgb, var(--mercado) 22%, var(--panel-3))}
-.pila-leg{display:flex; gap:13px; flex-wrap:wrap; font-family:var(--mono); font-size:9.5px;
-          color:var(--ink-3); padding-left:66px}
-.pila-leg span{display:inline-flex; align-items:center; gap:5px}
-.pila-leg i{width:9px; height:9px; border-radius:2px; display:inline-block; flex:none}
-.pila-leg i.g1{background:var(--ink-2)}
-.pila-leg i.g2{background:color-mix(in srgb, var(--ink-2) 52%, var(--panel-3))}
-.pila-leg i.g3{background:color-mix(in srgb, var(--ink-2) 22%, var(--panel-3))}
-
-/* el contexto de plantilla se aisla de las metricas duras */
-.ctx-caja{background:var(--panel-2); border:1px solid var(--rule); border-radius:var(--r-sm);
-          padding:1.15rem}
-.ctx-caja .blk-note{border-top-color:var(--rule)}
-
-/* barras */
-.bar{height:5px; border-radius:3px; background:var(--rule-2); position:relative; overflow:hidden}
-.bar i{position:absolute; inset:0 auto 0 0; background:var(--modelo); border-radius:3px;
-       display:block}
-.bar.mk i{background:var(--mercado)}
-.stack{display:grid; gap:3px}
-
-
-/* ---- columna fija y acentos de la tabla ---- */
-th.col-part,td.col-part{position:sticky; left:0; z-index:1; min-width:212px;
-                        background:var(--panel); box-shadow:1px 0 0 var(--rule-2)}
-th.col-part{background:var(--panel-2); z-index:2}
-tbody tr:hover td{background:var(--panel-2)}
-tbody tr:hover .col-part{background:var(--panel-2)}
-/* celda con confianza alta: verde claro; celda con la mayor diferencia: ámbar/rojo suave */
-td.cell-ok{background:var(--ok-soft)}
-tbody tr:hover td.cell-ok{background:color-mix(in srgb, var(--ok-soft) 72%, var(--panel-2))}
-/* Dif. max: el fondo indica la DIRECCION del desacuerdo, no si conviene apostar.
-   Verde = el modelo da mas probabilidad que la casa; rojo = da menos.
-   La magnitud sigue estando en el tono de la pastilla .dif. */
-td.dif-arriba{background:color-mix(in srgb, var(--ok) 10%, transparent)}
-td.dif-abajo{background:color-mix(in srgb, var(--riesgo) 10%, transparent)}
-tbody tr:hover td.dif-arriba{background:color-mix(in srgb, var(--ok) 17%, transparent)}
-tbody tr:hover td.dif-abajo{background:color-mix(in srgb, var(--riesgo) 17%, transparent)}
-.leyenda-dif{display:flex; gap:16px; flex-wrap:wrap; align-items:center; margin-top:11px;
-             font-family:var(--mono); font-size:10.5px; color:var(--ink-3)}
-.leyenda-dif span{display:inline-flex; align-items:center; gap:6px}
-.leyenda-dif i{width:11px; height:11px; border-radius:3px; display:inline-block; flex:none;
-               border:1px solid var(--rule)}
-.leyenda-dif i.arr{background:color-mix(in srgb, var(--ok) 24%, transparent)}
-.leyenda-dif i.aba{background:color-mix(in srgb, var(--riesgo) 24%, transparent)}
-.warn-row td{background:var(--riesgo-soft)}
-.warn-row:hover td{background:color-mix(in srgb, var(--riesgo-soft) 76%, var(--panel-2))}
-/* insignia de confianza alta */
-.badge-ok{display:inline-flex; align-items:center; gap:4px; font-family:var(--mono); font-size:9.5px;
-          font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ok);
-          background:var(--ok-soft); border:1px solid color-mix(in srgb, var(--ok) 28%, transparent);
-          border-radius:99px; padding:2px 7px; white-space:nowrap}
-
-/* ---- estado vacío elegante ---- */
-.vacio{color:var(--ink-3); font-size:12.5px; font-style:italic; line-height:1.5}
-
-
-/* filtros */
-.filters{display:flex; gap:14px 18px; flex-wrap:wrap; align-items:center; margin-bottom:18px;
-         padding:13px 16px; background:var(--panel); border:1px solid var(--rule);
-         border-radius:var(--r); box-shadow:var(--sombra)}
-.fbtn{font-family:var(--sans); font-size:12.5px; font-weight:500; padding:6px 13px;
-      border-radius:99px; border:1px solid var(--rule); background:var(--panel);
-      color:var(--ink-2); cursor:pointer; transition:all .14s}
-.fbtn:hover{color:var(--ink); border-color:var(--ink-3)}
-.fbtn[aria-pressed="true"]{background:var(--ink); color:var(--ground); border-color:var(--ink)}
-.fbtn:focus-visible,.rowbtn:focus-visible{outline:2px solid var(--modelo); outline-offset:2px}
-.flabel{font-family:var(--mono); font-size:10px; letter-spacing:.09em; text-transform:uppercase;
-        color:var(--ink-3); margin-right:2px}
-
-/* diccionario */
-/* diccionario: acordeon nativo con <details>/<summary>, sin JS de apertura */
-.dic-acciones{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px}
-#diccionario .dic-grid{display:grid; grid-template-columns:1fr; gap:10px; margin:0;
-                       align-content:start}
-@media (min-width:620px){ #diccionario .dic-grid{grid-template-columns:1fr 1fr} }
-@media (min-width:1020px){ #diccionario .dic-grid{grid-template-columns:repeat(3,1fr)} }
-details.dic-item{background:var(--panel); border:1px solid var(--rule); border-radius:var(--r);
-                 box-shadow:var(--sombra); overflow:hidden; height:fit-content}
-details.dic-item>summary{cursor:pointer; list-style:none; padding:12px 15px; font-weight:600;
-                         font-size:13.5px; letter-spacing:-.011em; display:flex;
-                         align-items:center; gap:10px}
-details.dic-item>summary::-webkit-details-marker{display:none}
-details.dic-item>summary::after{content:'+'; margin-left:auto; font-family:var(--mono);
-                                font-size:15px; font-weight:400; color:var(--ink-3);
-                                line-height:1; flex:none}
-details.dic-item[open]>summary::after{content:'2'; color:var(--modelo)}
-details.dic-item>summary:hover{background:var(--panel-2)}
-details.dic-item[open]>summary{background:var(--panel-2); border-bottom:1px solid var(--rule)}
-details.dic-item>summary:focus-visible{outline:2px solid var(--modelo); outline-offset:-2px}
-.dic-cuerpo{padding:13px 15px 15px}
-.dic-cuerpo .def{margin:0; font-size:12.5px; color:var(--ink-2); line-height:1.55}
-.dic-cuerpo .uso{margin:9px 0 0; padding-top:9px; border-top:1px solid var(--rule-2);
-                 font-size:12.5px; color:var(--ink-3); line-height:1.5}
-.dic-cuerpo .uso b{color:var(--ink-2); font-weight:600}
-.cmd-box{margin-top:18px; background:var(--panel); border:1px solid var(--rule);
-         border-radius:var(--r); padding:17px 19px; box-shadow:var(--sombra)}
-.cmd-box .lbl{font-family:var(--mono); font-size:10px; letter-spacing:.09em;
-              text-transform:uppercase; color:var(--ink-3); margin-bottom:10px}
-.cmd-box code{font-family:var(--mono); font-size:13.5px; font-weight:600; color:var(--ink);
-              background:var(--panel-3); border:1px solid var(--rule); border-radius:var(--r-xs);
-              padding:8px 13px; display:inline-block}
-.cmd-box p{font-size:12.5px; color:var(--ink-2); margin-top:11px}
-
-footer{margin-top:54px; padding-top:24px; border-top:1px solid var(--rule);
-       font-size:13px; color:var(--ink-3); line-height:1.6;
-       display:grid; grid-template-columns:1fr; gap:20px 34px; align-items:start}
-@media (min-width:768px){ footer{grid-template-columns:repeat(3,1fr)} }
-footer p{margin:0; max-width:62ch}
-footer b{color:var(--ink); font-weight:700}
-footer code{font-family:var(--mono); font-size:12px; background:var(--panel-2);
-            border:1px solid var(--rule); border-radius:4px; padding:1px 5px}
-
-.totop{position:fixed; right:20px; bottom:20px; z-index:50; width:42px; height:42px;
-       border-radius:50%; border:1px solid var(--rule); background:var(--panel);
-       box-shadow:var(--sombra-2); color:var(--ink-2); cursor:pointer; font-size:16px;
-       display:none; align-items:center; justify-content:center; font-family:var(--mono)}
-.totop.on{display:flex}
-.totop:hover{color:var(--modelo); border-color:var(--modelo)}
-.totop:focus-visible{outline:2px solid var(--modelo); outline-offset:2px}
-.hidden{display:none !important}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *{transition:none !important; animation:none !important}
-}
-@media (max-width:1000px){ .brand .bs{display:none} }
-@media (max-width:700px){
-  .brand .bn{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%)}
-  .brand{margin-right:6px; gap:0}
-  .totop{width:38px; height:38px; right:14px; bottom:14px; opacity:.93}
-}
-@media (max-width:680px){
-  .wrap{padding:22px 14px 74px}
-  .scroll-hint{display:block}
-}
-
-/* veredicto */
-.verdict{background:var(--panel); border:1px solid var(--rule); border-left:3px solid var(--riesgo);
-         border-radius:var(--r); box-shadow:var(--sombra); padding:1.5rem; margin-top:26px}
-.verdict-tag{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono);
-             font-size:10.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
-             color:var(--riesgo)}
-.verdict h2{margin:12px 0 10px; font-size:23px; letter-spacing:-.022em}
-.verdict p{color:var(--ink-2); font-size:14.5px; max-width:76ch; line-height:1.6}
-.reasons{list-style:none; padding:0; margin:18px 0 0; display:grid; gap:12px}
-.reasons li{display:grid; grid-template-columns:26px 1fr; gap:12px; font-size:14px;
-            color:var(--ink-2); line-height:1.55; padding:12px 14px; border-radius:var(--r-sm);
-            background:var(--panel-2)}
-.reasons b{color:var(--ink); font-weight:600}
-.rnum{font-family:var(--mono); font-size:11px; font-weight:600; color:var(--modelo);
-      background:var(--modelo-soft); border-radius:var(--r-xs); text-align:center;
-      height:20px; line-height:20px}
-
-/* indicadores */
-.kpis{display:grid; grid-template-columns:1fr; gap:14px}
-@media (min-width:560px){ .kpis{grid-template-columns:1fr 1fr} }
-@media (min-width:1000px){ .kpis{grid-template-columns:repeat(4,1fr)} }
-.kpi{background:var(--panel); border:1px solid var(--rule); border-radius:var(--r);
-     box-shadow:var(--sombra); padding:1.25rem}
-.kpi .k-label{font-family:var(--mono); font-size:10px; letter-spacing:.09em;
-              text-transform:uppercase; color:var(--ink-3)}
-.kpi .k-val{font-family:var(--mono); font-size:30px; font-weight:700; letter-spacing:-.025em;
-            margin-top:9px; font-variant-numeric:tabular-nums; line-height:1}
-.kpi .k-foot{font-size:12px; color:var(--ink-2); margin-top:9px; line-height:1.45}
-
-/* gráfica */
-.chart-card{padding:1.5rem}
-.chart-top{display:flex; justify-content:space-between; align-items:flex-start; gap:20px;
-           flex-wrap:wrap; margin-bottom:10px}
-.legend{display:flex; gap:16px; align-items:center; font-size:12.5px; color:var(--ink-2);
-        flex-wrap:wrap}
-.legend span{display:inline-flex; align-items:center; gap:6px}
-.swatch{width:9px; height:9px; border-radius:50%; display:inline-block}
-.dash-key{width:16px; height:0; border-top:1px solid var(--ink-3); display:inline-block}
-.reg-key{width:16px; height:0; border-top:2px solid var(--mercado); display:inline-block}
-.svg-holder{overflow-x:auto; -webkit-overflow-scrolling:touch}
-svg{display:block; max-width:100%; height:auto}
-.axis-line{stroke:var(--rule); stroke-width:1}
-.grid-line{stroke:var(--rule-2); stroke-width:1}
-.tick{font-family:var(--mono); font-size:10px; fill:var(--ink-3)}
-.axis-title{font-family:var(--sans); font-size:11.5px; fill:var(--ink-2); font-weight:500}
-.diag{stroke:var(--ink-3); stroke-width:1; opacity:.55}
-.reg{stroke:var(--mercado); stroke-width:2; fill:none}
-.pt{fill:var(--modelo); opacity:.82; stroke:var(--panel); stroke-width:2}
-.pt:hover{opacity:1}
-.pt-lbl{font-family:var(--mono); font-size:9.5px; fill:var(--ink-2)}
-.zone-lbl{font-family:var(--sans); font-size:11px; fill:var(--ink-3); font-style:italic}
-.tt{position:fixed; pointer-events:none; background:var(--panel); border:1px solid var(--rule);
-    border-radius:var(--r-sm); padding:11px 13px; font-size:12px; box-shadow:var(--sombra-2);
-    z-index:50; opacity:0; transition:opacity .1s; max-width:240px}
-.tt.on{opacity:1}
-.tt .tt-h{font-weight:600; margin-bottom:6px}
-.tt .tt-r{display:flex; justify-content:space-between; gap:14px; color:var(--ink-2);
-          font-size:11.5px}
-.tt .tt-r b{font-family:var(--mono); color:var(--ink)}
-
-/* tabla de partidos */
-.bar-cell{min-width:136px}
-.gapv{font-family:var(--mono); font-variant-numeric:tabular-nums; font-weight:600}
-.gap-neg{color:var(--riesgo)}
-.rowbtn{background:none; border:none; padding:4px 8px; cursor:pointer; color:var(--modelo);
-        font-family:var(--mono); font-size:11px; border-radius:99px; white-space:nowrap;
-        transition:background .14s}
-.rowbtn:hover{background:var(--modelo-soft)}
-.detail td{background:var(--panel-2); padding:0}
-.detail-in{padding:1.25rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
-           gap:20px}
-.mgroup h4{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase;
-           color:var(--ink-3); margin:0 0 8px; font-weight:600}
-.mrow{display:flex; justify-content:space-between; gap:12px; font-size:12.5px; padding:5px 0;
-      border-bottom:1px solid var(--rule-2)}
-.mrow:last-child{border-bottom:none}
-.mrow span{color:var(--ink-2)}
-.mrow b{font-family:var(--mono); font-weight:600; font-variant-numeric:tabular-nums}
-
-/* notas */
-.cols2{display:grid; grid-template-columns:1fr; gap:16px}
-@media (min-width:840px){ .cols2{grid-template-columns:1fr 1fr} }
-.note-card{padding:1.5rem}
-.note-card h3{margin-bottom:11px}
-.note-card p,.note-card li{font-size:13.5px; color:var(--ink-2); line-height:1.55}
-.note-card ul{margin:0; padding-left:18px; display:grid; gap:9px}
-.note-card .tbl-holder{box-shadow:none}
-.usefor{border-left:3px solid var(--ok)}
-.usenot{border-left:3px solid var(--riesgo)}
-@media (max-width:680px){ .chart-card{padding:1.15rem} .note-card{padding:1.15rem}
-  .verdict{padding:1.15rem} .kpi{padding:1.1rem} .detail-in{padding:1.1rem} }
-</style>
-
 <header class="topbar">
   <div class="topbar-in">
     <a class="brand" href="#arriba"><span class="dot"></span>
@@ -477,7 +30,7 @@ svg{display:block; max-width:100%; height:auto}
 </header>
 
 <div class="wrap" id="arriba">
-<header class="hero">
+<header class="portada">
   <div class="eyebrow">Champions League · LaLiga · 8-14 septiembre 2026</div>
   <h1>Modelo contra mercado</h1>
   <p class="sub">Qué dice mi modelo estadístico, qué dice el precio real de la casa de apuestas, y
@@ -492,7 +45,7 @@ svg{display:block; max-width:100%; height:auto}
   </div>
 </header>
 
-<div class="verdict" id="riesgo">
+<div class="verdict alert alert-error alert-soft block" role="alert">
   <div class="verdict-tag">
     <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.6 15 14H1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
     Lee esto antes de los números
@@ -524,7 +77,7 @@ svg{display:block; max-width:100%; height:auto}
 
 <section id="resumen">
   <div class="sec-head"><h2>Los números que definen el riesgo</h2></div>
-  <div class="kpis" id="kpis"></div>
+  <div class="stats stats-vertical lg:stats-horizontal w-full bg-base-100 border border-base-300 rounded-box shadow-sm" id="kpis"></div>
 </section>
 
 <section id="dispersion">
@@ -532,7 +85,7 @@ svg{display:block; max-width:100%; height:auto}
     <h2>Dónde exactamente se equivoca el modelo</h2>
     <span class="note">66 selecciones (1, X y 2 de cada partido)</span>
   </div>
-  <div class="card chart-card">
+  <div class="card card-border bg-base-100 shadow-sm chart-card">
     <div class="chart-top">
       <p class="sub" style="margin:0; font-size:13.5px">Si el modelo y el mercado coincidieran, cada punto
       caería sobre la diagonal. Los puntos se hunden por debajo justo a la derecha: mientras más favorito
@@ -546,7 +99,7 @@ svg{display:block; max-width:100%; height:auto}
     <div class="svg-holder"><svg id="scatter" viewBox="0 0 730 430" role="img"
       aria-label="Dispersión de probabilidad del modelo contra probabilidad del mercado en 66 selecciones"></svg></div>
     <div style="display:flex; justify-content:flex-end; padding:2px 0 6px">
-      <button class="fbtn" id="tblToggle" aria-pressed="false">Ver como tabla</button>
+      <button class="fbtn btn btn-sm" id="tblToggle" aria-pressed="false">Ver como tabla</button>
     </div>
     <div id="scatterTbl" class="tbl-holder hidden" style="margin-bottom:12px"></div>
   </div>
@@ -574,14 +127,14 @@ svg{display:block; max-width:100%; height:auto}
   </div>
   <div class="filters">
     <span class="flabel">Competencia</span>
-    <button class="fbtn" data-f="liga" data-v="all" aria-pressed="true">Todas</button>
-    <button class="fbtn" data-f="liga" data-v="UCL" aria-pressed="false">Champions</button>
-    <button class="fbtn" data-f="liga" data-v="La Liga" aria-pressed="false">LaLiga</button>
+    <button class="fbtn btn btn-sm" data-f="liga" data-v="all" aria-pressed="true">Todas</button>
+    <button class="fbtn btn btn-sm" data-f="liga" data-v="UCL" aria-pressed="false">Champions</button>
+    <button class="fbtn btn btn-sm" data-f="liga" data-v="La Liga" aria-pressed="false">LaLiga</button>
     <span class="flabel" style="margin-left:12px">Confianza</span>
-    <button class="fbtn" data-f="conf" data-v="all" aria-pressed="true">Toda</button>
-    <button class="fbtn" data-f="conf" data-v="alta" aria-pressed="false">Alta</button>
-    <button class="fbtn" data-f="conf" data-v="media" aria-pressed="false">Media</button>
-    <button class="fbtn" data-f="conf" data-v="baja" aria-pressed="false">Baja</button>
+    <button class="fbtn btn btn-sm" data-f="conf" data-v="all" aria-pressed="true">Toda</button>
+    <button class="fbtn btn btn-sm" data-f="conf" data-v="alta" aria-pressed="false">Alta</button>
+    <button class="fbtn btn btn-sm" data-f="conf" data-v="media" aria-pressed="false">Media</button>
+    <button class="fbtn btn btn-sm" data-f="conf" data-v="baja" aria-pressed="false">Baja</button>
   </div>
   <div class="tbl-holder"><table id="matchTbl"><thead><tr>
     <th>Partido</th><th>Fecha</th><th class="n">Hora CEST</th>
@@ -598,7 +151,7 @@ svg{display:block; max-width:100%; height:auto}
   <div class="sec-head"><h2>Qué tan bien calibrado está el modelo</h2>
     <span class="note">backtest sobre 380 partidos de LaLiga 2025-26</span></div>
   <div class="cols2">
-    <div class="card note-card">
+    <div class="card card-border bg-base-100 shadow-sm note-card">
       <h3>Frecuencia observada contra predicha</h3>
       <div class="tbl-holder" style="border:none; margin-top:10px"><table id="calTbl"><thead><tr>
         <th>Mercado</th><th class="n">Real</th><th class="n">Modelo</th><th class="n">Error</th>
@@ -611,7 +164,7 @@ svg{display:block; max-width:100%; height:auto}
       Premier League, que acierta el signo menos de la mitad de las veces. El desglose está en
       <code>seguimiento/validacion_fuera_muestra.csv</code>.</p>
     </div>
-    <div class="card note-card">
+    <div class="card card-border bg-base-100 shadow-sm note-card">
       <h3>La prueba contra la realidad</h3>
       <p style="margin-bottom:10px">Los seis partidos de Champions del 8 de septiembre ya se jugaron. El
       modelo acertó el signo en <b id="hits"></b>, pero seis partidos no son evidencia estadística de nada.</p>
@@ -625,7 +178,7 @@ svg{display:block; max-width:100%; height:auto}
 <section id="usos">
   <div class="sec-head"><h2>Para qué sirve y para qué no</h2></div>
   <div class="cols2">
-    <div class="card note-card usefor">
+    <div class="card card-border bg-base-100 shadow-sm note-card usefor">
       <h3>Sirve para leer la forma del partido</h3>
       <ul>
         <li>Distinguir un partido cerrado de una goleada probable: Getafe-Deportivo tiene línea 1.5 y
@@ -637,7 +190,7 @@ svg{display:block; max-width:100%; height:auto}
         <li>Medir cuánto te cuesta el margen de la casa antes de apostar.</li>
       </ul>
     </div>
-    <div class="card note-card usenot">
+    <div class="card card-border bg-base-100 shadow-sm note-card usenot">
       <h3>No sirve para ganarle al precio</h3>
       <ul>
         <li>No detecta valor real: sus diferencias con el mercado se explican por su propio sesgo contra
@@ -657,9 +210,9 @@ svg{display:block; max-width:100%; height:auto}
   <div class="sec-head"><h2>Diccionario</h2>
     <span class="note">qué significa cada número de esta página · también aparece al
     pasar el ratón o tocar los términos subrayados</span></div>
-  <div class="dic-acciones" id="dicAcciones">
-    <button class="fbtn" data-todos="abrir" aria-pressed="false">Abrir todo</button>
-    <button class="fbtn" data-todos="cerrar" aria-pressed="true">Cerrar todo</button>
+  <div class="dic-acciones join" id="dicAcciones">
+    <button class="btn btn-sm join-item" data-todos="abrir" aria-pressed="false">Abrir todo</button>
+    <button class="btn btn-sm join-item btn-active" data-todos="cerrar" aria-pressed="true">Cerrar todo</button>
   </div>
   <div class="dic-grid" id="dicGrid"></div>
   <div class="cmd-box">
@@ -708,8 +261,9 @@ const kpis = [
    f:'Sobre 1428 partidos de una temporada que el modelo no vio. Un modelo ciego da 1.099: captura cerca del 9 % de la señal disponible.'}
 ];
 $('#kpis').innerHTML = kpis.map(k =>
-  `<div class="kpi"><div class="k-label">${esc(k.l)}</div><div class="k-val">${esc(k.v)}</div>
-   <div class="k-foot">${esc(k.f)}</div></div>`).join('');
+  `<div class="stat"><div class="stat-title text-xs">${esc(k.l)}</div>
+   <div class="stat-value num text-2xl">${esc(k.v)}</div>
+   <div class="stat-desc whitespace-normal leading-snug">${esc(k.f)}</div></div>`).join('');
 
 /* ---------- scatter ---------- */
 const pts = [];
@@ -808,13 +362,13 @@ function renderMatches(){
   const rows=M.filter(m=>(F.liga==='all'||m.liga===F.liga)&&(F.conf==='all'||m.conf===F.conf));
   $('#matchTbl tbody').innerHTML = rows.map((m,idx)=>{
     const s=m.sels;
-    const trio=`<div class="stack">
-      <div class="stack" style="gap:1.5px">${bar(s[0].modelo)}${bar(s[0].mercado,'mk')}</div>
-      <div class="stack" style="gap:1.5px">${bar(s[1].modelo)}${bar(s[1].mercado,'mk')}</div>
-      <div class="stack" style="gap:1.5px">${bar(s[2].modelo)}${bar(s[2].mercado,'mk')}</div></div>`;
+    const trio=`<div class="barras3">
+      <div class="barras3" style="gap:1.5px">${bar(s[0].modelo)}${bar(s[0].mercado,'mk')}</div>
+      <div class="barras3" style="gap:1.5px">${bar(s[1].modelo)}${bar(s[1].mercado,'mk')}</div>
+      <div class="barras3" style="gap:1.5px">${bar(s[2].modelo)}${bar(s[2].mercado,'mk')}</div></div>`;
     return `<tr>
       <td class="team">${esc(m.local)}<span class="vs">vs</span>${esc(m.visita)}
-        ${m.liga==='UCL'?'<span class="pill ucl" style="margin-left:7px">UCL</span>':''}</td>
+        ${m.liga==='UCL'?'<span class="pill badge badge-sm badge-soft badge-primary" style="margin-left:7px">UCL</span>':''}</td>
       <td class="n" style="text-align:left">${esc(m.fecha)}</td>
       <td class="n">${esc(m.hora_cest)}</td>
       <td class="bar-cell">${trio}
@@ -826,7 +380,8 @@ function renderMatches(){
       <td class="n">${m.ou_line.toFixed(1)}</td>
       <td class="n">${m.btts.toFixed(1)}%</td>
       <td class="n">${m.margen.toFixed(2)}%</td>
-      <td><span class="pill ${m.conf}">${esc(m.conf)}</span></td>
+      <td><span class="pill badge badge-sm badge-soft ${m.conf==='alta'?'badge-success'
+        :(m.conf==='baja'?'badge-error':'badge-ghost')}">${esc(m.conf)}</span></td>
       <td><button class="rowbtn" data-tag="${esc(m.tag)}">mercados</button></td></tr>
       <tr class="detail hidden" data-for="${esc(m.tag)}"><td colspan="10"><div class="detail-in">
         ${groupsHTML(m)}</div></td></tr>`;
@@ -881,7 +436,7 @@ $('#hits').textContent = MT.acertados + ' de ' + MT.jugados.length;
 $('#playedTbl tbody').innerHTML = MT.jugados.map(j=>
   `<tr><td class="team">${esc(j.local)}<span class="vs">vs</span>${esc(j.visita)}</td>
    <td class="n">${j.ph}/${j.pdw}/${j.pa}</td><td class="n">${esc(j.res)}</td>
-   <td><span class="pill ${j.acerto?'alta':'baja'}">${j.acerto?'acertó':'falló'}</span></td></tr>`).join('');
+   <td><span class="pill badge badge-sm badge-soft ${j.acerto?'badge-success':'badge-error'}">${j.acerto?'acertó':'falló'}</span></td></tr>`).join('');
 
 const DIC = [
   ['prob', 'Probabilidad',
@@ -981,9 +536,10 @@ function marcar(sel, pares) {
 const gridDic = document.getElementById('dicGrid');
 if (gridDic) {
   gridDic.innerHTML = DIC.map(d =>
-    '<details class="dic-item" id="dic-' + d[0] + '">' +
-      '<summary>' + d[1] + '</summary>' +
-      '<div class="dic-cuerpo"><p class="def">' + d[2] + '</p>' +
+    '<details class="dic-item collapse collapse-arrow bg-base-100 border border-base-300 ' +
+      'rounded-box shadow-sm" id="dic-' + d[0] + '">' +
+      '<summary class="collapse-title font-semibold text-sm">' + d[1] + '</summary>' +
+      '<div class="collapse-content dic-cuerpo"><p class="def">' + d[2] + '</p>' +
       '<p class="uso">' + d[3] + '</p></div>' +
     '</details>').join('');
   const acciones = document.getElementById('dicAcciones');
@@ -993,8 +549,10 @@ if (gridDic) {
       if (!b) return;
       const abrir = b.dataset.todos === 'abrir';
       gridDic.querySelectorAll('details.dic-item').forEach(d => { d.open = abrir; });
-      acciones.querySelectorAll('button[data-todos]').forEach(o =>
-        o.setAttribute('aria-pressed', String(o === b)));
+      acciones.querySelectorAll('button[data-todos]').forEach(o => {
+        o.setAttribute('aria-pressed', String(o === b));
+        o.classList.toggle('btn-active', o === b);
+      });
     });
   }
 }

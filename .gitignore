@@ -9,3 +9,5 @@ soccerdata/
 *.xlsx
 !seguimiento/validacion_fuera_muestra.csv
 !seguimiento/prior_ascendidos.csv
+# dependencias de la compilación de estilos: se reinstalan con npm install
+node_modules/

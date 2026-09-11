@@ -145,6 +145,38 @@ entre Understat y ClubElo.
 6. La probabilidad de mercado se obtiene quitando el margen de forma proporcional sobre las tres
    vías del 1X2.
 
+## Cómo se compilan los estilos
+
+El sitio usa **Tailwind CSS v4** y **daisyUI v5**. Las tres páginas enlazan un
+único `estilo.css` compilado, en lugar de llevar la hoja incrustada por
+triplicado.
+
+```bash
+npm install          # una sola vez
+npm run build:css    # genera estilo.css desde src/estilo.src.css
+```
+
+El fuente está en `src/estilo.src.css`: ahí viven los dos temas de daisyUI y
+los componentes a medida que daisyUI no trae (barra apilada 1X2, medidor de
+confianza, caja de diferencia máxima, tooltips del diccionario).
+
+**El orden importa.** Tailwind genera solo las clases que encuentra en el HTML,
+así que primero se regeneran las páginas y después se compila la hoja:
+
+1. generar `index.html`, `fichas.html` y `seguimiento.html`
+2. `npm run build:css`
+
+Si se invierte el orden, las clases nuevas quedan sin estilo sin dar ningún
+error. `estilo.css` se versiona a propósito: GitHub Pages sirve archivos
+estáticos y no ejecuta ningún paso de compilación.
+
+Los dos temas se llaman `light` y `dark` para que el atributo `data-theme` que
+ya usaban las páginas siga funcionando. El azul del modelo y el naranja del
+mercado son semánticos en este proyecto y están validados para daltonismo, así
+que se conservan y se montan como `primary` y `secondary` del tema en lugar de
+adoptar la paleta por defecto de daisyUI.
+
+
 ## Qué tan bueno es el modelo, medido honestamente
 
 El proyecto citaba antes un log-loss de 0.976. **Ese número era dentro de muestra** — los

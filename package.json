@@ -1,0 +1,15 @@
+{
+  "name": "pronosticos-futbol",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Modelo de probabilidades de futbol contra el precio del mercado",
+  "scripts": {
+    "build:css": "tailwindcss -i src/estilo.src.css -o estilo.css --minify",
+    "watch:css": "tailwindcss -i src/estilo.src.css -o estilo.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "daisyui": "^5.7.37",
+    "tailwindcss": "^4.3.3"
+  }
+}
