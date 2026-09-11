@@ -24,6 +24,7 @@
 @source inline("collapse collapse-arrow collapse-plus collapse-title collapse-content");
 @source inline("card card-border card-body card-title bg-base-100 bg-base-200 bg-base-300 shadow-sm");
 @source inline("navbar navbar-start navbar-center navbar-end join join-item tooltip");
+@source inline("dropdown dropdown-end dropdown-content menu w-56 p-2 shadow-lg rounded-box font-normal w-[8.25rem] justify-between");
 
 @plugin "daisyui" {
   themes: false;
@@ -212,7 +213,8 @@
                transition: padding 0.18s ease; }
   .topbar.compacta .topbar-in { padding-top: 3px; padding-bottom: 3px; }
   .topbar.compacta .brand .bs { display: none; }
-  .topbar.compacta .navlinks a { padding-top: 4px; padding-bottom: 4px; }
+  .topbar.compacta .navlinks > a,
+  .topbar.compacta .navlinks .secciones > summary { padding-top: 4px; padding-bottom: 4px; }
   .topbar.compacta .brand .dot { box-shadow: none; }
   .brand { display: flex; align-items: center; gap: 0.625rem; margin-right: auto;
            text-decoration: none; color: var(--ink); min-width: 0; flex: 0 1 auto;
@@ -230,19 +232,45 @@
               min-width: 0; margin-left: auto; justify-content: flex-start; }
   .navlinks::-webkit-scrollbar { display: none; }
   .navlinks.desborda { mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent); }
-  .navlinks a { flex: none; font-size: 0.78125rem; font-weight: 500; color: var(--ink-2);
-                text-decoration: none; padding: 0.375rem 0.6875rem; border-radius: 9999px;
-                white-space: nowrap; transition: background 0.14s, color 0.14s; }
-  .navlinks a:hover { background: var(--panel-2); color: var(--ink); }
-  .navlinks a.pri { color: var(--modelo); background: var(--modelo-soft); }
-  .navlinks a.aqui { color: var(--ink); background: var(--panel-3); cursor: default; }
-  .navlinks a.activo { color: var(--ink); font-weight: 700; text-decoration: underline;
-                       text-decoration-thickness: 2px; text-underline-offset: 4px;
-                       text-decoration-color: var(--modelo); }
-  .navlinks a.pri.activo { background: var(--modelo-soft); color: var(--modelo); }
-  .navlinks .sepnav { width: 1px; height: 17px; background: var(--rule); margin: 0 5px;
-                      flex: none; }
+  /* Solo los enlaces directos llevan forma de pastilla: dentro del
+     desplegable manda el componente menu de daisyUI. */
+  .navlinks > a { flex: none; font-size: 0.78125rem; font-weight: 500; color: var(--ink-2);
+                  text-decoration: none; padding: 0.375rem 0.6875rem; border-radius: 9999px;
+                  white-space: nowrap; transition: background 0.14s, color 0.14s; }
+  .navlinks > a:hover { background: var(--panel-2); color: var(--ink); }
+  .navlinks > a.pri { color: var(--modelo); background: var(--modelo-soft); }
+  .navlinks > a.activo { color: var(--ink); font-weight: 700; text-decoration: underline;
+                         text-decoration-thickness: 2px; text-underline-offset: 4px;
+                         text-decoration-color: var(--modelo); }
+  .navlinks > a.pri.activo { background: var(--modelo-soft); color: var(--modelo); }
   .navlinks a:focus-visible { outline: 2px solid var(--modelo); outline-offset: 2px; }
+
+  /* ---------------- desplegable de secciones ---------------- */
+  .navlinks .secciones { flex: none; }
+  /* ancho fijo: si el boton creciera con el nombre de cada seccion, la barra
+     entera daria saltos al desplazarse. */
+  .navlinks .secciones > summary { list-style: none; cursor: pointer;
+                                   font-size: 0.78125rem; font-weight: 500;
+                                   color: var(--ink-2); min-height: 0; height: auto;
+                                   padding: 0.375rem 0.5625rem 0.375rem 0.6875rem;
+                                   gap: 0.3125rem; }
+  .navlinks .secciones > summary > span { overflow: hidden; text-overflow: ellipsis;
+                                          white-space: nowrap; }
+  .navlinks .secciones > summary::-webkit-details-marker { display: none; }
+  .navlinks .secciones > summary::after { content: '\25BE'; font-size: 0.5625rem;
+                                          opacity: 0.6; line-height: 1; }
+  .navlinks .secciones[open] > summary { background: var(--panel-2); color: var(--ink); }
+  .navlinks .secciones[open] > summary::after { opacity: 1; color: var(--modelo); }
+  .navlinks .dropdown-content { font-size: 0.8125rem; }
+  .navlinks .dropdown-content a { color: var(--ink-2); border-radius: var(--r-xs);
+                                  padding: 0.375rem 0.5625rem; }
+  .navlinks .dropdown-content a:hover { background: var(--panel-2); color: var(--ink); }
+  /* la seccion en la que estas, marcada dentro del menu */
+  .navlinks .dropdown-content a.activo { color: var(--modelo); font-weight: 600;
+                                         background: var(--modelo-soft); }
+  .navlinks .dropdown-content a.activo::before { content: ''; width: 4px; height: 4px;
+                                                 border-radius: 50%; flex: none;
+                                                 background: var(--modelo); }
 
   /* ---------------- tooltips del diccionario ---------------- */
   .term { border-bottom: 1px dotted var(--ink-3); cursor: help; padding-bottom: 1px; }
@@ -731,6 +759,8 @@
   @media (max-width: 700px) {
     .brand .bn { position: absolute; width: 1px; height: 1px; overflow: hidden;
                  clip-path: inset(50%); }
+    /* el ancho fijo es lo que impide que la barra quepa en un telefono */
+    .navlinks .secciones > summary { width: auto !important; max-width: 7.5rem; }
     .brand { margin-right: 6px; gap: 0; }
     .totop { width: 38px; height: 38px; right: 14px; bottom: 14px; opacity: 0.93; }
   }

@@ -15,16 +15,19 @@
       <span><span class="bn">Modelo contra mercado</span><span class="bs" id="brandsub"></span></span></a>
     <nav class="navlinks" aria-label="Navegación de la página">
       <a class="pri" href="#resumen">&uarr; Resumen</a>
-      <a href="#riesgo">Riesgo</a>
-      <a href="#dispersion">Dispersión</a>
-      <a href="#valor">Valor aparente</a>
-      <a href="#partidos">Partidos</a>
-      <a href="#calibracion">Calibración</a>
-      <a href="#diccionario">Diccionario</a>
-      <span class="sepnav" aria-hidden="true"></span>
-      <a class="aqui" aria-current="page" href="./index.html">Modelo vs mercado</a>
-      <a href="./fichas.html">Fichas por partido</a>
-      <a href="./seguimiento.html">Marcador</a>
+      <details class="dropdown dropdown-end secciones" id="navSecciones">
+        <summary class="btn btn-ghost btn-sm font-normal w-[8.25rem] justify-between"><span id="navSeccionActual">Secciones</span></summary>
+        <ul class="dropdown-content menu bg-base-100 border border-base-300 rounded-box shadow-lg w-56 p-2">
+          <li><a href="#riesgo">Riesgo</a></li>
+          <li><a href="#dispersion">Dispersión</a></li>
+          <li><a href="#valor">Valor</a></li>
+          <li><a href="#partidos">Partidos</a></li>
+          <li><a href="#calibracion">Calibración</a></li>
+          <li><a href="#diccionario">Diccionario</a></li>
+        </ul>
+      </details>
+      <a href="./fichas.html" title="Fichas por partido">Fichas</a>
+      <a href="./seguimiento.html" title="Marcador del modelo">Marcador</a>
     </nav>
   </div>
 </header>
@@ -45,7 +48,7 @@
   </div>
 </header>
 
-<div class="verdict alert alert-error alert-soft block" role="alert">
+<div class="verdict alert alert-error alert-soft block" id="riesgo" role="alert">
   <div class="verdict-tag">
     <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.6 15 14H1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
     Lee esto antes de los números
@@ -665,15 +668,40 @@ const secciones = enlacesAncla
   .map(a => document.getElementById(a.getAttribute('href').slice(1)))
   .filter(Boolean);
 
+const etiquetaSeccion = document.getElementById('navSeccionActual');
+const desplegable = document.getElementById('navSecciones');
+
 function marcarSeccionActiva() {
   if (!secciones.length) return;
   const linea = (barraFija ? barraFija.offsetHeight : 0) + 28;
-  let activa = secciones[0].id;
-  secciones.forEach(sec => {
-    if (sec.getBoundingClientRect().top <= linea) activa = sec.id;
+  /* Ordenadas por posicion real: el orden del menu no tiene por que coincidir
+     con el orden de lectura de la pagina. */
+  const porPosicion = secciones
+    .map(sec => ({sec: sec, top: sec.getBoundingClientRect().top}))
+    .sort((a, b) => a.top - b.top);
+  let activa = porPosicion[0].sec.id;
+  porPosicion.forEach(x => { if (x.top <= linea) activa = x.sec.id; });
+  let nombre = null;
+  enlacesAncla.forEach(a => {
+    const suya = a.getAttribute('href') === '#' + activa;
+    a.classList.toggle('activo', suya);
+    if (suya && a.closest('.dropdown')) nombre = a.textContent.trim();
   });
-  enlacesAncla.forEach(a =>
-    a.classList.toggle('activo', a.getAttribute('href') === '#' + activa));
+  /* el boton dice en que seccion estas, no solo "Secciones" */
+  if (etiquetaSeccion) etiquetaSeccion.textContent = nombre || 'Secciones';
+}
+
+/* el desplegable se cierra al elegir una seccion y con Escape */
+if (desplegable) {
+  desplegable.addEventListener('click', e => {
+    if (e.target.closest('.dropdown-content a')) desplegable.open = false;
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') desplegable.open = false;
+  });
+  document.addEventListener('click', e => {
+    if (!desplegable.contains(e.target)) desplegable.open = false;
+  });
 }
 
 if (secciones.length && 'IntersectionObserver' in window) {
