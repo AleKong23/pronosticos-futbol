@@ -1,16 +1,16 @@
 {
- "generado": "10/09/2026 15:35",
+ "generado": "11/09/2026 14:02",
  "total_predicciones": 74,
- "resueltos": 18,
- "pendientes": 56,
+ "resueltos": 22,
+ "pendientes": 52,
  "sellados_git": 66,
  "todos": {
   "modelo": {
-   "n": 18,
-   "brier": 0.3774,
-   "logloss": 0.6814,
-   "acierto": 14,
-   "acierto_pct": 77.8,
+   "n": 22,
+   "brier": 0.4168,
+   "logloss": 0.7357,
+   "acierto": 15,
+   "acierto_pct": 68.2,
    "calibracion": [
     {
      "rango": "0-10%",
@@ -20,33 +20,33 @@
     },
     {
      "rango": "10-20%",
-     "n": 10,
-     "predicho": 15.5,
-     "observado": 10.0
+     "n": 11,
+     "predicho": 15.7,
+     "observado": 9.1
     },
     {
      "rango": "20-30%",
-     "n": 17,
-     "predicho": 24.1,
-     "observado": 11.8
+     "n": 22,
+     "predicho": 23.9,
+     "observado": 13.6
     },
     {
      "rango": "30-40%",
-     "n": 6,
-     "predicho": 35.3,
-     "observado": 33.3
+     "n": 9,
+     "predicho": 35.9,
+     "observado": 44.4
     },
     {
      "rango": "40-50%",
-     "n": 3,
-     "predicho": 44.4,
-     "observado": 33.3
+     "n": 4,
+     "predicho": 43.8,
+     "observado": 25.0
     },
     {
      "rango": "50-60%",
-     "n": 6,
-     "predicho": 54.4,
-     "observado": 100.0
+     "n": 8,
+     "predicho": 54.8,
+     "observado": 87.5
     },
     {
      "rango": "60-70%",
@@ -69,11 +69,11 @@
    ]
   },
   "mercado": {
-   "n": 18,
-   "brier": 0.367,
-   "logloss": 0.6614,
-   "acierto": 13,
-   "acierto_pct": 72.2,
+   "n": 22,
+   "brier": 0.3983,
+   "logloss": 0.7073,
+   "acierto": 16,
+   "acierto_pct": 72.7,
    "calibracion": [
     {
      "rango": "0-10%",
@@ -89,21 +89,21 @@
     },
     {
      "rango": "20-30%",
-     "n": 19,
-     "predicho": 24.6,
-     "observado": 10.5
+     "n": 24,
+     "predicho": 25.1,
+     "observado": 8.3
     },
     {
      "rango": "30-40%",
-     "n": 4,
-     "predicho": 36.4,
-     "observado": 50.0
+     "n": 7,
+     "predicho": 34.3,
+     "observado": 42.9
     },
     {
      "rango": "40-50%",
-     "n": 2,
-     "predicho": 44.3,
-     "observado": 0.0
+     "n": 6,
+     "predicho": 43.1,
+     "observado": 50.0
     },
     {
      "rango": "50-60%",
@@ -140,11 +140,11 @@
  },
  "oro": {
   "modelo": {
-   "n": 10,
-   "brier": 0.4054,
-   "logloss": 0.7154,
-   "acierto": 7,
-   "acierto_pct": 70.0,
+   "n": 14,
+   "brier": 0.4592,
+   "logloss": 0.791,
+   "acierto": 8,
+   "acierto_pct": 57.1,
    "calibracion": [
     {
      "rango": "0-10%",
@@ -154,33 +154,33 @@
     },
     {
      "rango": "10-20%",
-     "n": 5,
-     "predicho": 15.1,
-     "observado": 20.0
+     "n": 6,
+     "predicho": 15.5,
+     "observado": 16.7
     },
     {
      "rango": "20-30%",
-     "n": 8,
-     "predicho": 23.9,
-     "observado": 12.5
+     "n": 13,
+     "predicho": 23.7,
+     "observado": 15.4
     },
     {
      "rango": "30-40%",
-     "n": 4,
-     "predicho": 34.6,
-     "observado": 25.0
+     "n": 7,
+     "predicho": 35.7,
+     "observado": 42.9
     },
     {
      "rango": "40-50%",
-     "n": 2,
-     "predicho": 43.6,
-     "observado": 50.0
+     "n": 3,
+     "predicho": 43.1,
+     "observado": 33.3
     },
     {
      "rango": "50-60%",
-     "n": 3,
-     "predicho": 54.8,
-     "observado": 100.0
+     "n": 5,
+     "predicho": 55.3,
+     "observado": 80.0
     },
     {
      "rango": "60-70%",
@@ -203,11 +203,11 @@
    ]
   },
   "mercado": {
-   "n": 10,
-   "brier": 0.3927,
-   "logloss": 0.6904,
-   "acierto": 7,
-   "acierto_pct": 70.0,
+   "n": 14,
+   "brier": 0.4346,
+   "logloss": 0.7542,
+   "acierto": 10,
+   "acierto_pct": 71.4,
    "calibracion": [
     {
      "rango": "0-10%",
@@ -223,21 +223,21 @@
     },
     {
      "rango": "20-30%",
-     "n": 10,
-     "predicho": 24.8,
-     "observado": 10.0
+     "n": 15,
+     "predicho": 25.6,
+     "observado": 6.7
     },
     {
      "rango": "30-40%",
-     "n": 2,
-     "predicho": 36.2,
-     "observado": 50.0
+     "n": 5,
+     "predicho": 33.4,
+     "observado": 40.0
     },
     {
      "rango": "40-50%",
-     "n": 1,
-     "predicho": 44.3,
-     "observado": 0.0
+     "n": 5,
+     "predicho": 42.9,
+     "observado": 60.0
     },
     {
      "rango": "50-60%",
@@ -957,11 +957,11 @@
    ],
    "conf": 6,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "3-1",
+   "total_goles": 4,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "MX-NECPUE",
@@ -1413,11 +1413,11 @@
    ],
    "conf": 5,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "2-4",
+   "total_goles": 6,
+   "acerto_mod": false,
+   "acerto_mkt": true
   },
   {
    "tag": "ITA-GENFRO",
@@ -1653,11 +1653,11 @@
    ],
    "conf": 4,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "1-3",
+   "total_goles": 4,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "GER-BORSC ",
@@ -1845,11 +1845,11 @@
    ],
    "conf": 8,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "1-0",
+   "total_goles": 1,
+   "acerto_mod": false,
+   "acerto_mkt": true
   },
   {
    "tag": "FRA-STRAS ",
