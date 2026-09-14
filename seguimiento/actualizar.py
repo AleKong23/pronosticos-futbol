@@ -45,6 +45,44 @@ def logloss(p3, y):
 IDX = {'1': 0, 'X': 1, '2': 2}
 
 
+def duelo(filas):
+    """Prueba pareada modelo contra mercado sobre los mismos partidos.
+
+    La diferencia se mide partido a partido, no comparando dos promedios: asi
+    la dificultad de cada partido se cancela y el intervalo es el que toca.
+    """
+    difs = []
+    for r in filas:
+        if not r.get('_p_mkt') or not r.get('_res'):
+            continue
+        y = IDX[r['_res']]
+        difs.append(logloss(r['_p_mod'], y) - logloss(r['_p_mkt'], y))
+    n = len(difs)
+    if n < 3:
+        return None
+    media = sum(difs) / n
+    sd = math.sqrt(sum((d - media) ** 2 for d in difs) / (n - 1))
+    ee = sd / math.sqrt(n)
+    lo, hi = media - 1.96 * ee, media + 1.96 * ee
+    return {'n': n, 'dif': round(media, 4), 'ee': round(ee, 4),
+            'ic_bajo': round(lo, 4), 'ic_alto': round(hi, 4),
+            'significativa': bool(lo * hi > 0),
+            'gana': 'mercado' if media > 0 else 'modelo'}
+
+
+def reparto(filas):
+    """Que resultado dio el modelo como mas probable, contra lo que ocurrio."""
+    dice = {'1': 0, 'X': 0, '2': 0}
+    real = {'1': 0, 'X': 0, '2': 0}
+    for r in filas:
+        if not r.get('_res'):
+            continue
+        p = r['_p_mod']
+        dice['1X2'[p.index(max(p))]] += 1
+        real[r['_res']] += 1
+    return {'modelo': dice, 'real': real}
+
+
 def metricas(filas, pref):
     """pref = 'mod' o 'mkt'. Devuelve None si no hay datos utilizables."""
     usa = [r for r in filas if r['_p_' + pref]]
@@ -107,6 +145,8 @@ def main():
         'sellados_git': sum(1 for x in filas if x.get('sellado_git') == 'si'),
         'todos': {'modelo': metricas(resueltos, 'mod'), 'mercado': metricas(resueltos, 'mkt')},
         'oro': {'modelo': metricas(oro, 'mod'), 'mercado': metricas(oro, 'mkt')},
+        'duelo': {'todos': duelo(resueltos), 'oro': duelo(oro)},
+        'reparto': {'todos': reparto(resueltos), 'oro': reparto(oro)},
         'partidos': [{
             'tag': x['tag'], 'liga': x['liga'], 'fecha': x['fecha_partido'],
             'local': x['local'], 'visita': x['visita'],
@@ -148,7 +188,15 @@ def main():
             d = a['logloss'] - b['logloss']
             print('  -> %s predice mejor por %.4f de log-loss'
                   % ('el MERCADO' if d > 0 else 'el MODELO', abs(d)))
-            print('     (con n=%d esto no es concluyente; se necesitan cientos de partidos)' % a['n'])
+            dd = salida['duelo']['todos' if etiqueta.startswith('TODOS') else 'oro']
+            if dd and dd['significativa']:
+                print('     diferencia pareada %+.4f | IC 95%%: %+.4f a %+.4f' %
+                      (dd['dif'], dd['ic_bajo'], dd['ic_alto']))
+                print('     SIGNIFICATIVA: el intervalo ya no cruza el cero (n=%d)' % dd['n'])
+            elif dd:
+                print('     diferencia pareada %+.4f | IC 95%%: %+.4f a %+.4f' %
+                      (dd['dif'], dd['ic_bajo'], dd['ic_alto']))
+                print('     no concluyente: el intervalo cruza el cero (n=%d)' % dd['n'])
 
 
 if __name__ == '__main__':

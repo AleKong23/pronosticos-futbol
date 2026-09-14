@@ -1,58 +1,64 @@
 {
- "generado": "11/09/2026 14:02",
+ "generado": "14/09/2026 09:04",
  "total_predicciones": 74,
- "resueltos": 22,
- "pendientes": 52,
+ "resueltos": 68,
+ "pendientes": 6,
  "sellados_git": 66,
  "todos": {
   "modelo": {
-   "n": 22,
-   "brier": 0.4168,
-   "logloss": 0.7357,
-   "acierto": 15,
-   "acierto_pct": 68.2,
+   "n": 68,
+   "brier": 0.5896,
+   "logloss": 0.9876,
+   "acierto": 34,
+   "acierto_pct": 50.0,
    "calibracion": [
     {
      "rango": "0-10%",
-     "n": 5,
-     "predicho": 5.2,
+     "n": 6,
+     "predicho": 5.8,
      "observado": 0.0
     },
     {
      "rango": "10-20%",
-     "n": 11,
-     "predicho": 15.7,
-     "observado": 9.1
+     "n": 23,
+     "predicho": 16.3,
+     "observado": 8.7
     },
     {
      "rango": "20-30%",
-     "n": 22,
-     "predicho": 23.9,
-     "observado": 13.6
+     "n": 86,
+     "predicho": 24.9,
+     "observado": 31.4
     },
     {
      "rango": "30-40%",
-     "n": 9,
-     "predicho": 35.9,
-     "observado": 44.4
+     "n": 29,
+     "predicho": 34.7,
+     "observado": 27.6
     },
     {
      "rango": "40-50%",
-     "n": 4,
-     "predicho": 43.8,
-     "observado": 25.0
+     "n": 24,
+     "predicho": 44.0,
+     "observado": 41.7
     },
     {
      "rango": "50-60%",
-     "n": 8,
-     "predicho": 54.8,
-     "observado": 87.5
+     "n": 24,
+     "predicho": 54.5,
+     "observado": 45.8
     },
     {
      "rango": "60-70%",
-     "n": 3,
-     "predicho": 65.1,
+     "n": 6,
+     "predicho": 65.0,
      "observado": 66.7
+    },
+    {
+     "rango": "70-80%",
+     "n": 2,
+     "predicho": 73.3,
+     "observado": 100.0
     },
     {
      "rango": "80-90%",
@@ -69,64 +75,64 @@
    ]
   },
   "mercado": {
-   "n": 22,
-   "brier": 0.3983,
-   "logloss": 0.7073,
-   "acierto": 16,
-   "acierto_pct": 72.7,
+   "n": 68,
+   "brier": 0.5619,
+   "logloss": 0.9425,
+   "acierto": 36,
+   "acierto_pct": 52.9,
    "calibracion": [
     {
      "rango": "0-10%",
-     "n": 8,
-     "predicho": 6.0,
+     "n": 12,
+     "predicho": 6.5,
      "observado": 0.0
     },
     {
      "rango": "10-20%",
-     "n": 7,
-     "predicho": 16.2,
-     "observado": 14.3
+     "n": 26,
+     "predicho": 15.3,
+     "observado": 23.1
     },
     {
      "rango": "20-30%",
-     "n": 24,
-     "predicho": 25.1,
-     "observado": 8.3
+     "n": 78,
+     "predicho": 25.7,
+     "observado": 26.9
     },
     {
      "rango": "30-40%",
-     "n": 7,
-     "predicho": 34.3,
-     "observado": 42.9
+     "n": 29,
+     "predicho": 34.6,
+     "observado": 27.6
     },
     {
      "rango": "40-50%",
-     "n": 6,
-     "predicho": 43.1,
-     "observado": 50.0
+     "n": 25,
+     "predicho": 43.5,
+     "observado": 36.0
     },
     {
      "rango": "50-60%",
-     "n": 8,
-     "predicho": 55.3,
-     "observado": 100.0
+     "n": 16,
+     "predicho": 54.6,
+     "observado": 68.8
     },
     {
      "rango": "60-70%",
-     "n": 1,
-     "predicho": 66.3,
-     "observado": 0.0
+     "n": 7,
+     "predicho": 65.0,
+     "observado": 42.9
     },
     {
      "rango": "70-80%",
-     "n": 1,
-     "predicho": 77.3,
-     "observado": 100.0
+     "n": 6,
+     "predicho": 76.8,
+     "observado": 83.3
     },
     {
      "rango": "80-90%",
-     "n": 3,
-     "predicho": 86.5,
+     "n": 4,
+     "predicho": 85.9,
      "observado": 100.0
     },
     {
@@ -140,53 +146,59 @@
  },
  "oro": {
   "modelo": {
-   "n": 14,
-   "brier": 0.4592,
-   "logloss": 0.791,
-   "acierto": 8,
-   "acierto_pct": 57.1,
+   "n": 60,
+   "brier": 0.6226,
+   "logloss": 1.0341,
+   "acierto": 27,
+   "acierto_pct": 45.0,
    "calibracion": [
     {
      "rango": "0-10%",
-     "n": 4,
-     "predicho": 5.4,
+     "n": 5,
+     "predicho": 6.1,
      "observado": 0.0
     },
     {
      "rango": "10-20%",
-     "n": 6,
-     "predicho": 15.5,
-     "observado": 16.7
+     "n": 18,
+     "predicho": 16.3,
+     "observado": 11.1
     },
     {
      "rango": "20-30%",
-     "n": 13,
-     "predicho": 23.7,
-     "observado": 15.4
+     "n": 77,
+     "predicho": 25.0,
+     "observado": 33.8
     },
     {
      "rango": "30-40%",
-     "n": 7,
-     "predicho": 35.7,
-     "observado": 42.9
+     "n": 27,
+     "predicho": 34.6,
+     "observado": 25.9
     },
     {
      "rango": "40-50%",
-     "n": 3,
-     "predicho": 43.1,
-     "observado": 33.3
+     "n": 23,
+     "predicho": 43.9,
+     "observado": 43.5
     },
     {
      "rango": "50-60%",
-     "n": 5,
-     "predicho": 55.3,
-     "observado": 80.0
+     "n": 21,
+     "predicho": 54.6,
+     "observado": 38.1
     },
     {
      "rango": "60-70%",
-     "n": 1,
-     "predicho": 64.6,
-     "observado": 0.0
+     "n": 4,
+     "predicho": 64.8,
+     "observado": 50.0
+    },
+    {
+     "rango": "70-80%",
+     "n": 2,
+     "predicho": 73.3,
+     "observado": 100.0
     },
     {
      "rango": "80-90%",
@@ -203,58 +215,64 @@
    ]
   },
   "mercado": {
-   "n": 14,
-   "brier": 0.4346,
-   "logloss": 0.7542,
-   "acierto": 10,
-   "acierto_pct": 71.4,
+   "n": 60,
+   "brier": 0.5922,
+   "logloss": 0.9848,
+   "acierto": 30,
+   "acierto_pct": 50.0,
    "calibracion": [
     {
      "rango": "0-10%",
-     "n": 5,
-     "predicho": 5.4,
+     "n": 9,
+     "predicho": 6.3,
      "observado": 0.0
     },
     {
      "rango": "10-20%",
-     "n": 4,
-     "predicho": 15.4,
-     "observado": 25.0
+     "n": 23,
+     "predicho": 15.1,
+     "observado": 26.1
     },
     {
      "rango": "20-30%",
-     "n": 15,
-     "predicho": 25.6,
-     "observado": 6.7
+     "n": 69,
+     "predicho": 25.9,
+     "observado": 29.0
     },
     {
      "rango": "30-40%",
-     "n": 5,
-     "predicho": 33.4,
-     "observado": 40.0
+     "n": 27,
+     "predicho": 34.4,
+     "observado": 25.9
     },
     {
      "rango": "40-50%",
-     "n": 5,
-     "predicho": 42.9,
-     "observado": 60.0
+     "n": 24,
+     "predicho": 43.5,
+     "observado": 37.5
     },
     {
      "rango": "50-60%",
-     "n": 4,
-     "predicho": 54.2,
-     "observado": 100.0
+     "n": 12,
+     "predicho": 54.1,
+     "observado": 58.3
     },
     {
      "rango": "60-70%",
-     "n": 1,
-     "predicho": 66.3,
-     "observado": 0.0
+     "n": 7,
+     "predicho": 65.0,
+     "observado": 42.9
+    },
+    {
+     "rango": "70-80%",
+     "n": 5,
+     "predicho": 76.7,
+     "observado": 80.0
     },
     {
      "rango": "80-90%",
-     "n": 2,
-     "predicho": 85.7,
+     "n": 3,
+     "predicho": 85.2,
      "observado": 100.0
     },
     {
@@ -264,6 +282,52 @@
      "observado": 100.0
     }
    ]
+  }
+ },
+ "duelo": {
+  "todos": {
+   "n": 68,
+   "dif": 0.0451,
+   "ee": 0.02,
+   "ic_bajo": 0.006,
+   "ic_alto": 0.0842,
+   "significativa": true,
+   "gana": "mercado"
+  },
+  "oro": {
+   "n": 60,
+   "dif": 0.0493,
+   "ee": 0.0222,
+   "ic_bajo": 0.0058,
+   "ic_alto": 0.0927,
+   "significativa": true,
+   "gana": "mercado"
+  }
+ },
+ "reparto": {
+  "todos": {
+   "modelo": {
+    "1": 52,
+    "X": 0,
+    "2": 16
+   },
+   "real": {
+    "1": 27,
+    "X": 19,
+    "2": 22
+   }
+  },
+  "oro": {
+   "modelo": {
+    "1": 46,
+    "X": 0,
+    "2": 14
+   },
+   "real": {
+    "1": 22,
+    "X": 19,
+    "2": 19
+   }
   }
  },
  "partidos": [
@@ -573,11 +637,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "1-0",
+   "total_goles": 1,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "RAC-ALA",
@@ -597,11 +661,11 @@
    ],
    "conf": 6,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "2-1",
+   "total_goles": 3,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "OSA-ESP",
@@ -621,11 +685,11 @@
    ],
    "conf": 9,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "0-2",
+   "total_goles": 2,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "ATH-ELC",
@@ -645,11 +709,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "1-1",
+   "total_goles": 2,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "RMA-RAY",
@@ -669,11 +733,11 @@
    ],
    "conf": 5,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "4-1",
+   "total_goles": 5,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "CEL-MAL",
@@ -693,11 +757,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "1-1",
+   "total_goles": 2,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "LEV-BAR",
@@ -717,11 +781,11 @@
    ],
    "conf": 5,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "2-4",
+   "total_goles": 6,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "GET-DEP",
@@ -741,11 +805,11 @@
    ],
    "conf": 5,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "1-1",
+   "total_goles": 2,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "RSO-ATM",
@@ -765,11 +829,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "0-3",
+   "total_goles": 3,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "VIL-BET",
@@ -981,11 +1045,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "0-1",
+   "total_goles": 1,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "MX-ATLPAC",
@@ -1005,11 +1069,11 @@
    ],
    "conf": 6,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "0-3",
+   "total_goles": 3,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "MX-TIJQUE",
@@ -1029,11 +1093,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "0-1",
+   "total_goles": 1,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "MX-TOLATL",
@@ -1053,11 +1117,11 @@
    ],
    "conf": 6,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "5-2",
+   "total_goles": 7,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "MX-MONTIG",
@@ -1077,11 +1141,11 @@
    ],
    "conf": 8,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "0-0",
+   "total_goles": 0,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "MX-CRUAMÉ",
@@ -1101,11 +1165,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "4-3",
+   "total_goles": 7,
+   "acerto_mod": true,
+   "acerto_mkt": false
   },
   {
    "tag": "MX-SANFC ",
@@ -1125,11 +1189,11 @@
    ],
    "conf": 9,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "2-1",
+   "total_goles": 3,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "MX-PUETOL",
@@ -1173,11 +1237,11 @@
    ],
    "conf": 8,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "2-2",
+   "total_goles": 4,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "EPL-ASTNOT",
@@ -1197,11 +1261,11 @@
    ],
    "conf": 9,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "1-2",
+   "total_goles": 3,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "EPL-CHEHUL",
@@ -1221,11 +1285,11 @@
    ],
    "conf": 2,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "2-2",
+   "total_goles": 4,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "EPL-CRYIPS",
@@ -1245,11 +1309,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "2-3",
+   "total_goles": 5,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "EPL-LIVFUL",
@@ -1269,11 +1333,11 @@
    ],
    "conf": 6,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "0-0",
+   "total_goles": 0,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "EPL-TOTEVE",
@@ -1293,11 +1357,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "0-0",
+   "total_goles": 0,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "EPL-SUNARS",
@@ -1317,11 +1381,11 @@
    ],
    "conf": 6,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "0-2",
+   "total_goles": 2,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "EPL-COVBRI",
@@ -1341,11 +1405,11 @@
    ],
    "conf": 4,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "0-5",
+   "total_goles": 5,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "EPL-MANMAN",
@@ -1365,11 +1429,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "0-1",
+   "total_goles": 1,
+   "acerto_mod": false,
+   "acerto_mkt": true
   },
   {
    "tag": "EPL-LEENEW",
@@ -1437,11 +1501,11 @@
    ],
    "conf": 6,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "1-1",
+   "total_goles": 2,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "ITA-LAZAC ",
@@ -1461,11 +1525,11 @@
    ],
    "conf": 10,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "2-2",
+   "total_goles": 4,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "ITA-ATACAG",
@@ -1485,11 +1549,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "1-2",
+   "total_goles": 3,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "ITA-LECMON",
@@ -1509,11 +1573,11 @@
    ],
    "conf": 5,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "3-2",
+   "total_goles": 5,
+   "acerto_mod": false,
+   "acerto_mkt": true
   },
   {
    "tag": "ITA-NAPBOL",
@@ -1533,11 +1597,11 @@
    ],
    "conf": 8,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "1-0",
+   "total_goles": 1,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "ITA-SASJUV",
@@ -1557,11 +1621,11 @@
    ],
    "conf": 9,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "3-2",
+   "total_goles": 5,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "ITA-COMPAR",
@@ -1677,11 +1741,11 @@
    ],
    "conf": 2,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "3-0",
+   "total_goles": 3,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "GER-FC BAY",
@@ -1701,11 +1765,11 @@
    ],
    "conf": 9,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "2-2",
+   "total_goles": 4,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "GER-MAIEIN",
@@ -1725,11 +1789,11 @@
    ],
    "conf": 9,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "1-3",
+   "total_goles": 4,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "GER-SC BOR",
@@ -1749,11 +1813,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "5-0",
+   "total_goles": 5,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "GER-TSGVFB",
@@ -1773,11 +1837,11 @@
    ],
    "conf": 9,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "2-1",
+   "total_goles": 3,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "GER-FC WER",
@@ -1797,11 +1861,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "1-1",
+   "total_goles": 2,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "GER-SV BAY",
@@ -1821,11 +1885,11 @@
    ],
    "conf": 2,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "1-2",
+   "total_goles": 3,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "FRA-STAMAR",
@@ -1869,11 +1933,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "1-1",
+   "total_goles": 2,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "FRA-AJ NIC",
@@ -1893,11 +1957,11 @@
    ],
    "conf": 8,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "1-0",
+   "total_goles": 1,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "FRA-LE ANG",
@@ -1917,11 +1981,11 @@
    ],
    "conf": 10,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "0-0",
+   "total_goles": 0,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "FRA-LORTOU",
@@ -1941,11 +2005,11 @@
    ],
    "conf": 8,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "2-2",
+   "total_goles": 4,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "FRA-PARLYO",
@@ -1965,11 +2029,11 @@
    ],
    "conf": 8,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "0-0",
+   "total_goles": 0,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "FRA-LILTRO",
@@ -1989,11 +2053,11 @@
    ],
    "conf": 4,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "1",
+   "marcador": "2-0",
+   "total_goles": 2,
+   "acerto_mod": true,
+   "acerto_mkt": true
   },
   {
    "tag": "FRA-LE LEN",
@@ -2013,11 +2077,11 @@
    ],
    "conf": 7,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "X",
+   "marcador": "2-2",
+   "total_goles": 4,
+   "acerto_mod": false,
+   "acerto_mkt": false
   },
   {
    "tag": "FRA-BREPAR",
@@ -2037,11 +2101,11 @@
    ],
    "conf": 5,
    "sellado": "si",
-   "res": null,
-   "marcador": null,
-   "total_goles": null,
-   "acerto_mod": null,
-   "acerto_mkt": null
+   "res": "2",
+   "marcador": "0-1",
+   "total_goles": 1,
+   "acerto_mod": true,
+   "acerto_mkt": true
   }
  ]
 }
